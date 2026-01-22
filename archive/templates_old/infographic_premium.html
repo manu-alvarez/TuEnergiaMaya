@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kin Premium Infographic</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-glow: #60a5fa;
+            --secondary-glow: #c084fc;
+            --glass-bg: rgba(20, 20, 35, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1080px;
+            height: 1080px;
+            background: #0f172a;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Background */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 100%);
+            z-index: -2;
+        }
+
+        .stars {
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .kin-number {
+            font-family: 'Cinzel', serif;
+            color: var(--secondary-glow);
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .kin-name {
+            font-family: 'Cinzel', serif;
+            font-size: 52px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(147, 197, 253, 0.3);
+            margin: 0;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 280px;
+            gap: 20px;
+            padding: 20px 50px;
+            flex-grow: 1;
+            align-items: center;
+        }
+
+        /* Panels (Glassmorphism) */
+        .panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Left Panel: Info */
+        .info-item {
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            color: var(--secondary-glow);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .seal-icon-lg {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        /* Center Panel: Art & Wisdom */
+        .center-panel {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .art-frame {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            /* Reduced to fit affirmations */
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(96, 165, 250, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .generated-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .affirmation-container {
+            text-align: center;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            width: 100%;
+        }
+
+        .affirmation-text {
+            font-style: italic;
+            font-size: 20px;
+            line-height: 1.5;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .wisdom-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--secondary-glow);
+        }
+
+        /* Right Panel: Oracle */
+        .oracle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 5px;
+            height: 100%;
+            aspect-ratio: 1/1;
+        }
+
+        .oracle-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .oracle-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+
+        .oracle-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Specific Oracle Positions */
+        .pos-guide {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .pos-analog {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        /* Right */
+        .pos-antipode {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        /* Left */
+        .pos-occult {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        .pos-destiny {
+            grid-column: 2;
+            grid-row: 2;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .pos-destiny .oracle-icon {
+            width: 70px;
+            height: 70px;
+        }
+
+        /* Footer / Action */
+        .action-bar {
+            margin: 0 50px 40px;
+            padding: 25px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .action-item {
+            text-align: left;
+            flex: 1;
+            padding: 0 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-item:last-child {
+            border: none;
+        }
+
+        .action-title {
+            color: #6ee7b7;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .action-desc {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-layer"></div>
+    <div class="stars"></div>
+
+    <header>
+        <div class="kin-number" id="kinHeader">KIN 41</div>
+        <h1 class="kin-name" id="kinName">Dragón Lunar Rojo</h1>
+    </header>
+
+    <div class="main-grid">
+        <!-- Panel Izquierdo: Esencia -->
+        <div class="panel">
+            <div class="info-item">
+                <div class="info-label">Sello Solar</div>
+                <img id="mainSeal" src="" class="seal-icon-lg">
+                <div class="info-value" id="sealName">Dragón</div>
+                <div style="font-size: 14px; color: #94a3b8; margin-top:5px;" id="sealAction">Nutrir • Nacimiento</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Tono Galáctico</div>
+                <img id="mainTone" src="" class="seal-icon-lg" style="width: 80px; height: 80px;">
+                <div class="info-value" id="toneName">Lunar</div>
+                <div style="font-size: 14px; color: #94a3b8; margin-top:5px;" id="toneAction">Desafío • Estabilizar
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Central: Arte IA + Afirmación -->
+        <div class="center-panel">
+            <div class="art-frame">
+                <!-- Placeholder for IA Image -->
+                <img id="artImage" class="generated-art"
+                    src="https://via.placeholder.com/600x600/1e293b/ffffff?text=Energy" alt="Art">
+            </div>
+            <div class="affirmation-container">
+                <div class="affirmation-text" id="affirmation">""</div>
+                <div class="wisdom-text" id="wisdom"></div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Oráculo -->
+        <div class="panel">
+            <div class="info-label" style="text-align: center; width: 100%;">Oráculo Galáctico</div>
+            <div class="oracle-grid">
+                <!-- Guía (Top) -->
+                <div class="oracle-cell pos-guide">
+                    <img id="guideIcon" class="oracle-icon" src="">
+                    <span class="oracle-label">Guía</span>
+                    <span id="guideName" style="font-size: 10px;">Nombre</span>
+                </div>
+
+                <!-- Antipoda (Left) -->
+                <div class="oracle-cell pos-antipode">
+                    <img id="antipodeIcon" class="oracle-icon" src="">
+                    <span class="oracle-label">Antípoda</span>
+                    <span id="antipodeName" style="font-size: 10px;">Nombre</span>
+                </div>
+
+                <!-- Destiny (Center) -->
+                <div class="oracle-cell pos-destiny">
+                    <img id="destinyIcon" class="oracle-icon" src="">
+                </div>
+
+                <!-- Analog (Right) -->
+                <div class="oracle-cell pos-analog">
+                    <img id="analogIcon" class="oracle-icon" src="">
+                    <span class="oracle-label">Análogo</span>
+                    <span id="analogName" style="font-size: 10px;">Nombre</span>
+                </div>
+
+                <!-- Occult (Bottom) -->
+                <div class="oracle-cell pos-occult">
+                    <img id="occultIcon" class="oracle-icon" src="">
+                    <span class="oracle-label">Oculto</span>
+                    <span id="occultName" style="font-size: 10px;">Nombre</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div class="action-item">
+            <div class="action-title">💡 Enfoque</div>
+            <div class="action-desc" id="focusText">Cargando...</div>
+        </div>
+        <div class="action-item">
+            <div class="action-title">✨ Poder</div>
+            <div class="action-desc" id="powerText">Cargando...</div>
+        </div>
+        <div class="action-item">
+            <div class="action-title">🚀 Acción</div>
+            <div class="action-desc" id="actionText">Cargando...</div>
+        </div>
+    </div>
+</body>
+
+</html>

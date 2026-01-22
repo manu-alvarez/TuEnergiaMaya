@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+**/node_modules/
+backend/vendor/
+
+# Build outputs
+dist/
+**/dist/
+frontend/dist/
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+*.swp
+*.swo
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp files
+*.tmp
+*.bak
+*.backup
+*_BACKUP_*.json
+*_backup_*.json
+
+# Cache
+.cache/
+*.pyc
+__pycache__/
+
+# Local configs
+.gemini/

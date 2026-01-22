@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kin Infographic Template</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1080px;
+            height: 1080px;
+            background: #1a1a2e;
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Effects */
+        .bg-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
+            z-index: 0;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        /* Content Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 80%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Header */
+        .kin-number {
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .kin-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+        }
+
+        /* Main Visual (Seal + Tone) */
+        .visual-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .glow-circle {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        /* Seal Image */
+        .seal-img {
+            width: 280px;
+            height: 280px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            z-index: 2;
+        }
+
+        /* Tone Image (Overlay) */
+        .tone-img {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            z-index: 3;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 50%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Affirmation Text */
+        .affirmation-box {
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        .affirmation {
+            font-size: 32px;
+            line-height: 1.4;
+            font-weight: 300;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .wisdom {
+            font-size: 22px;
+            color: #bae6fd;
+            font-weight: 500;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 15px 30px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Footer */
+        .footer {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+    <div class="stars"></div>
+
+    <div class="container">
+        <div>
+            <div class="kin-number" id="kinNumber">KIN XX</div>
+            <h1 class="kin-title" id="kinTitle">Nombre del Kin</h1>
+        </div>
+
+        <div class="visual-container">
+            <div class="glow-circle"></div>
+            <img id="sealImg" class="seal-img" src="" alt="Sello">
+            <img id="toneImg" class="tone-img" src="" alt="Tono">
+        </div>
+
+        <div class="affirmation-box">
+            <div class="affirmation" id="affirmationText">
+                "Afirmación galáctica del día va aquí..."
+            </div>
+            <div class="wisdom" id="wisdomText">
+                Frase de sabiduría corta y potente.
+            </div>
+        </div>
+
+        <div class="footer">TuEnergiaMaya.com</div>
+    </div>
+
+    <script>
+        // Data injection will happen here via Puppeteer
+    </script>
+</body>
+
+</html>
