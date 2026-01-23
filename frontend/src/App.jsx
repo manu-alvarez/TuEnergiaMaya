@@ -7,6 +7,7 @@ import MusicOffIcon from '@mui/icons-material/MusicOff'
 import ZoomInIcon from '@mui/icons-material/ZoomIn'
 import { calculateKin, getKinConfig } from './utils/tzolkin'
 import dailyData from './data/dailyData.json'
+import Infographic from './components/Infographic'
 
 function App() {
   const [kinData, setKinData] = useState(null)
@@ -213,15 +214,11 @@ function App() {
 
                   {/* BACK SIDE */}
                   <Card className="glass-card card-back" sx={{ height: '100%', position: 'absolute', top: 0, left: 0 }}>
-                    <Box sx={{ position: 'relative', width: '100%', height: '85%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <img
-                        src={kinData.kin.image_url || 'https://via.placeholder.com/400x600?text=Sintonizando+Energía'}
-                        alt="Infografía"
-                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '15px' }}
-                      />
+                    <Box sx={{ position: 'relative', width: '100%', height: '85%', borderRadius: '15px', overflow: 'hidden' }}>
+                      <Infographic kinData={kinData} />
                       <IconButton
                         onClick={handleOpenModal}
-                        sx={{ position: 'absolute', bottom: 10, right: 10, bgcolor: 'rgba(0,0,0,0.5)', color: 'white', '&:hover': { bgcolor: 'rgba(0,0,0,0.8)' } }}
+                        sx={{ position: 'absolute', bottom: 10, right: 10, bgcolor: 'rgba(0,0,0,0.5)', color: 'white', '&:hover': { bgcolor: 'rgba(0,0,0,0.8)' }, zIndex: 10 }}
                       >
                         <ZoomInIcon />
                       </IconButton>
@@ -283,14 +280,10 @@ function App() {
             sx={{
               position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
               width: '95vw', height: '95vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-              outline: 'none', cursor: 'zoom-out'
+              outline: 'none', cursor: 'zoom-out', bgcolor: '#0f172a', borderRadius: 2, overflow: 'hidden'
             }}
           >
-            <img
-              src={kinData?.kin?.image_url || 'https://via.placeholder.com/400x600'}
-              alt="Full Infographic"
-              style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-            />
+            <Infographic kinData={kinData} />
           </Box>
         </Fade>
       </Modal>
