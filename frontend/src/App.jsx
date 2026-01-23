@@ -181,7 +181,7 @@ function App() {
                         }}
                       >
                         <img
-                          src={`assets/glyphs/${kinData.kin.slug}.png`}
+                          src={`assets/glyphs/seals/${kinData.kin.slug}.png`}
                           alt={kinData.kin.seal_name}
                           style={{
                             width: '100%',

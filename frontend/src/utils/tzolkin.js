@@ -81,7 +81,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Mono', slug: 'monkey', color: 'Blue', gender: 'm', v1: 'Juego', v2: 'Jugando', v3: 'Ilusión', essence: 'la magia', power: 'la ilusión',
+        name: 'Mono', slug: 'monkey', color: 'Azul', gender: 'm', v1: 'Juego', v2: 'Jugando', v3: 'Ilusión', essence: 'la magia', power: 'la ilusión',
         description: "El Niño Divino: Juego, Magia y Humor.",
         advice: {
             ideal: ["Jugar y reír mucho.", "Romper la rutina seria.", "Ver la magia en todo."],
@@ -89,7 +89,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Humano', slug: 'human', color: 'Yellow', gender: 'm', v1: 'Influencio', v2: 'Influenciando', v3: 'Sabiduría', essence: 'el libre albedrío', power: 'la sabiduría',
+        name: 'Humano', slug: 'human', color: 'Amarillo', gender: 'm', v1: 'Influencio', v2: 'Influenciando', v3: 'Sabiduría', essence: 'el libre albedrío', power: 'la sabiduría',
         description: "El Libre Albedrío: Sabiduría y Elección.",
         advice: {
             ideal: ["Ejercer tu libertad.", "Tomar decisiones propias.", "Influenciar positivamente."],
@@ -105,7 +105,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Mago', slug: 'wizard', color: 'White', gender: 'm', v1: 'Encanto', v2: 'Encantando', v3: 'Receptividad', essence: 'la atemporalidad', power: 'la receptividad',
+        name: 'Mago', slug: 'wizard', color: 'Blanco', gender: 'm', v1: 'Encanto', v2: 'Encantando', v3: 'Receptividad', essence: 'la atemporalidad', power: 'la receptividad',
         description: "El Jaguar Místico: Atemporalidad y Encanto.",
         advice: {
             ideal: ["Vivir el aquí y ahora.", "Encantar el momento.", "Conectar con lo sutil."],
