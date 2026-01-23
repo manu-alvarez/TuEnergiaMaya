@@ -2,16 +2,24 @@
     position: relative;
     width: 100%;
     height: 100%;
-    /* Fill parent */
     min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
     background: #0f172a;
     font-family: 'Outfit', sans-serif;
     color: white;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     border-radius: 12px;
+}
+
+.infographic-wrapper::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari/Opera */
 }
 
 .infographic-bg-image {
@@ -42,20 +50,21 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    padding: 5% 5%;
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 100%;
+    padding: 15px;
     box-sizing: border-box;
 }
 
 /* HEADER */
 .infographic-header {
     text-align: center;
-    margin-bottom: 2%;
+    margin-bottom: 5px;
 }
 
 .infographic-kin-meta {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.7);
@@ -70,15 +79,14 @@
 .infographic-kin-meta::after {
     content: "";
     display: block;
-    width: 30px;
+    width: 25px;
     height: 1px;
     background: var(--theme-color, white);
 }
 
 .infographic-kin-title {
     font-family: 'Cinzel', serif;
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    /* Responsive font size */
+    font-size: clamp(1.2rem, 3.5vw, 2.5rem);
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
@@ -97,7 +105,7 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-grow: 1;
-    margin-bottom: 2%;
+    margin-bottom: 10px;
     gap: 10px;
 }
 
@@ -105,11 +113,10 @@
 .infographic-tech-col {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     width: 20%;
     align-items: center;
     text-align: center;
-    margin-top: 10px;
 }
 
 .infographic-tech-item {
@@ -118,8 +125,8 @@
 }
 
 .infographic-tech-icon-container {
-    width: clamp(50px, 8vw, 90px);
-    height: clamp(50px, 8vw, 90px);
+    width: clamp(40px, 6vw, 70px);
+    height: clamp(40px, 6vw, 70px);
     background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     margin: 0 auto 5px;
@@ -136,29 +143,28 @@
 
 .infographic-tech-label {
     font-family: 'Cinzel', serif;
-    font-size: clamp(0.7rem, 1.2vw, 1.1rem);
+    font-size: clamp(0.6rem, 1.1vw, 0.9rem);
     color: var(--theme-color, white);
     margin-bottom: 2px;
 }
 
 .infographic-tech-desc {
-    font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+    font-size: clamp(0.55rem, 0.8vw, 0.75rem);
     font-weight: 300;
     line-height: 1.3;
     opacity: 0.8;
     font-style: italic;
     display: none;
-    /* Hide on very small screens? or keep */
 }
 
-@media (min-width: 400px) {
+@media (min-width: 480px) {
     .infographic-tech-desc {
         display: block;
     }
 }
 
 .infographic-tech-separator {
-    height: 30px;
+    height: 15px;
     border-left: 1px dashed rgba(255, 255, 255, 0.15);
     margin: 0 auto;
 }
@@ -175,8 +181,8 @@
 
 .infographic-art-display {
     width: 100%;
-    max-width: 340px;
-    aspect-ratio: 340/460;
+    max-width: 280px;
+    aspect-ratio: 3/4;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 30px var(--theme-glow, rgba(255, 255, 255, 0.3));
@@ -199,10 +205,10 @@
 
 .infographic-wisdom-quote {
     font-family: 'Pinyon Script', cursive;
-    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
     color: #e2e8f0;
     text-shadow: 0 2px 5px black;
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
 /* RIGHT: ORACLE */
@@ -210,12 +216,11 @@
     width: 20%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    padding: 10px 5px;
+    padding: 8px 4px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: 10px;
 }
 
 .infographic-oracle-item {
@@ -224,19 +229,19 @@
     align-items: center;
     text-align: center;
     opacity: 0.85;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .infographic-oracle-item.active-destiny {
-    margin: 4px 0;
+    margin: 2px 0;
     border: 1px solid var(--theme-color, white);
     border-radius: 8px;
-    padding: 4px;
+    padding: 2px;
     background: rgba(255, 255, 255, 0.05);
 }
 
 .infographic-oracle-role {
-    font-size: clamp(0.5rem, 0.8vw, 0.6rem);
+    font-size: clamp(0.45rem, 0.7vw, 0.55rem);
     text-transform: uppercase;
     color: var(--theme-color, white);
     letter-spacing: 1px;
@@ -244,12 +249,11 @@
 }
 
 .infographic-oracle-desc-role {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: rgba(255, 255, 255, 0.6);
     font-style: italic;
     line-height: 1;
     display: none;
-    /* Often too small to read on mobile, maybe hide or show? */
 }
 
 @media (min-width: 600px) {
@@ -258,14 +262,13 @@
     }
 }
 
-
 .infographic-oracle-icon-sm {
-    width: clamp(25px, 4vw, 40px);
-    height: clamp(25px, 4vw, 40px);
+    width: clamp(18px, 3.2vw, 30px);
+    height: clamp(18px, 3.2vw, 30px);
 }
 
 .infographic-oracle-name {
-    font-size: clamp(0.5rem, 0.8vw, 0.6rem);
+    font-size: clamp(0.45rem, 0.7vw, 0.55rem);
     font-weight: 600;
     color: white;
 }
@@ -280,8 +283,10 @@
     border-radius: 15px;
     backdrop-filter: blur(15px);
     align-items: stretch;
-    /* min-height: 100px; Remove fixed height */
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    margin-top: auto;
+    width: 100%;
+    min-height: fit-content;
 }
 
 .infographic-footer-col {
@@ -289,7 +294,7 @@
     flex-direction: column;
     text-align: center;
     justify-content: flex-start;
-    padding: 10px;
+    padding: 6px;
     position: relative;
 }
 
@@ -304,11 +309,11 @@
 }
 
 .infographic-col-title {
-    font-size: clamp(0.6rem, 1vw, 0.7rem);
+    font-size: clamp(0.5rem, 0.8vw, 0.6rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     display: inline-block;
     align-self: center;
 }
@@ -330,8 +335,8 @@
 
 .infographic-points-list {
     text-align: left;
-    font-size: clamp(0.6rem, 1vw, 0.8rem);
-    line-height: 1.4;
+    font-size: clamp(0.5rem, 0.8vw, 0.7rem);
+    line-height: 1.2;
     color: #e2e8f0;
     font-weight: 300;
     padding-left: 5px;
@@ -340,7 +345,7 @@
 }
 
 .infographic-points-list li {
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     display: flex;
     align-items: flex-start;
 }
@@ -348,13 +353,12 @@
 .infographic-points-list li::before {
     content: "•";
     color: rgba(255, 255, 255, 0.4);
-    margin-right: 4px;
-    font-weight: bold;
+    margin-right: 3px;
 }
 
 .infographic-col-text-main {
-    font-size: clamp(0.7rem, 1.2vw, 1.1rem);
-    line-height: 1.3;
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+    line-height: 1.2;
     color: white;
     font-weight: 400;
     font-style: italic;
@@ -363,4 +367,266 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+/* Full Screen specific adjustments */
+.infographic-wrapper.is-full-screen {
+    border-radius: 0;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.infographic-wrapper.is-full-screen .infographic-container {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    justify-content: flex-start;
+    min-height: fit-content;
+}
+
+/* --- CARD PREVIEW MODE (The small version) --- */
+.infographic-wrapper.is-card {
+    border-radius: 15px;
+    overflow: hidden;
+    /* No scroll in card view */
+}
+
+.infographic-wrapper.is-card .infographic-container {
+    padding: 8px;
+    gap: 4px;
+    justify-content: space-between;
+}
+
+.infographic-wrapper.is-card .infographic-header {
+    margin-bottom: 2px;
+}
+
+.infographic-wrapper.is-card .infographic-kin-meta {
+    font-size: 0.5rem;
+    gap: 5px;
+    margin-bottom: 2px;
+}
+
+.infographic-wrapper.is-card .infographic-kin-meta::before,
+.infographic-wrapper.is-card .infographic-kin-meta::after {
+    width: 10px;
+}
+
+.infographic-wrapper.is-card .infographic-kin-title {
+    font-size: 1.2rem;
+}
+
+.infographic-wrapper.is-card .infographic-main-content {
+    margin-bottom: 2px;
+    gap: 2px;
+}
+
+.infographic-wrapper.is-card .infographic-tech-col,
+.infographic-wrapper.is-card .infographic-oracle-col {
+    gap: 2px;
+    padding: 2px;
+}
+
+.infographic-wrapper.is-card .infographic-tech-icon-container {
+    width: 30px;
+    height: 30px;
+}
+
+.infographic-wrapper.is-card .infographic-tech-label {
+    font-size: 0.4rem;
+}
+
+.infographic-wrapper.is-card .infographic-tech-desc {
+    display: none !important;
+}
+
+.infographic-wrapper.is-card .infographic-art-display {
+    max-width: 160px;
+    /* Reduced from 180 to fit 350px better, but still larger than 140 */
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+.infographic-wrapper.is-card .infographic-wisdom-quote {
+    font-size: 0.6rem;
+    line-height: 1;
+    margin: 2px 0;
+}
+
+.infographic-wrapper.is-card .infographic-oracle-icon-sm {
+    width: 10px;
+    height: 10px;
+}
+
+.infographic-wrapper.is-card .infographic-oracle-role,
+.infographic-wrapper.is-card .infographic-oracle-name {
+    font-size: 0.28rem;
+    line-height: 1;
+}
+
+.infographic-wrapper.is-card .infographic-footer-grid {
+    font-size: 0.35rem;
+    padding: 2px;
+    margin-top: 2px;
+    border-radius: 4px;
+    gap: 4px;
+}
+
+.infographic-wrapper.is-card .infographic-footer-col {
+    padding: 2px;
+}
+
+.infographic-wrapper.is-card .infographic-col-title {
+    font-size: 0.3rem;
+    margin-bottom: 1px;
+}
+
+.infographic-wrapper.is-card .infographic-points-list {
+    font-size: 0.28rem;
+    margin: 0;
+    padding-left: 6px;
+}
+
+.infographic-wrapper.is-card .infographic-points-list li {
+    margin-bottom: 0px;
+}
+
+.infographic-wrapper.is-card .infographic-col-text-main {
+    font-size: 0.28rem;
+    line-height: 1.1;
+    margin-top: 1px;
+}
+
+.infographic-wrapper.is-card .infographic-points-list {
+    font-size: 0.35rem;
+    padding-left: 2px;
+    line-height: 1.1;
+}
+
+.infographic-wrapper.is-card .infographic-points-list li::before {
+    margin-right: 1px;
+}
+
+@media (max-width: 800px) {
+    .infographic-container {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .infographic-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px;
+        margin-top: 15px;
+    }
+
+    .infographic-footer-col::after {
+        display: none !important;
+    }
+
+    .infographic-center-col {
+        width: 100%;
+        order: 1;
+    }
+
+    .infographic-main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .infographic-tech-col {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+        order: 2;
+    }
+
+    .infographic-oracle-col {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+        order: 3;
+        flex-wrap: wrap;
+    }
+
+    .infographic-tech-separator {
+        display: none;
+    }
+
+    .infographic-kin-title {
+        font-size: 1.4rem;
+    }
+
+    .infographic-art-display {
+        max-width: 240px;
+    }
+}
+
+/* Close Button */
+.infographic-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.infographic-close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Card View Gap Fixes */
+.infographic-wrapper.is-card .infographic-container {
+    padding: 4px !important;
+    gap: 2px !important;
+    justify-content: space-between;
+}
+
+.infographic-wrapper.is-card .infographic-art-display {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 8px;
+    align-self: center;
+    max-height: 120px !important;
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infographic-wrapper.is-card .infographic-center-col {
+    justify-content: center;
+    gap: 0;
+    max-height: 50%;
+}
+
+.infographic-wrapper.is-card .infographic-art-img {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }

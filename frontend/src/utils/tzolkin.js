@@ -1,7 +1,7 @@
 
 const sealsData = [
     {
-        name: 'Dragón', slug: 'dragon', color: 'Red', v1: 'Nutro', v2: 'Nutriendo', v3: 'Nacimiento', essence: 'el ser', power: 'el nacimiento',
+        name: 'Dragón', slug: 'dragon', color: 'Rojo', gender: 'm', v1: 'Nutro', v2: 'Nutriendo', v3: 'Nacimiento', essence: 'el ser', power: 'el nacimiento',
         description: "La Energía Madre: Inicio y Nutrición.",
         advice: {
             ideal: ["Iniciar nuevos proyectos.", "Nutrir tu cuerpo y descansar.", "Conectar con tu origen."],
@@ -9,7 +9,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Viento', slug: 'wind', color: 'White', v1: 'Comunico', v2: 'Comunicando', v3: 'Aliento', essence: 'el espíritu', power: 'el aliento',
+        name: 'Viento', slug: 'wind', color: 'Blanco', gender: 'm', v1: 'Comunico', v2: 'Comunicando', v3: 'Aliento', essence: 'el espíritu', power: 'el aliento',
         description: "El Aliento Divino: Comunicación y Espíritu.",
         advice: {
             ideal: ["Comunicar tu verdad.", "Escribir o hablar en público.", "Practicar respiración consciente."],
@@ -17,7 +17,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Noche', slug: 'night', color: 'Blue', v1: 'Sueño', v2: 'Soñando', v3: 'Intuición', essence: 'la abundancia', power: 'la intuición',
+        name: 'Noche', slug: 'night', color: 'Azul', gender: 'f', v1: 'Sueño', v2: 'Soñando', v3: 'Intuición', essence: 'la abundancia', power: 'la intuición',
         description: "El Santuario Interior: Sueños e Intuición.",
         advice: {
             ideal: ["Seguir tu intuición.", "Meditar en silencio.", "Soñar en grande."],
@@ -25,7 +25,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Semilla', slug: 'seed', color: 'Yellow', v1: 'Focalizo', v2: 'Focalizando', v3: 'Atino', essence: 'el florecimiento', power: 'el atino',
+        name: 'Semilla', slug: 'seed', color: 'Amarillo', gender: 'f', v1: 'Focalizo', v2: 'Focalizando', v3: 'Atino', essence: 'el florecimiento', power: 'el atino',
         description: "El Potencial Latente: Sembrar y Florecer.",
         advice: {
             ideal: ["Sembrar intenciones claras.", "Planificar a largo plazo.", "Estudiar o aprender algo."],
@@ -33,7 +33,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Serpiente', slug: 'serpent', color: 'Red', v1: 'Sobrevivo', v2: 'Sobreviviendo', v3: 'Instinto', essence: 'la fuerza vital', power: 'el instinto',
+        name: 'Serpiente', slug: 'serpent', color: 'Rojo', gender: 'f', v1: 'Sobrevivo', v2: 'Sobreviviendo', v3: 'Instinto', essence: 'la fuerza vital', power: 'el instinto',
         description: "La Fuerza Vital: Instinto y Pasión.",
         advice: {
             ideal: ["Mover el cuerpo (deporte).", "Despertar tu pasión.", "Escuchar tus instintos."],
@@ -41,7 +41,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Enlazador de Mundos', slug: 'worldbridger', color: 'White', v1: 'Igualo', v2: 'Igualando', v3: 'Oportunidad', essence: 'la muerte', power: 'la oportunidad',
+        name: 'Enlazador de Mundos', slug: 'worldbridger', color: 'Blanco', gender: 'm', v1: 'Igualo', v2: 'Igualando', v3: 'Oportunidad', essence: 'la muerte', power: 'la oportunidad',
         description: "El Puente de Mundos: Muerte y Oportunidad.",
         advice: {
             ideal: ["Cerrar ciclos pendientes.", "Perdonar y soltar.", "Limpiar y ordenar tu espacio."],
@@ -49,7 +49,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Mano', slug: 'hand', color: 'Blue', v1: 'Conozco', v2: 'Conociendo', v3: 'Realización', essence: 'la curación', power: 'la realización',
+        name: 'Mano', slug: 'hand', color: 'Azul', gender: 'f', v1: 'Conozco', v2: 'Conociendo', v3: 'Realización', essence: 'la curación', power: 'la realización',
         description: "La Sanación Realizadora: Conocer y Curar.",
         advice: {
             ideal: ["Sanar heridas emocionales.", "Trabajar con las manos.", "Concretar tareas pendientes."],
@@ -57,7 +57,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Estrella', slug: 'star', color: 'Yellow', v1: 'Embellezco', v2: 'Embelleciendo', v3: 'Arte', essence: 'la elegancia', power: 'el arte',
+        name: 'Estrella', slug: 'star', color: 'Amarillo', gender: 'f', v1: 'Embellezco', v2: 'Embelleciendo', v3: 'Arte', essence: 'la elegancia', power: 'el arte',
         description: "El Arte Elegante: Belleza y Armonía.",
         advice: {
             ideal: ["Crear arte o belleza.", "Buscar la armonía social.", "Brillar con luz propia."],
@@ -65,7 +65,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Luna', slug: 'moon', color: 'Red', v1: 'Purifico', v2: 'Purificando', v3: 'Flujo', essence: 'el agua universal', power: 'el flujo',
+        name: 'Luna', slug: 'moon', color: 'Rojo', gender: 'f', v1: 'Purifico', v2: 'Purificando', v3: 'Flujo', essence: 'el agua universal', power: 'el flujo',
         description: "El Flujo Universal: Purificar emociones.",
         advice: {
             ideal: ["Dejar fluir tus emociones.", "Llorar si lo necesitas.", "Conectar con el agua."],
@@ -73,7 +73,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Perro', slug: 'dog', color: 'White', v1: 'Amo', v2: 'Amando', v3: 'Lealtad', essence: 'el corazón', power: 'la lealtad',
+        name: 'Perro', slug: 'dog', color: 'Blanco', gender: 'm', v1: 'Amo', v2: 'Amando', v3: 'Lealtad', essence: 'el corazón', power: 'la lealtad',
         description: "El Amor Leal: Corazón y Compañerismo.",
         advice: {
             ideal: ["Compartir con amigos.", "Amar incondicionalmente.", "Ser leal a tu corazón."],
@@ -81,7 +81,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Mono', slug: 'monkey', color: 'Blue', v1: 'Juego', v2: 'Jugando', v3: 'Ilusión', essence: 'la magia', power: 'la ilusión',
+        name: 'Mono', slug: 'monkey', color: 'Blue', gender: 'm', v1: 'Juego', v2: 'Jugando', v3: 'Ilusión', essence: 'la magia', power: 'la ilusión',
         description: "El Niño Divino: Juego, Magia y Humor.",
         advice: {
             ideal: ["Jugar y reír mucho.", "Romper la rutina seria.", "Ver la magia en todo."],
@@ -89,7 +89,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Humano', slug: 'human', color: 'Yellow', v1: 'Influencio', v2: 'Influenciando', v3: 'Sabiduría', essence: 'el libre albedrío', power: 'la sabiduría',
+        name: 'Humano', slug: 'human', color: 'Yellow', gender: 'm', v1: 'Influencio', v2: 'Influenciando', v3: 'Sabiduría', essence: 'el libre albedrío', power: 'la sabiduría',
         description: "El Libre Albedrío: Sabiduría y Elección.",
         advice: {
             ideal: ["Ejercer tu libertad.", "Tomar decisiones propias.", "Influenciar positivamente."],
@@ -97,7 +97,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Caminante del Cielo', slug: 'skywalker', color: 'Red', v1: 'Exploro', v2: 'Explorando', v3: 'Vigilancia', essence: 'el espacio', power: 'la vigilancia',
+        name: 'Caminante del Cielo', slug: 'skywalker', color: 'Rojo', gender: 'm', v1: 'Exploro', v2: 'Explorando', v3: 'Vigilancia', essence: 'el espacio', power: 'la vigilancia',
         description: "El Explorador Cósmico: Espacio y Vigilancia.",
         advice: {
             ideal: ["Explorar lugares nuevos.", "Salir de tu zona confort.", "Vigilar tu espacio."],
@@ -105,7 +105,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Mago', slug: 'wizard', color: 'White', v1: 'Encanto', v2: 'Encantando', v3: 'Receptividad', essence: 'la atemporalidad', power: 'la receptividad',
+        name: 'Mago', slug: 'wizard', color: 'White', gender: 'm', v1: 'Encanto', v2: 'Encantando', v3: 'Receptividad', essence: 'la atemporalidad', power: 'la receptividad',
         description: "El Jaguar Místico: Atemporalidad y Encanto.",
         advice: {
             ideal: ["Vivir el aquí y ahora.", "Encantar el momento.", "Conectar con lo sutil."],
@@ -113,7 +113,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Águila', slug: 'eagle', color: 'Blue', v1: 'Creo', v2: 'Creando', v3: 'Mente', essence: 'la visión', power: 'la mente',
+        name: 'Águila', slug: 'eagle', color: 'Azul', gender: 'f', v1: 'Creo', v2: 'Creando', v3: 'Mente', essence: 'la visión', power: 'la mente',
         description: "La Visión Superior: Mente y Creación.",
         advice: {
             ideal: ["Ver el panorama completo.", "Crear una visión clara.", "Elevar tu perspectiva."],
@@ -121,7 +121,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Guerrero', slug: 'warrior', color: 'Yellow', v1: 'Cuestiono', v2: 'Cuestionando', v3: 'Intrepidez', essence: 'la inteligencia', power: 'la intrepidez',
+        name: 'Guerrero', slug: 'warrior', color: 'Amarillo', gender: 'm', v1: 'Cuestiono', v2: 'Cuestionando', v3: 'Intrepidez', essence: 'la inteligencia', power: 'la intrepidez',
         description: "La Inteligencia Valiente: Cuestionar sin miedo.",
         advice: {
             ideal: ["Cuestionar con inteligencia.", "Perder el miedo a actuar.", "Planear estrategias."],
@@ -129,7 +129,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Tierra', slug: 'earth', color: 'Red', v1: 'Evoluciono', v2: 'Evolucionando', v3: 'Sincronía', essence: 'la navegación', power: 'la sincronía',
+        name: 'Tierra', slug: 'earth', color: 'Rojo', gender: 'f', v1: 'Evoluciono', v2: 'Evolucionando', v3: 'Sincronía', essence: 'la navegación', power: 'la sincronía',
         description: "La Navegación Sincrónica: Evolución y Tierra.",
         advice: {
             ideal: ["Conectar con la naturaleza.", "Seguir las señales.", "Evolucionar paso a paso."],
@@ -137,7 +137,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Espejo', slug: 'mirror', color: 'White', v1: 'Reflejo', v2: 'Reflejando', v3: 'Orden', essence: 'el sinfín', power: 'el orden',
+        name: 'Espejo', slug: 'mirror', color: 'Blanco', gender: 'm', v1: 'Reflejo', v2: 'Reflejando', v3: 'Orden', essence: 'el sinfín', power: 'el orden',
         description: "El Reflejo de Verdad: Orden y Claridad.",
         advice: {
             ideal: ["Mirarte en el espejo.", "Decir siempre la verdad.", "Poner orden y claridad."],
@@ -145,7 +145,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Tormenta', slug: 'storm', color: 'Blue', v1: 'Catalizo', v2: 'Catalizando', v3: 'Energía', essence: 'la autogeneración', power: 'la energía',
+        name: 'Tormenta', slug: 'storm', color: 'Azul', gender: 'f', v1: 'Catalizo', v2: 'Catalizando', v3: 'Energía', essence: 'la autogeneración', power: 'la energía',
         description: "La Catalización: Transformación total.",
         advice: {
             ideal: ["Hacer cambios radicales.", "Reinventarte hoy.", "Permitir la catarsis."],
@@ -153,7 +153,7 @@ const sealsData = [
         }
     },
     {
-        name: 'Sol', slug: 'sun', color: 'Yellow', v1: 'Ilumino', v2: 'Iluminando', v3: 'Vida', essence: 'el fuego universal', power: 'la vida',
+        name: 'Sol', slug: 'sun', color: 'Amarillo', gender: 'm', v1: 'Ilumino', v2: 'Iluminando', v3: 'Vida', essence: 'el fuego universal', power: 'la vida',
         description: "El Fuego Universal: Iluminación y Vida.",
         advice: {
             ideal: ["Iluminar a los demás.", "Amar la vida plenamente.", "Liderar con el ejemplo."],
@@ -212,13 +212,30 @@ const calculateOracle = (sealIdx, toneVal) => {
     };
 };
 
-// Gender adjustment helper (basic)
-const adjustGender = (text, sealName) => {
-    // Basic heuristic: if seal name is feminine (Luna, Serpiente...), maybe adjust adjectives?
-    // Current tone names are gender neutral enough or standard.
-    // We will keep it simple and return as is for now unless specific rules are needed.
-    return text;
-}
+// Gender adjustment helper
+const adjustGender = (text, gender) => {
+    if (gender !== 'f') return text;
+
+    // Direct mappings for tones
+    const toneMap = {
+        'Magnético': 'Magnética',
+        'Eléctrico': 'Eléctrica',
+        'Entonado': 'Entonada',
+        'Rítmico': 'Rítmica',
+        'Galáctico': 'Galáctica',
+        'Planetario': 'Planetaria',
+        'Cósmico': 'Cósmica'
+    };
+
+    // Direct mapping for colors
+    const colorMap = {
+        'Rojo': 'Roja',
+        'Blanco': 'Blanca',
+        'Amarillo': 'Amarilla'
+    };
+
+    return toneMap[text] || colorMap[text] || text;
+};
 
 
 const isLeapYear = (year) => {
@@ -280,19 +297,22 @@ export const getKinConfig = (kinNumber) => {
     // Calculate Oracle
     const oracle = calculateOracle(sealIdx, tone.number);
 
+    const adjustedColor = adjustGender(seal.color, seal.gender);
+    const adjustedToneName = adjustGender(tone.name, seal.gender);
+
     // Build Dreamspell Affirmation
-    const affirmation = `Yo ${tone.v.toLowerCase()} con el fin de ${seal.v1.toLowerCase()}, ${tone.action.toLowerCase()} ${seal.essence}. Sello la entrada de ${seal.power} con el tono ${tone.name.toLowerCase()} de ${tone.power}. Me guía el poder de ${oracle.guide.power}.`;
+    const affirmation = `Yo ${tone.v.toLowerCase()} con el fin de ${seal.v1.toLowerCase()}, ${tone.action.toLowerCase()} ${seal.essence}. Sello la entrada de ${seal.power} con el tono ${adjustedToneName.toLowerCase()} de ${tone.power}. Me guía el poder de ${oracle.guide.power}.`;
 
     return {
         number: kinNumber,
         seal_name: seal.name,
-        tone_name: tone.name,
-        color: seal.color,
+        tone_name: adjustedToneName,
+        color: adjustedColor,
         slug: seal.slug,
         affirmation: affirmation,
         // Short/Long desc placeholders (will be overridden by dailyData usually)
         short_description: `Hoy es un gran día para ${tone.v.toLowerCase()} tu ${seal.power} al ${tone.action} ${seal.essence}.`,
-        long_description: `${seal.name} ${seal.color} nos invita a ${seal.v1.toLowerCase()} con el ${tone.name.toLowerCase()} de la ${tone.power}.`,
+        long_description: `${seal.name} ${adjustedColor.toLowerCase()} nos invita a ${seal.v1.toLowerCase()} con el ${adjustedToneName.toLowerCase()} de la ${tone.power}.`,
 
         // Expanded Data for Infographic
         seal_desc: seal.description,

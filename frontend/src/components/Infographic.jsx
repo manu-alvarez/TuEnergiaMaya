@@ -4,10 +4,13 @@ import { Box } from '@mui/material';
 import './Infographic.css';
 
 const COLORS_HEX = {
-    Red: "#ef4444",
-    White: "#f1f5f9",
-    Blue: "#3b82f6",
-    Yellow: "#eab308"
+    Rojo: "#ff5252",
+    Roja: "#ff5252",
+    Blanco: "#ffffff",
+    Blanca: "#ffffff",
+    Azul: "#448aff",
+    Amarillo: "#ffd740",
+    Amarilla: "#ffd740"
 };
 
 const extractConsejo = (longDesc) => {
@@ -21,7 +24,7 @@ const extractConsejo = (longDesc) => {
     return last ? (last.endsWith('.') ? last : last + ".") : "Sigue tu intuición.";
 };
 
-const Infographic = ({ kinData }) => {
+const Infographic = ({ kinData, isFullScreen, isCard, onClose }) => {
     if (!kinData) return null;
 
     const { kin_number, kin } = kinData;
@@ -52,19 +55,29 @@ const Infographic = ({ kinData }) => {
     };
 
     return (
-        <div className="infographic-wrapper" style={cssVariables}>
+        <div className={`infographic-wrapper ${isFullScreen ? 'is-full-screen' : ''} ${isCard ? 'is-card' : ''}`} style={cssVariables}>
             <div
                 className="infographic-bg-image"
                 style={{ backgroundImage: `url('${artBase64}')` }}
             ></div>
             <div className="infographic-vignette"></div>
 
+
+            {isFullScreen && onClose && (
+                <button
+                    className="infographic-close-btn"
+                    onClick={(e) => { e.stopPropagation(); onClose(); }}
+                >
+                    ✕ VOLVER
+                </button>
+            )}
+
             <div className="infographic-container">
 
                 {/* HEADER */}
                 <header className="infographic-header">
                     <div className="infographic-kin-meta">KIN {kin_number}</div>
-                    <h1 className="infographic-kin-title">{kin.seal_name} {kin.tone_name} {kin.color === 'Red' ? 'Rojo' : kin.color === 'White' ? 'Blanco' : kin.color === 'Blue' ? 'Azul' : 'Amarillo'}</h1>
+                    <h1 className="infographic-kin-title">{kin.seal_name} {kin.tone_name} {kin.color}</h1>
                 </header>
 
                 {/* MAIN CONTENT */}
