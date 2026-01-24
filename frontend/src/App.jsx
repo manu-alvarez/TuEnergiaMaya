@@ -151,7 +151,7 @@ function App() {
               <Box className={`flip-card ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip} sx={{ height: 350 }}>
                 <Box className="flip-card-inner">
                   {/* FRONT SIDE */}
-                  <Card className="glass-card card-front" sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', p: 1, bgcolor: 'transparent', boxShadow: 'none' }}>
+                  <Card className="glass-card card-front" sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', pt: 4, px: 2, pb: 2, bgcolor: 'transparent', boxShadow: 'none' }}>
                     <Box sx={{ mb: 1 }}>
                       <Box
                         className="kin-image-glow"
@@ -212,7 +212,7 @@ function App() {
                         endIcon={<ZoomInIcon />}
                         sx={{ color: 'white', opacity: 0.7, fontFamily: 'Lora', '&:hover': { opacity: 1 } }}
                       >
-                        VER INFOGRAFÍA
+                        GIRAR LA CARTA
                       </Button>
                     </Box>
                   </Card>
@@ -220,27 +220,44 @@ function App() {
                   {/* BACK SIDE */}
                   <Card className="glass-card card-back" sx={{ height: '100%', position: 'absolute', top: 0, left: 0, bgcolor: 'transparent', boxShadow: 'none' }}>
                     <Box sx={{ position: 'relative', width: '100%', height: '90%', borderRadius: '15px', overflow: 'hidden', p: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <Box sx={{ width: '100%', height: '100%' }}>
-                        <Infographic kinData={kinData} isCard={true} />
-                      </Box>
-                      <IconButton
-                        onClick={handleOpenModal}
+                      <Box
+                        component="img"
+                        src={`assets/art_seals/${kinData.kin.slug}.png`}
+                        alt={kinData.kin.seal_name}
                         sx={{
-                          position: 'absolute', bottom: 10, right: 10,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block'
+                        }}
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenModal}
+                        startIcon={<ZoomInIcon sx={{ fontSize: '1rem' }} />}
+                        sx={{
+                          position: 'absolute', bottom: 20, left: '50%',
+                          transform: 'translateX(-50%)',
                           bgcolor: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#ffffff' : (['Rojo', 'Roja'].includes(kinData.kin.color) ? '#ff5252' : (kinData.kin.color === 'Azul' ? '#448aff' : '#ffd740')),
                           color: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#000000' : '#ffffff',
                           '&:hover': {
                             bgcolor: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#f0f0f0' : (['Rojo', 'Roja'].includes(kinData.kin.color) ? '#d32f2f' : (kinData.kin.color === 'Azul' ? '#1976d2' : '#fbc02d')),
                           },
                           zIndex: 10,
-                          boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-                          border: '1px solid rgba(255,255,255,0.2)',
-                          width: 40,
-                          height: 40
+                          boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                          borderRadius: '30px',
+                          textTransform: 'none',
+                          fontWeight: 700,
+                          px: 2,
+                          py: 0.5,
+                          fontFamily: 'Lora',
+                          fontSize: '0.75rem',
+                          minWidth: '200px',
+                          border: '2px solid rgba(255,255,255,0.2)'
                         }}
                       >
-                        <ZoomInIcon fontSize="medium" />
-                      </IconButton>
+                        VER INFOGRAFÍA COMPLETA
+                      </Button>
                     </Box>
                     <Button variant="outlined" color="inherit" onClick={(e) => { e.stopPropagation(); handleFlip(); }} sx={{ mt: 0.5, borderRadius: 20, fontSize: '0.8rem', py: 0.5 }}>
                       VOLVER
