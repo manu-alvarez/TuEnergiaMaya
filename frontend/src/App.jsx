@@ -294,7 +294,7 @@ function App() {
                     </Box>
                   )}
                 </Box>
-                <SpotifyPlayer />
+                <SpotifyPlayer currentKinNumber={kinData.kin_number} />
               </Box>
             </Box>
           </Fade>
