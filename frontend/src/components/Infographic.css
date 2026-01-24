@@ -273,7 +273,7 @@
     color: white;
 }
 
-/* FOOTER: MAGIC TRIO */
+/* FOOTER: MODULAR CARDS */
 .infographic-footer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -285,22 +285,34 @@
     width: 100%;
 }
 
+.footer-ideal {
+    grid-area: ideal;
+}
+
+.footer-avoid {
+    grid-area: avoid;
+}
+
+.footer-advice {
+    grid-area: advice;
+}
+
 .infographic-footer-col {
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 12px 8px;
-    position: relative;
+    padding: 12px 10px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.3s ease;
 }
 
-.infographic-footer-col:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 15%;
-    height: 70%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+.infographic-footer-col:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .infographic-col-title {
@@ -512,13 +524,11 @@
         gap: 12px;
         padding: 0;
         margin-top: 15px;
-        grid-template-areas: none;
     }
 
     .infographic-footer-col {
         width: 100% !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        padding: 15px 10px;
+        padding: 15px 12px;
     }
 
     .infographic-center-col {
