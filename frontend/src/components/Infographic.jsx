@@ -166,17 +166,17 @@ const Infographic = ({ kinData, isFullScreen, isCard, onClose }) => {
                             {idealList.map((point, i) => <li key={i}>{point}</li>)}
                         </ul>
                     </div>
-                    <div className="infographic-footer-col footer-advice">
-                        <div className="infographic-col-title title-main">🔮 Consejo</div>
-                        <div className="infographic-col-text-main">
-                            {extractConsejo(kin.long_description)}
-                        </div>
-                    </div>
                     <div className="infographic-footer-col footer-avoid">
                         <div className="infographic-col-title title-bad">🛑 Evitar</div>
                         <ul className="infographic-points-list">
                             {avoidList.map((point, i) => <li key={i}>{point}</li>)}
                         </ul>
+                    </div>
+                    <div className="infographic-footer-col footer-advice">
+                        <div className="infographic-col-title title-main">🔮 Consejo</div>
+                        <div className="infographic-col-text-main">
+                            {extractConsejo(kin.long_description)}
+                        </div>
                     </div>
                 </div>
 

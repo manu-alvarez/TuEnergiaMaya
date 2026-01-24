@@ -21,13 +21,14 @@ const SpotifyPlayer = ({ podcastUrl }) => {
     return (
         <Box sx={{
             mt: 4,
-            p: 2,
-            borderRadius: '40px',
-            bgcolor: 'rgba(20, 20, 25, 0.98)', // Casi sólido para máxima estabilidad
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 15px 45px 0 rgba(0, 0, 0, 0.7)'
+            p: 1, // Reducimos padding para evitar franjas
+            borderRadius: '24px', // Un poco menos exagerado pero premium
+            bgcolor: '#000000', // Negro absoluto para el fondo del reproductor
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 15px 45px 0 rgba(0, 0, 0, 0.8)',
+            colorScheme: 'dark' // Forzamos esquema oscuro en el contenedor
         }}>
-            <Typography variant="subtitle2" color="primary.light" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center' }}>
+            <Typography variant="subtitle2" color="primary.light" sx={{ mb: 1, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center' }}>
                 ESCUCHA EL PODCAST
             </Typography>
             <iframe
@@ -35,12 +36,11 @@ const SpotifyPlayer = ({ podcastUrl }) => {
                 style={{
                     borderRadius: '12px',
                     border: 'none',
-                    background: 'transparent',
-                    colorScheme: 'dark'
+                    background: 'transparent'
                 }}
                 src={embedUrl}
                 width="100%"
-                height="380"
+                height="352" // Standard height for episode list
                 frameBorder="0"
                 allowFullScreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
