@@ -341,7 +341,7 @@ function App() {
             sx={{
               position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
               width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
-              outline: 'none', cursor: 'zoom-out', bgcolor: 'transparent', overflow: 'auto', p: { xs: 0, md: 2 }
+              outline: 'none', bgcolor: 'transparent', overflow: 'auto', p: { xs: 0, md: 2 }
             }}
           >
             <Box onClick={(e) => e.stopPropagation()} sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
