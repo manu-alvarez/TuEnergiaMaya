@@ -129,7 +129,7 @@ function App() {
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
                 alt="Instagram"
-                style={{ width: 24, height: 24, filter: 'brightness(0) invert(1)' }}
+                style={{ width: 24, height: 24 }}
               />
             </IconButton>
           </Box>
