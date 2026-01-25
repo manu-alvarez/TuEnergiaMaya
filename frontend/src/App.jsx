@@ -8,6 +8,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn'
 import { calculateKin, getKinConfig } from './utils/tzolkin'
 import dailyData from './data/dailyData.json'
 import Infographic from './components/Infographic'
+
 import SpotifyPlayer from './components/SpotifyPlayer'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+
   const audioRef = useRef(null)
   const dateInputRef = useRef(null)
 
@@ -108,6 +110,28 @@ function App() {
             <Typography variant="h5" component="div" sx={{ fontWeight: 800, fontFamily: 'Cinzel', color: 'white', letterSpacing: 3, textShadow: '0 0 12px rgba(0,200,255,0.4)' }}>
               TuEnergiaMaya
             </Typography>
+            <IconButton
+              component="a"
+              href="https://instagram.com/manoelectricaazul87"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: 'white',
+                opacity: 0.8,
+                transition: 'all 0.3s',
+                '&:hover': {
+                  opacity: 1,
+                  transform: 'scale(1.1)',
+                  color: '#E1306C' // Instagram pinkish brand color
+                }
+              }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
+                alt="Instagram"
+                style={{ width: 24, height: 24, filter: 'brightness(0) invert(1)' }}
+              />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
@@ -327,6 +351,8 @@ function App() {
         </Fade>
       </Modal>
 
+
+
       <Box component="footer" sx={{ p: 4, textAlign: 'center', opacity: 0.6 }}>
         <Button
           startIcon={isPlaying ? <MusicOffIcon /> : <MusicNoteIcon />}
@@ -340,6 +366,7 @@ function App() {
         <Typography variant="caption" display="block" sx={{ fontFamily: 'Cinzel', fontSize: '0.7rem', letterSpacing: 2 }}>
           Creado por Mano Eléctrica Azul • TuEnergiaMaya • 2026
         </Typography>
+
       </Box>
     </Box>
   )
