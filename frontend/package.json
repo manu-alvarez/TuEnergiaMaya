@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "sync-episodes": "node scripts/sync-episodes.js",
+    "predeploy": "npm run sync-episodes && npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -3,6 +3,7 @@
 // Episode IDs extracted from: https://open.spotify.com/show/2B3BQ2wzhaflyGhwp24OOL
 
 export const PODCAST_EPISODES = [
+    { kinNumber: 48, episodeId: "6FWsWLyqnjUpVVFx6ax3Wg", title: "Kin 48 - Estrella Solar Amarilla" },
     { kinNumber: 47, episodeId: "22dFrVDiJL6JVEzn7Yk2De", title: "Kin 47 - Mano Galáctica Azul" },
     { kinNumber: 46, episodeId: "0O1v54zBotRtDk4CPcRTZN", title: "Kin 46 - Enlazador de Mundos Resonante Blanco" },
     { kinNumber: 45, episodeId: "02lHXb0IuNiHNwB4l5YfrF", title: "Kin 45 - Serpiente Rítmica Roja" },
