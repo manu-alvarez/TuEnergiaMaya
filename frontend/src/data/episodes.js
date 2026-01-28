@@ -3,6 +3,7 @@
 // Episode IDs extracted from: https://open.spotify.com/show/2B3BQ2wzhaflyGhwp24OOL
 
 export const PODCAST_EPISODES = [
+    { kinNumber: 50, episodeId: "75clebmGaQPGV68YjPhlid", title: "Kin 50 - Perro Espectral Blanco" },
     { kinNumber: 49, episodeId: "0sGY5VqdhlhPq6TASO2Hpu", title: "Kin 49 - Luna Planetaria Roja" },
     { kinNumber: 48, episodeId: "6FWsWLyqnjUpVVFx6ax3Wg", title: "Kin 48 - Estrella Solar Amarilla" },
     { kinNumber: 47, episodeId: "22dFrVDiJL6JVEzn7Yk2De", title: "Kin 47 - Mano Galáctica Azul" },
