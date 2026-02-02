@@ -1,80 +1,161 @@
-# 🛠️ Informe Técnico: TuEnergíaMaya
+# 🌟 TuEnergíaMaya
 
-Este documento detalla la arquitectura, tecnologías y herramientas utilizadas en el desarrollo de **TuEnergíaMaya**, diseñado para cumplir con estándares profesionales de escalabilidad, rendimiento y experiencia de usuario.
+**Descubre tu Kin del día según el Tzolkin Maya**
 
----
-
-## 1. Arquitectura Frontend (Cliente Web & Móvil)
-El cliente ha sido construido como una **Single Page Application (SPA)** moderna, priorizando la reactividad y el rendimiento visual.
-
-### **Core**
-*   **React 19**: Biblioteca principal para la construcción de interfaces, aprovechando las últimas características de concurrencia y gestión de estado.
-*   **Vite 7.2**: Entorno de desarrollo y bundler de próxima generación, garantizando tiempos de carga instantáneos y Hot Module Replacement (HMR) ultra-rápido.
-*   **JavaScript (ESNext)**: Lógica de cliente moderna y modular.
-
-### **Diseño e Interfaz (UI/UX)**
-*   **Material UI (MUI) v7**: Sistema de diseño robusto que implementa **Material Design 3**. Personalizado con un tema "Cyber-Maya" (colores neón, efectos glassmorphism).
-*   **Emotion / Styled Components**: Motor de estilos CSS-in-JS para componentes dinámicos y theming avanzado.
-*   **Glassmorphism & Neumorphism**: Estilos visuales personalizados mediante CSS3 moderno (`backdrop-filter`, `box-shadow` dinámicos) para crear profundidad e inmersión.
-*   **Canvas API**: Implementación nativa para la renderización de gráficos complejos en tiempo real (ej. visualización del Oráculo y líneas de energía dinámicas).
-*   **Fuentes**: `Cinzel` (títulos sagrados) y `Lora` (textos de lectura), importadas vía Google Fonts para legibilidad y estética premium.
-
-### **Móvil (Híbrido)**
-*   **Capacitor 8**: Puente nativo que encapsula la aplicación web React para su despliegue como app nativa .apk en Android, permitiendo acceso a APIs del dispositivo manteniendo un solo código base.
+[![Live Demo](https://img.shields.io/badge/Demo-Live-00d4aa)](https://manu-alvarez.github.io/TuEnergiaMaya/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717)](https://github.com/manu-alvarez/TuEnergiaMaya)
 
 ---
 
-## 2. Arquitectura Backend (API & Lógica)
-El servidor opera bajo una arquitectura **RESTful API**, separando completamente la lógica de negocio de la presentación.
+## 📱 Características
 
-### **Core**
-*   **Laravel 12**: Framework PHP de nivel empresarial, elegido por su seguridad, elegancia sintáctica y robustez.
-*   **PHP 8.2**: Lenguaje base, optimizado para alto rendimiento con JIT Compiler.
-
-### **Seguridad y Autenticación**
-*   **Laravel Sanctum**: Sistema de autenticación ligero para SPAs y APIs, gestionando tokens seguros para la comunicación cliente-servidor.
-*   **CORS & Middleware**: Protección de rutas API integrada para asegurar que solo orígenes autorizados consuman los datos.
-*   **Validación Estricta**: Sanitización de entradas en todos los endpoints para prevenir inyecciones SQL y XSS.
-
-### **Base de Datos**
-*   **MySQL**: Sistema de gestión de bases de datos relacional para el almacenamiento estructurado de usuarios, perfiles y datos del Tzolkin.
-*   **Eloquent ORM**: Capa de abstracción de base de datos de Laravel para consultas intuitivas y relaciones de modelos eficientes.
+- 🔮 **Kin Diario** - Cálculo automático del Kin según el calendario Tzolkin
+- 📖 **260 Kines** - Descripciones completas, afirmaciones e imágenes para cada Kin
+- 🎴 **20 Sellos Solares** - Galería con descripciones detalladas
+- 🎵 **13 Tonos Galácticos** - Explicación de cada frecuencia
+- 🔺 **Quinta Fuerza** - Visualización interactiva del Oráculo Maya
+- 🤖 **Asistente IA** - Chat con conocimiento del Tzolkin (Google Gemini)
+- 🎧 **Podcast Spotify** - Integración del podcast "Tu Energía Maya"
+- 📱 **PWA** - Instalable como app en móviles
 
 ---
 
-## 3. Integraciones y Servicios Externos
+## 🛠️ Stack Tecnológico
 
-### **Datos y Sincronismo**
-*   **Algoritmo Tzolkin (Custom)**: Motor lógico interno desarrollado en JavaScript (`utils/tzolkin.js`) para el cálculo astronómico preciso de Kines, Ondas Encantadas y Oráculos basado en la fecha de nacimiento.
-*   **Spotify Web API (o Embeds)**: Integración para la reproducción de "La Voz del Kin" (podcasts diarios) directamente en la interfaz.
+### Frontend
+| Tecnología | Versión | Uso |
+|------------|---------|-----|
+| React | 19 | UI Framework |
+| Vite | 7.x | Build Tool |
+| Material UI | 7 | Design System (M3) |
+| Capacitor | 8 | Android Build |
+
+### Backend
+| Tecnología | Versión | Uso |
+|------------|---------|-----|
+| Laravel | 12 | API REST |
+| PHP | 8.2 | Runtime |
+| MySQL | 8 | Database |
+
+### AI Assistant
+| Tecnología | Uso |
+|------------|-----|
+| FastAPI | Python Server |
+| Google Gemini | AI Responses |
 
 ---
 
-## 4. Infraestructura y Despliegue (DevOps)
+## 📁 Estructura del Proyecto
 
-### **Frontend Hosting**
-*   **GitHub Pages**: Alojamiento estático globalmente distribuido para la entrega rápida de la aplicación cliente (React).
-
-### **Backend Hosting**
-*   **VPS (Virtual Private Server)**: Alojamiento auto-gestionado (Self-Hosted) para la API Laravel y la base de datos MySQL, garantizando soberanía de datos y control total del entorno.
-
-### **Control de Versiones**
-*   **Git & GitHub**: Gestión de código fuente con flujo de trabajo basado en ramas (Features/Fixes) y despliegue continuo manual.
+```
+TuEnergiaMaya/
+├── frontend/                 # React + Vite SPA
+│   ├── src/
+│   │   ├── components/       # 8 componentes React
+│   │   │   ├── ChatAssistant.jsx
+│   │   │   ├── Infographic.jsx
+│   │   │   ├── NatalKinTool.jsx
+│   │   │   ├── QuintaFuerza.jsx
+│   │   │   ├── SpotifyPlayer.jsx
+│   │   │   ├── ToneList.jsx
+│   │   │   └── TribeList.jsx
+│   │   ├── services/api.js   # API centralized calls
+│   │   ├── data/dailyData.json # 260 Kines data
+│   │   └── utils/tzolkin.js  # Kin calculation algorithm
+│   ├── public/
+│   │   ├── manifest.json     # PWA config
+│   │   └── sw.js             # Service Worker
+│   └── android/              # Capacitor Android build
+│
+├── backend/                  # Laravel API
+│   ├── app/Http/Controllers/Api/
+│   │   ├── KinController.php
+│   │   └── OracleController.php
+│   └── app/Models/
+│       ├── Kin.php, Seal.php, Tone.php, User.php
+│
+├── ai-assistant/             # Python AI Server
+│   ├── server.py             # FastAPI endpoint
+│   ├── requirements.txt
+│   └── knowledge/            # Context for AI
+│
+└── start_assistant.sh        # Script to start AI server
+```
 
 ---
 
-## 5. Resumen de Herramientas
-| Categoría | Tecnología | Uso Principal |
-| :--- | :--- | :--- |
-| **Frontend** | React 19 + Vite | Lógica de Cliente y Build System |
-| **UI Framework** | Material UI (MUI) v7 | Componentes Visuales y Sistema de Diseño |
-| **Mobile** | Capacitor v8 | Compilación Nativa Android |
-| **Backend** | Laravel 12 (PHP 8.2) | API REST y Lógica de Negocio |
-| **Database** | MySQL | Persistencia de Datos |
-| **Auth** | Laravel Sanctum | Seguridad API Token-based |
-| **Gráficos** | HTML5 Canvas | Visualización de Quinta Fuerza (Oráculo) |
+## 🚀 Instalación
 
-## Estándares de Código
-*   **Clean Code**: Funciones puras, componentes pequeños y reutilizables.
-*   **Responsive Design**: Adaptabilidad total desde móviles pequeños hasta pantallas de escritorio (Mobile-First).
-*   **Accesibilidad (a11y)**: Uso de contrastes adecuados y etiquetas semánticas.
+### Frontend (Development)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Backend (Laravel)
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve --port=8000
+```
+
+### AI Assistant
+```bash
+cd ai-assistant
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+# Configure GEMINI_API_KEY in .env
+python server.py
+```
+
+---
+
+## 🌐 Despliegue
+
+| Servicio | URL/Puerto |
+|----------|------------|
+| **Web (GitHub Pages)** | https://manu-alvarez.github.io/TuEnergiaMaya/ |
+| Frontend Dev | http://localhost:5173 |
+| Backend API | http://localhost:8000 |
+| AI Assistant | http://localhost:8002 |
+
+---
+
+## 📊 API Endpoints
+
+```
+GET  /api/kines           # List all 260 Kines
+GET  /api/kines/today     # Today's Kin
+GET  /api/kines/{number}  # Specific Kin (1-260)
+POST /api/assistant/ask   # AI Chat
+POST /api/oracle/prophesy # 13-day prophecy
+```
+
+---
+
+## 🎨 Design System
+
+- **Primary Color**: Turquoise `#00d4aa`
+- **Background**: Dark gradient with glassmorphism
+- **Typography**: Cinzel (headers), Lora (body)
+- **Effects**: Glow, blur, dynamic shadows
+
+---
+
+## 📱 PWA Features
+
+- ✅ Installable on mobile devices
+- ✅ Service Worker for offline caching
+- ✅ Custom theme color and icons
+- ✅ Standalone display mode
+
+---
+
+## 📄 License
+
+MIT © TuEnergíaMaya
