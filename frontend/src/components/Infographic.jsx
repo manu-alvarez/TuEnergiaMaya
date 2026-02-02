@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import './Infographic.css';
 
 const COLORS_HEX = {
@@ -64,12 +64,28 @@ const Infographic = ({ kinData, isFullScreen, isCard, onClose }) => {
 
 
             {isFullScreen && onClose && (
-                <button
-                    className="infographic-close-btn"
-                    onClick={(e) => { e.stopPropagation(); onClose(); }}
-                >
-                    ✕ VOLVER
-                </button>
+                <Box sx={{ position: 'fixed', top: 20, right: 20, zIndex: 1000 }}>
+                    <Button
+                        variant="outlined"
+                        onClick={(e) => { e.stopPropagation(); onClose(); }}
+                        sx={{
+                            color: 'white',
+                            borderColor: 'rgba(255, 255, 255, 0.5)',
+                            borderRadius: '20px',
+                            px: 4,
+                            py: 0.5,
+                            fontSize: '0.8rem',
+                            bgcolor: 'rgba(0,0,0,0.5)',
+                            backdropFilter: 'blur(5px)',
+                            '&:hover': {
+                                borderColor: 'white',
+                                bgcolor: 'rgba(255, 255, 255, 0.2)'
+                            }
+                        }}
+                    >
+                        VOLVER
+                    </Button>
+                </Box>
             )}
 
             <div className="infographic-container">

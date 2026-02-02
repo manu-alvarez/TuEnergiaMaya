@@ -2,40 +2,41 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Seal;
+use App\Models\Tone;
+use App\Models\Kin;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class KinSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $seals = [
-            1 => ['name' => 'Dragón', 'color' => 'Red'],
-            2 => ['name' => 'Viento', 'color' => 'White'],
-            3 => ['name' => 'Noche', 'color' => 'Blue'],
-            4 => ['name' => 'Semilla', 'color' => 'Yellow'],
-            5 => ['name' => 'Serpiente', 'color' => 'Red'],
-            6 => ['name' => 'Enlazador de Mundos', 'color' => 'White'],
-            7 => ['name' => 'Mano', 'color' => 'Blue'],
-            8 => ['name' => 'Estrella', 'color' => 'Yellow'],
-            9 => ['name' => 'Luna', 'color' => 'Red'],
-            10 => ['name' => 'Perro', 'color' => 'White'],
-            11 => ['name' => 'Mono', 'color' => 'Blue'],
-            12 => ['name' => 'Humano', 'color' => 'Yellow'],
-            13 => ['name' => 'Caminante del Cielo', 'color' => 'Red'],
-            14 => ['name' => 'Mago', 'color' => 'White'],
-            15 => ['name' => 'Águila', 'color' => 'Blue'],
-            16 => ['name' => 'Guerrero', 'color' => 'Yellow'],
-            17 => ['name' => 'Tierra', 'color' => 'Red'],
-            18 => ['name' => 'Espejo', 'color' => 'White'],
-            19 => ['name' => 'Tormenta', 'color' => 'Blue'],
-            20 => ['name' => 'Sol', 'color' => 'Yellow'],
+        $sealsData = [
+            1 => ['name' => 'Dragón', 'slug' => 'dragon', 'color' => 'Red', 'essence' => 'nutrir tus nuevos comienzos'],
+            2 => ['name' => 'Viento', 'slug' => 'viento', 'color' => 'White', 'essence' => 'comunicar tu verdad espiritual'],
+            3 => ['name' => 'Noche', 'slug' => 'noche', 'color' => 'Blue', 'essence' => 'confiar en tu intuición y sueños'],
+            4 => ['name' => 'Semilla', 'slug' => 'semilla', 'color' => 'Yellow', 'essence' => 'enfocarte en tu potencial de crecimiento'],
+            5 => ['name' => 'Serpiente', 'slug' => 'serpiente', 'color' => 'Red', 'essence' => 'conectar con tu fuerza vital y pasión'],
+            6 => ['name' => 'Enlazador de Mundos', 'slug' => 'enlazador-de-mundos', 'color' => 'White', 'essence' => 'cerrar ciclos y abrir nuevas puertas'],
+            7 => ['name' => 'Mano', 'slug' => 'mano', 'color' => 'Blue', 'essence' => 'sanar a través de tus acciones'],
+            8 => ['name' => 'Estrella', 'slug' => 'estrella', 'color' => 'Yellow', 'essence' => 'crear belleza y armonía en tu entorno'],
+            9 => ['name' => 'Luna', 'slug' => 'luna', 'color' => 'Red', 'essence' => 'purificar tus emociones y fluir'],
+            10 => ['name' => 'Perro', 'slug' => 'perro', 'color' => 'White', 'essence' => 'actuar desde la lealtad y el amor'],
+            11 => ['name' => 'Mono', 'slug' => 'mono', 'color' => 'Blue', 'essence' => 'jugar y disfrutar de la magia de la vida'],
+            12 => ['name' => 'Humano', 'slug' => 'humano', 'color' => 'Yellow', 'essence' => 'ejercer tu libre albedrío con sabiduría'],
+            13 => ['name' => 'Caminante del Cielo', 'slug' => 'caminante-del-cielo', 'color' => 'Red', 'essence' => 'explorar nuevos horizontes espirituales'],
+            14 => ['name' => 'Mago', 'slug' => 'mago', 'color' => 'White', 'essence' => 'vivir en el presente con consciencia'],
+            15 => ['name' => 'Águila', 'slug' => 'aguila', 'color' => 'Blue', 'essence' => 'tener una visión amplia de tu futuro'],
+            16 => ['name' => 'Guerrero', 'slug' => 'guerrero', 'color' => 'Yellow', 'essence' => 'cuestionar tus miedos con valentía'],
+            17 => ['name' => 'Tierra', 'slug' => 'tierra', 'color' => 'Red', 'essence' => 'sincronizarte con los ciclos de la naturaleza'],
+            18 => ['name' => 'Espejo', 'slug' => 'espejo', 'color' => 'White', 'essence' => 'ver la realidad sin ilusiones'],
+            19 => ['name' => 'Tormenta', 'slug' => 'tormenta', 'color' => 'Blue', 'essence' => 'catalizar tu proceso de transformación'],
+            20 => ['name' => 'Sol', 'slug' => 'sol', 'color' => 'Yellow', 'essence' => 'irradiar la luz de tu verdadera esencia'],
         ];
 
-        $tones = [
+        $tonesData = [
             1 => ['name' => 'Magnético', 'action' => 'unificar tus propósitos'],
             2 => ['name' => 'Lunar', 'action' => 'identificar tus desafíos'],
             3 => ['name' => 'Eléctrico', 'action' => 'activar tu servicio'],
@@ -51,97 +52,68 @@ class KinSeeder extends Seeder
             13 => ['name' => 'Cósmico', 'action' => 'trascender a través de tu presencia'],
         ];
 
-        $sealEssences = [
-            'Dragón' => 'nutrir tus nuevos comienzos',
-            'Viento' => 'comunicar tu verdad espiritual',
-            'Noche' => 'confiar en tu intuición y sueños',
-            'Semilla' => 'enfocarte en tu potencial de crecimiento',
-            'Serpiente' => 'conectar con tu fuerza vital y pasión',
-            'Enlazador de Mundos' => 'cerrar ciclos y abrir nuevas puertas',
-            'Mano' => 'sanar a través de tus acciones',
-            'Estrella' => 'crear belleza y armonía en tu entorno',
-            'Luna' => 'purificar tus emociones y fluir',
-            'Perro' => 'actuar desde la lealtad y el amor',
-            'Mono' => 'jugar y disfrutar de la magia de la vida',
-            'Humano' => 'ejercer tu libre albedrío con sabiduría',
-            'Caminante del Cielo' => 'explorar nuevos horizontes espirituales',
-            'Mago' => 'vivir en el presente con consciencia',
-            'Águila' => 'tener una visión amplia de tu futuro',
-            'Guerrero' => 'cuestionar tus miedos con valentía',
-            'Tierra' => 'sincronizarte con los ciclos de la naturaleza',
-            'Espejo' => 'ver la realidad sin ilusiones',
-            'Tormenta' => 'catalizar tu proceso de transformación',
-            'Sol' => 'irradiar la luz de tu verdadera esencia',
-        ];
+        // Seed Seals
+        foreach ($sealsData as $index => $data) {
+            Seal::updateOrCreate(['id' => $index], $data);
+        }
 
-        // 1. Initialize all 260 Kines
+        // Seed Tones
+        foreach ($tonesData as $index => $data) {
+            Tone::updateOrCreate(['id' => $index], ['number' => $index] + $data);
+        }
+
+        // Seed Kines
         for ($i = 1; $i <= 260; $i++) {
             $toneIdx = (($i - 1) % 13) + 1;
             $sealIdx = (($i - 1) % 20) + 1;
 
-            $sealConfig = $seals[$sealIdx];
-            $toneConfig = $tones[$toneIdx];
+            $seal = Seal::find($sealIdx);
+            $tone = Tone::find($toneIdx);
 
-            $sealName = $sealConfig['name'];
-            $toneName = $toneConfig['name'];
-            $sealEssence = $sealEssences[$sealName];
-            $toneAction = $toneConfig['action'];
+            $shortDescription = "Hoy es un gran día para " . $tone->action . " al " . $seal->essence . ".";
 
-            $shortDescription = "Hoy es un gran día para " . $toneAction . " al " . $sealEssence . ".";
-
-            \App\Models\Kin::updateOrCreate(
+            Kin::updateOrCreate(
                 ['kin_number' => $i],
                 [
-                    'name' => "{$sealName} {$toneName}",
-                    'seal_name' => $sealName,
-                    'tone_name' => $toneName,
-                    'color' => $sealConfig['color'],
+                    'seal_id' => $seal->id,
+                    'tone_id' => $tone->id,
+                    'name' => "{$seal->name} {$tone->name}",
+                    'slug' => $seal->slug . '-' . Str::slug($tone->name),
                     'affirmation' => '',
                     'short_description' => $shortDescription,
                     'description' => '',
+                    'long_description' => '',
                     'image_url' => null,
                 ]
             );
         }
 
-        // 2. Overlay with specific info from files
+        // Overlay with folder info
         $infoKinesPath = base_path('../info kines');
-        if (\Illuminate\Support\Facades\File::exists($infoKinesPath)) {
-            $directories = \Illuminate\Support\Facades\File::directories($infoKinesPath);
-
+        if (File::exists($infoKinesPath)) {
+            $directories = File::directories($infoKinesPath);
             foreach ($directories as $dir) {
                 $folderName = basename($dir);
                 $txtFile = $dir . '/' . $folderName . '.txt';
 
-                if (\Illuminate\Support\Facades\File::exists($txtFile)) {
-                    $content = \Illuminate\Support\Facades\File::get($txtFile);
-                    $data = [];
-                    $lines = explode("\n", $content);
-                    foreach ($lines as $line) {
-                        if (str_contains($line, ':')) {
-                            [$key, $value] = explode(':', $line, 2);
-                            $key = trim($key);
-                            $value = trim($value, " \t\n\r\0\x0B\",");
-                            $data[$key] = $value;
-                        }
-                    }
+                if (File::exists($txtFile)) {
+                    $content = File::get($txtFile);
+                    $data = $this->parseTxt($content);
 
                     if (isset($data['kinID'])) {
                         $kinNumber = (int) str_replace('Kin ', '', $data['kinID']);
 
-                        // Look for image with multiple extensions
-                        $imageExtensions = ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'];
+                        // Image detection
                         $foundImage = null;
-                        foreach ($imageExtensions as $ext) {
-                            $imgPath = $dir . "/Kin {$kinNumber}.{$ext}";
-                            if (\Illuminate\Support\Facades\File::exists($imgPath)) {
+                        foreach (['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'] as $ext) {
+                            if (File::exists($dir . "/Kin {$kinNumber}.{$ext}")) {
                                 $foundImage = "/images/kines/Kin {$kinNumber}.{$ext}";
                                 break;
                             }
                         }
 
-                        \App\Models\Kin::where('kin_number', $kinNumber)->update([
-                            'name' => $data['nombre'] ?? \App\Models\Kin::where('kin_number', $kinNumber)->value('name'),
+                        Kin::where('kin_number', $kinNumber)->update([
+                            'name' => $data['nombre'] ?? null,
                             'affirmation' => $data['afirmacion'] ?? '',
                             'image_url' => $foundImage,
                         ]);
@@ -149,5 +121,18 @@ class KinSeeder extends Seeder
                 }
             }
         }
+    }
+
+    private function parseTxt($content)
+    {
+        $data = [];
+        $lines = explode("\n", $content);
+        foreach ($lines as $line) {
+            if (str_contains($line, ':')) {
+                [$key, $value] = explode(':', $line, 2);
+                $data[trim($key)] = trim($value, " \t\n\r\0\x0B\",");
+            }
+        }
+        return $data;
     }
 }

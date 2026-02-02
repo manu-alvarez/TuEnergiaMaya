@@ -321,3 +321,38 @@ export const getKinConfig = (kinNumber) => {
         oracle: oracle
     };
 };
+
+export const generateMysticalMessage = (kinNumber) => {
+    const kin = getKinConfig(kinNumber);
+    const { seal_name, tone_name, advice, seal_desc, affirmation, oracle } = kin;
+
+    const intros = [
+        "Desde el corazón del cielo,",
+        "En la espiral del tiempo,",
+        "Los abuelos galácticos susurran:",
+        "La vibración de hoy revela:"
+    ];
+    const intro = intros[kinNumber % intros.length];
+
+    const message = `
+**${intro}**
+
+Hoy la energía del **${seal_name}** te envuelve. 
+${seal_desc}
+
+**Tu Onda Encantada te guía:**
+Es un momento sagrado para **${advice.ideal[0].toLowerCase()}** y **${advice.ideal[1].toLowerCase()}**. 
+Ten cuidado con **${advice.avoid[0].toLowerCase()}**, pues podría nublar tu visión.
+
+**Oráculo de Poder:**
+Guía: ${oracle.guide.name}
+Análogo: ${oracle.analog.name}
+Antípoda: ${oracle.antipode.name}
+Oculto: ${oracle.occult.name}
+
+"${affirmation}"
+
+*In Lak'ech - Yo soy otro tú.*
+    `;
+    return message.trim();
+};

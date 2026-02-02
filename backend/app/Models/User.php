@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property int|null $kin_id
+ * @property-read \App\Models\Kin|null $kin
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Friendship[] $friendshipsSent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Friendship[] $friendshipsReceived
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -21,6 +30,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'kin_id',
     ];
 
     /**
@@ -44,5 +54,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function kin()
+    {
+        return $this->belongsTo(Kin::class);
+    }
+
+    public function friendshipsSent()
+    {
+        return $this->hasMany(Friendship::class, 'requester_id');
+    }
+
+    public function friendshipsReceived()
+    {
+        return $this->hasMany(Friendship::class, 'addressee_id');
     }
 }
