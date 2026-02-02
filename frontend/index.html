@@ -5,11 +5,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/manifest.json" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>TuEnergiaMaya - Tu Kin Diario</title>
   <meta name="description"
     content="Descubre tu energía diaria con el Tzolkin Maya. TuEnergiaMaya te ofrece detalles profundos sobre el Kin del día, sincronía y sabiduría ancestral." />
-  <meta name="theme-color" content="#1a1a2e" />
+  <meta name="theme-color" content="#00d4aa" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -20,6 +21,13 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
 </body>
 
 </html>
