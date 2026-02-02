@@ -103,7 +103,7 @@ const QuintaFuerza = ({ kinData }) => {
                 if (index === 0 && kin?.oracle?.guide?.color) { targetColorName = kin.oracle.guide.color; } // Top - Guide
                 else if (index === 1 && kin?.oracle?.analog?.color) { targetColorName = kin.oracle.analog.color; } // Right - Analog
                 else if (index === 2 && kin?.oracle?.antipode?.color) { targetColorName = kin.oracle.antipode.color; } // Left - Antipode
-                else if (index === 3 && kin?.oracle?.hidden?.color) { targetColorName = kin.oracle.hidden.color; } // Bottom - Hidden
+                else if (index === 3 && kin?.oracle?.occult?.color) { targetColorName = kin.oracle.occult.color; } // Bottom - Occult
 
                 // Map color name to hex
                 if (targetColorName.includes('Rojo') || targetColorName === 'Rojo') targetColorHex = '#ef4444';
@@ -341,8 +341,14 @@ const QuintaFuerza = ({ kinData }) => {
                                 <Box sx={{
                                     width: 100, height: 100, mx: 'auto', mb: 2, p: 2,
                                     borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-                                    border: '2px solid rgba(147, 51, 234, 0.5)',
-                                    boxShadow: '0 0 30px rgba(147, 51, 234, 0.2)'
+                                    border: `2px solid ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
+                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
+                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
+                                                '#eab308'}`,
+                                    boxShadow: `0 0 30px ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? 'rgba(239,68,68,0.3)' :
+                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? 'rgba(255,255,255,0.3)' :
+                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? 'rgba(59,130,246,0.3)' :
+                                                'rgba(234,179,8,0.3)'}`
                                 }}>
                                     <img
                                         src={`assets/glyphs/seals/${selectedSeal.slug}.png`}
@@ -350,7 +356,14 @@ const QuintaFuerza = ({ kinData }) => {
                                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                                     />
                                 </Box>
-                                <Typography variant="overline" color="primary.light" sx={{ letterSpacing: 3, fontWeight: 'bold' }}>
+                                <Typography variant="overline" sx={{
+                                    letterSpacing: 3,
+                                    fontWeight: 'bold',
+                                    color: (selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
+                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
+                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
+                                                '#eab308'
+                                }}>
                                     {selectedSeal.label}
                                 </Typography>
                                 <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: 'white', mb: 1 }}>
