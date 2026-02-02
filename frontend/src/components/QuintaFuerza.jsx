@@ -166,7 +166,7 @@ const QuintaFuerza = ({ kinData }) => {
             window.removeEventListener('resize', resize);
             window.cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [kin]);
 
     const getColorGradient = (color) => {
         const c = color.toLowerCase();
