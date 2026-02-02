@@ -33,15 +33,24 @@
 ### Backend
 | Tecnología | Versión | Uso |
 |------------|---------|-----|
-| Laravel | 12 | API REST |
-| PHP | 8.2 | Runtime |
-| MySQL | 8 | Database |
+| Laravel | 12 | API REST Framework |
+| PHP | 8.2 | Runtime con JIT |
+| MySQL | 8.x | Base de datos relacional |
+| Eloquent ORM | - | Abstracción de BD |
+
+### Base de Datos
+- **Motor**: MySQL 8.x
+- **Nombre**: `tu_energia_maya`
+- **Tablas principales**: `kines`, `seals`, `tones`, `users`
+- **ORM**: Laravel Eloquent
 
 ### AI Assistant
 | Tecnología | Uso |
 |------------|-----|
-| FastAPI | Python Server |
-| Google Gemini | AI Responses |
+| FastAPI | Servidor Python (puerto 8002) |
+| Google Gemini 2.0 Flash | Generación de respuestas IA |
+| Uvicorn | ASGI Server |
+
 
 ---
 
