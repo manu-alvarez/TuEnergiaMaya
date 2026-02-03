@@ -61,16 +61,19 @@ export const api = {
         return response.data;
     },
 
-    // AI Assistant
+    // AI Assistant (via Google Apps Script)
     askAssistant: async (text, history = [], context = null) => {
-        const formData = new FormData();
-        formData.append('text', text);
-        if (history.length > 0) formData.append('history', JSON.stringify(history));
-        if (context) formData.append('context', JSON.stringify(context));
+        // Production: Google Apps Script | Dev: localhost
+        const assistantUrl = import.meta.env.VITE_ASSISTANT_URL ||
+            'https://script.google.com/macros/s/AKfycbzcgaXqV5h-wgtE0yQso9eqTJzaIpCs5RpQwJibnzZxDbtoSKf6VC5jzzPi9CLgV0PAqQ/exec';
 
-        // Target high-performance AI server directly
-        const assistantUrl = import.meta.env.VITE_ASSISTANT_URL || 'http://localhost:8002';
-        const response = await axios.post(`${assistantUrl}/ask`, formData);
+        const response = await axios.post(assistantUrl, {
+            text: text,
+            history: history,
+            context: context
+        }, {
+            headers: { 'Content-Type': 'text/plain' } // Required for Google Apps Script CORS
+        });
         return response.data;
     }
 };
