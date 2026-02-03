@@ -47,7 +47,8 @@ const ChatAssistant = () => {
         setIsLoading(true);
 
         try {
-            const response = await api.askAssistant(queryText, messages.concat(userMsg), null);
+            // Send ONLY previous messages as history (exclude current message - already in queryText)
+            const response = await api.askAssistant(queryText, messages, null);
             const data = response;
 
             if (data.error) throw new Error(data.error);
