@@ -47,8 +47,12 @@ const ChatAssistant = () => {
         setIsLoading(true);
 
         try {
-            // Send ONLY previous messages as history (exclude current message - already in queryText)
-            const response = await api.askAssistant(queryText, messages, null);
+            // Filter history: exclude welcome message (id=1) and remove id field
+            // Gemini requires history to START with 'user' role, not 'assistant'
+            const cleanHistory = messages
+                .filter(m => m.id !== 1) // Remove welcome message
+                .map(({ text, sender }) => ({ text, sender })); // Only text and sender
+            const response = await api.askAssistant(queryText, cleanHistory, null);
             const data = response;
 
             if (data.error) throw new Error(data.error);
