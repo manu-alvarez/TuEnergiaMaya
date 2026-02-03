@@ -176,6 +176,16 @@ const QuintaFuerza = ({ kinData }) => {
         return 'radial-gradient(circle, rgba(255, 215, 64, 0.4) 0%, transparent 70%)';
     };
 
+    // Robust color to hex conversion
+    const getColorHex = (colorValue) => {
+        if (!colorValue || typeof colorValue !== 'string') return '#eab308'; // Default yellow
+        const c = colorValue.toLowerCase();
+        if (c.includes('rojo') || c.includes('roja')) return '#ef4444';
+        if (c.includes('blanco') || c.includes('blanca')) return '#ffffff';
+        if (c.includes('azul')) return '#3b82f6';
+        return '#eab308'; // Amarillo default
+    };
+
     const handleSealClick = (seal, label) => {
         setSelectedSeal({ ...seal, label });
     };
@@ -237,20 +247,12 @@ const QuintaFuerza = ({ kinData }) => {
                         borderRadius: '50%',
                         background: 'rgba(15, 15, 30, 0.8)',
                         backdropFilter: 'blur(10px)',
-                        border: `2px solid ${(color.includes('Rojo') || color === '#ef4444') ? '#ef4444' :
-                            (color.includes('Blanco') || color === '#f9fafb') ? '#ffffff' :
-                                (color.includes('Azul') || color === '#3b82f6') ? '#3b82f6' :
-                                    '#eab308' // Amarillo
-                            }`,
+                        border: `2px solid ${getColorHex(color)}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         p: 1.5,
-                        boxShadow: hoveredPos === label ? `0 0 30px ${(color.includes('Rojo') || color === '#ef4444') ? 'rgba(255,0,0,0.5)' :
-                            (color.includes('Blanco') || color === '#f9fafb') ? 'rgba(255,255,255,0.5)' :
-                                (color.includes('Azul') || color === '#3b82f6') ? 'rgba(0,100,255,0.5)' :
-                                    'rgba(255,215,0,0.5)'
-                            }` : 'none',
+                        boxShadow: hoveredPos === label ? `0 0 30px ${getColorHex(color)}80` : 'none',
                         animation: 'float-ethereal 4s ease-in-out infinite'
                     }}>
                         <img
