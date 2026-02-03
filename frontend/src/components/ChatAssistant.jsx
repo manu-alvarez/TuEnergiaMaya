@@ -47,14 +47,14 @@ const ChatAssistant = () => {
         setIsLoading(true);
 
         try {
-            const response = await api.askAssistant(queryText, messages.concat(userMsg), kinData?.kin);
+            const response = await api.askAssistant(queryText, messages.concat(userMsg), null);
             const data = response;
 
             if (data.error) throw new Error(data.error);
 
             const assistantMsg = {
                 id: Date.now() + 1,
-                text: data.answer,
+                text: data.response || data.answer || 'Sin respuesta',
                 sender: 'assistant'
             };
             setMessages(prev => [...prev, assistantMsg]);
