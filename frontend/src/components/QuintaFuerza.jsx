@@ -182,7 +182,8 @@ const QuintaFuerza = ({ kinData }) => {
 
     const SelloSagrado = ({ seal, label, position, isCenter = false }) => {
         if (!seal) return null;
-        const color = seal.color || 'Amarillo';
+        // Get color from seal data - check multiple possible properties
+        const color = seal.color || seal.seal_color || 'Blanco';
         const auraColor = getColorGradient(color);
 
         return (
