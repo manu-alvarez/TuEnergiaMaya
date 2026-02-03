@@ -1,6 +1,10 @@
 /**
  * TuEnergíaMaya AI Assistant - Google Apps Script
  * Este script actúa como proxy entre tu frontend y la API de Gemini
+ * 
+ * IMPORTANTE: Después de modificar este archivo, debes:
+ * 1. Implementar → Nueva implementación
+ * 2. Copiar la nueva URL
  */
 
 // Tu API Key de Gemini (configúrala en Propiedades del script)
@@ -11,14 +15,24 @@ const SYSTEM_PROMPT = `Eres Ixchel, la sabia guardiana del Tzolkin Maya.
 Respondes preguntas sobre el calendario Maya, los 20 sellos solares, 
 los 13 tonos galácticos, y la sincronicidad. 
 Hablas en español con un tono místico pero accesible.
-Mantén las respuestas concisas pero profundas.`;
+Mantén las respuestas concisas pero profundas (máximo 3 párrafos).`;
 
-function doPost(e) {
+// Usamos doGet para evitar problemas de CORS con POST
+function doGet(e) {
+  // Si no hay parámetro 'text', es un health check
+  if (!e.parameter.text) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'ok', service: 'TuEnergíaMaya AI' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
   try {
-    const data = JSON.parse(e.postData.contents);
-    const userMessage = data.text || data.message || '';
-    const history = data.history || [];
-    const context = data.context || {};
+    const userMessage = e.parameter.text || '';
+    const historyParam = e.parameter.history || '[]';
+    const contextParam = e.parameter.context || '{}';
+    
+    const history = JSON.parse(decodeURIComponent(historyParam));
+    const context = JSON.parse(decodeURIComponent(contextParam));
     
     // Construir mensajes para Gemini
     const messages = [];
@@ -58,11 +72,46 @@ function doPost(e) {
   }
 }
 
-function doGet(e) {
-  // Health check
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'ok', service: 'TuEnergíaMaya AI' }))
-    .setMimeType(ContentService.MimeType.JSON);
+// También soportamos POST por compatibilidad
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const userMessage = data.text || data.message || '';
+    const history = data.history || [];
+    const context = data.context || {};
+    
+    const messages = [];
+    
+    if (history.length > 0) {
+      history.forEach(msg => {
+        messages.push({
+          role: msg.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: msg.content }]
+        });
+      });
+    }
+    
+    let fullMessage = userMessage;
+    if (context.kin_number) {
+      fullMessage = `[Contexto: Kin ${context.kin_number}] ` + userMessage;
+    }
+    
+    messages.push({
+      role: 'user',
+      parts: [{ text: fullMessage }]
+    });
+    
+    const response = callGemini(messages);
+    
+    return ContentService
+      .createTextOutput(JSON.stringify({ response: response }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ error: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 function callGemini(messages) {
@@ -96,18 +145,14 @@ function callGemini(messages) {
   throw new Error('No response from Gemini');
 }
 
-// Test function
+// Test function (ejecutar desde el editor)
 function testAssistant() {
   const testEvent = {
-    postData: {
-      contents: JSON.stringify({
-        text: "¿Qué significa el sello del Dragón Rojo?",
-        history: [],
-        context: { kin_number: 1 }
-      })
+    parameter: {
+      text: "¿Qué significa el sello del Dragón Rojo?"
     }
   };
   
-  const result = doPost(testEvent);
+  const result = doGet(testEvent);
   Logger.log(result.getContent());
 }

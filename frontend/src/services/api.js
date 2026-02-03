@@ -61,19 +61,20 @@ export const api = {
         return response.data;
     },
 
-    // AI Assistant (via Google Apps Script)
+    // AI Assistant (via Google Apps Script - using GET for CORS compatibility)
     askAssistant: async (text, history = [], context = null) => {
         // Production: Google Apps Script | Dev: localhost
-        const assistantUrl = import.meta.env.VITE_ASSISTANT_URL ||
-            'https://script.google.com/macros/s/AKfycbzcgaXqV5h-wgtE0yQso9eqTJzaIpCs5RpQwJibnzZxDbtoSKf6VC5jzzPi9CLgV0PAqQ/exec';
+        const baseUrl = import.meta.env.VITE_ASSISTANT_URL ||
+            'https://script.google.com/macros/s/AKfycbxrGtIyc20bn0CJojVHaeBBBhmJSPSbaXKkbaD0w9RxdVdTPGHw3_m6L6YxGeCH8IpcvQ/exec';
 
-        const response = await axios.post(assistantUrl, {
+        // Build URL with query params (GET for CORS compatibility)
+        const params = new URLSearchParams({
             text: text,
-            history: history,
-            context: context
-        }, {
-            headers: { 'Content-Type': 'text/plain' } // Required for Google Apps Script CORS
+            history: encodeURIComponent(JSON.stringify(history)),
+            context: encodeURIComponent(JSON.stringify(context || {}))
         });
+
+        const response = await axios.get(`${baseUrl}?${params.toString()}`);
         return response.data;
     }
 };
