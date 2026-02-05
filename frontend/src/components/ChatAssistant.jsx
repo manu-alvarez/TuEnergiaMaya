@@ -47,11 +47,15 @@ const ChatAssistant = ({ kinData }) => {
         setIsLoading(true);
 
         try {
-            // Filter history: exclude welcome message (id=1) and remove id field
-            // Gemini requires history to START with 'user' role, not 'assistant'
+            // Filter history: exclude welcome message (id=1) and map to backend expected format
+            // Backend expects: { role: 'user'|'model', content: 'text' }
+            // Frontend has: { sender: 'user'|'assistant', text: 'text' }
             const cleanHistory = messages
-                .filter(m => m.id !== 1) // Remove welcome message
-                .map(({ text, sender }) => ({ text, sender })); // Only text and sender
+                .filter(m => m.id !== 1)
+                .map(m => ({
+                    role: m.sender, // 'user' or 'assistant' (backend handles mapping to 'model')
+                    content: m.text
+                }));
 
             // Prepare context from kinData
             let context = null;

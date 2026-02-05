@@ -67,22 +67,21 @@ export const api = {
         const baseUrl = import.meta.env.VITE_ASSISTANT_URL ||
             'https://script.google.com/macros/s/AKfycbyc8SipUa7FqlqnBWVlqTy4rbmtMEjhFbmP2AmQ-JftZmuzfuaD2-xSPqv6L4qL0arjYg/exec';
 
-        // Prepare data
-        // Ensure context is a string if it's an object, or null
-        let contextStr = context;
-        if (context && typeof context === 'object') {
-            contextStr = JSON.stringify(context);
-        }
+        // Use POST to avoid URL length limits with long history.
+        // We use text/plain to comply with GAS CORS simple requests, 
+        // sending the JSON string as the body.
 
-        // Build params using URLSearchParams which handles encoding automatically
-        const params = new URLSearchParams();
-        params.append('text', text);
-        params.append('history', JSON.stringify(history));
-        if (contextStr) {
-            params.append('context', contextStr);
-        }
+        const payload = {
+            text: text,
+            history: history,
+            context: context // ChatAssistant passes a clean object now
+        };
 
-        const response = await axios.get(`${baseUrl}?${params.toString()}`);
+        const response = await axios.post(baseUrl, JSON.stringify(payload), {
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        });
         return response.data;
     }
 };
