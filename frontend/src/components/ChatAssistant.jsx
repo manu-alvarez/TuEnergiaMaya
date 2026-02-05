@@ -56,14 +56,15 @@ const ChatAssistant = ({ kinData }) => {
             // Prepare context from kinData
             let context = null;
             if (kinData && kinData.kin) {
-                context = JSON.stringify({
+                // Pass RAW OBJECT, let api.js handle serialization
+                context = {
                     kinNumber: kinData.kin_number,
                     seal: kinData.kin.seal_name,
                     tone: kinData.kin.tone_name,
                     color: kinData.kin.color,
                     date: kinData.date,
                     affirmation: kinData.kin.affirmation
-                });
+                };
             }
 
             const response = await api.askAssistant(queryText, cleanHistory, context);

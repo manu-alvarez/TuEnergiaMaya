@@ -67,12 +67,20 @@ export const api = {
         const baseUrl = import.meta.env.VITE_ASSISTANT_URL ||
             'https://script.google.com/macros/s/AKfycbxrGtIyc20bn0CJojVHaeBBBhmJSPSbaXKkbaD0w9RxdVdTPGHw3_m6L6YxGeCH8IpcvQ/exec';
 
-        // Build URL with query params (GET for CORS compatibility)
-        const params = new URLSearchParams({
-            text: text,
-            history: encodeURIComponent(JSON.stringify(history)),
-            context: encodeURIComponent(JSON.stringify(context || {}))
-        });
+        // Prepare data
+        // Ensure context is a string if it's an object, or null
+        let contextStr = context;
+        if (context && typeof context === 'object') {
+            contextStr = JSON.stringify(context);
+        }
+
+        // Build params using URLSearchParams which handles encoding automatically
+        const params = new URLSearchParams();
+        params.append('text', text);
+        params.append('history', JSON.stringify(history));
+        if (contextStr) {
+            params.append('context', contextStr);
+        }
 
         const response = await axios.get(`${baseUrl}?${params.toString()}`);
         return response.data;
