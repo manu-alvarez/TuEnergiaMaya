@@ -65,7 +65,7 @@ export const api = {
     askAssistant: async (text, history = [], context = null) => {
         // Production: Google Apps Script | Dev: localhost
         const baseUrl = import.meta.env.VITE_ASSISTANT_URL ||
-            'https://script.google.com/macros/s/AKfycbxrGtIyc20bn0CJojVHaeBBBhmJSPSbaXKkbaD0w9RxdVdTPGHw3_m6L6YxGeCH8IpcvQ/exec';
+            'https://script.google.com/macros/s/AKfycbyc8SipUa7FqlqnBWVlqTy4rbmtMEjhFbmP2AmQ-JftZmuzfuaD2-xSPqv6L4qL0arjYg/exec';
 
         // Prepare data
         // Ensure context is a string if it's an object, or null
