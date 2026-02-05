@@ -26,7 +26,7 @@ app.add_middleware(
 
 # Gemini Configuration
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('models/gemini-2.0-flash')
+# Model is now instantiated per-request to support dynamic system instructions
 
 # Knowledge Base Loading
 try:
@@ -86,13 +86,18 @@ async def ask_question(
 
         logger.info(f"Asking Gemini (Conversational): {text}")
         
+        # Instantiate model WITH system instruction for robust context
+        # This ensures personality and constraints persist even with history
+        current_model = genai.GenerativeModel(
+            'models/gemini-2.0-flash',
+            system_instruction=dynamic_system_prompt
+        )
+        
         # Start chat with history
-        chat = model.start_chat(history=chat_history)
+        chat = current_model.start_chat(history=chat_history)
         
-        # We include the dynamic system prompt at the very beginning
-        instructional_query = f"{dynamic_system_prompt}\n\nUsuario: {text}" if not chat_history else text
-        
-        response = await asyncio.to_thread(chat.send_message, instructional_query)
+        # Send message (no need to prepend prompt anymore, it's in system_instruction)
+        response = await asyncio.to_thread(chat.send_message, text)
         answer_text = response.text
 
         logger.info(f"Gemini Answer: {answer_text}")
