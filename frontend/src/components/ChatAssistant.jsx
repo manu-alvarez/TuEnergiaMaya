@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ChatIcon from '@mui/icons-material/Chat';
 import api from '../services/api';
 
-const ChatAssistant = () => {
+const ChatAssistant = ({ kinData }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
         { id: 1, text: "¡Hola! Soy el Guardián de Tu Energía Maya. Pregúntame lo que necesites sobre sabiduría maya.", sender: 'assistant' }
@@ -52,7 +52,21 @@ const ChatAssistant = () => {
             const cleanHistory = messages
                 .filter(m => m.id !== 1) // Remove welcome message
                 .map(({ text, sender }) => ({ text, sender })); // Only text and sender
-            const response = await api.askAssistant(queryText, cleanHistory, null);
+
+            // Prepare context from kinData
+            let context = null;
+            if (kinData && kinData.kin) {
+                context = JSON.stringify({
+                    kinNumber: kinData.kin_number,
+                    seal: kinData.kin.seal_name,
+                    tone: kinData.kin.tone_name,
+                    color: kinData.kin.color,
+                    date: kinData.date,
+                    affirmation: kinData.kin.affirmation
+                });
+            }
+
+            const response = await api.askAssistant(queryText, cleanHistory, context);
             const data = response;
 
             if (data.error) throw new Error(data.error);

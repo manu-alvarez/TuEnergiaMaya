@@ -649,7 +649,7 @@ function App() {
       </Modal>
 
       {/* CHAT ASSISTANT */}
-      <ChatAssistant />
+      <ChatAssistant kinData={kinData} />
 
     </Box>
   )
