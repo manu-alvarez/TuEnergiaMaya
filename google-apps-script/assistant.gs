@@ -47,19 +47,20 @@ function doGet(e) {
       });
     }
     
-    // Añadir mensaje actual con contexto
-    let fullMessage = userMessage;
-    if (context.kin_number) {
-      fullMessage = `[Contexto: Kin ${context.kin_number}] ` + userMessage;
+    // Construir instrucción de sistema dinámica con contexto
+    let effectiveSystemPrompt = SYSTEM_PROMPT;
+    if (context && context.kinNumber) {
+        effectiveSystemPrompt += `\n\nCONTEXTO ACTUAL (EL KIN QUE EL USUARIO VE EN PANTALLA):\n`;
+        effectiveSystemPrompt += `Kin: ${context.kinNumber}\n`;
+        effectiveSystemPrompt += `Sello: ${context.seal}\n`;
+        effectiveSystemPrompt += `Tono: ${context.tone}\n`;
+        effectiveSystemPrompt += `Color: ${context.color}\n`;
+        effectiveSystemPrompt += `Fecha: ${context.date}\n`;
+        effectiveSystemPrompt += `Afirmación: ${context.affirmation}`;
     }
-    
-    messages.push({
-      role: 'user',
-      parts: [{ text: fullMessage }]
-    });
-    
-    // Llamar a Gemini API
-    const response = callGemini(messages);
+
+    // Llamar a Gemini API con el prompt dinámico
+    const response = callGemini(messages, effectiveSystemPrompt);
     
     return ContentService
       .createTextOutput(JSON.stringify({ response: response }))
@@ -78,7 +79,12 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     const userMessage = data.text || data.message || '';
     const history = data.history || [];
-    const context = data.context || {};
+    // En POST, context ya viene como objeto normalmente
+    let context = data.context || {};
+    // Si viene como string, intentamos parsear
+    if (typeof context === 'string') {
+        try { context = JSON.parse(context); } catch(e) {}
+    }
     
     const messages = [];
     
@@ -91,17 +97,24 @@ function doPost(e) {
       });
     }
     
-    let fullMessage = userMessage;
-    if (context.kin_number) {
-      fullMessage = `[Contexto: Kin ${context.kin_number}] ` + userMessage;
-    }
-    
     messages.push({
       role: 'user',
-      parts: [{ text: fullMessage }]
+      parts: [{ text: userMessage }]
     });
     
-    const response = callGemini(messages);
+    // Construir instrucción de sistema dinámica con contexto
+    let effectiveSystemPrompt = SYSTEM_PROMPT;
+    if (context && context.kinNumber) {
+        effectiveSystemPrompt += `\n\nCONTEXTO ACTUAL (EL KIN QUE EL USUARIO VE EN PANTALLA):\n`;
+        effectiveSystemPrompt += `Kin: ${context.kinNumber}\n`;
+        effectiveSystemPrompt += `Sello: ${context.seal}\n`;
+        effectiveSystemPrompt += `Tono: ${context.tone}\n`;
+        effectiveSystemPrompt += `Color: ${context.color}\n`;
+        effectiveSystemPrompt += `Fecha: ${context.date}\n`;
+        effectiveSystemPrompt += `Afirmación: ${context.affirmation}`;
+    }
+    
+    const response = callGemini(messages, effectiveSystemPrompt);
     
     return ContentService
       .createTextOutput(JSON.stringify({ response: response }))
@@ -114,12 +127,12 @@ function doPost(e) {
   }
 }
 
-function callGemini(messages) {
+function callGemini(messages, systemPrompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
   
   const payload = {
     systemInstruction: {
-      parts: [{ text: SYSTEM_PROMPT }]
+      parts: [{ text: systemPrompt }]
     },
     contents: messages,
     generationConfig: {
@@ -140,6 +153,11 @@ function callGemini(messages) {
   
   if (result.candidates && result.candidates[0]) {
     return result.candidates[0].content.parts[0].text;
+  }
+  
+  // Log error details if available
+  if (result.error) {
+      throw new Error(`Gemini API Error: ${result.error.message}`);
   }
   
   throw new Error('No response from Gemini');

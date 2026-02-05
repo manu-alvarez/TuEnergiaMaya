@@ -648,8 +648,8 @@ function App() {
         </Fade>
       </Modal>
 
-      {/* CHAT ASSISTANT - TEMPORALMENTE DESACTIVADO POR MANTENIMIENTO */}
-      {/* <ChatAssistant kinData={kinData} /> */}
+      {/* CHAT ASSISTANT */}
+      <ChatAssistant kinData={kinData} />
 
     </Box>
   )
