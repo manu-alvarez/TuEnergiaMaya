@@ -24,6 +24,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { PWAPrompt } from './components/PWAPrompt';
 
 function App() {
   const [kinData, setKinData] = useState(null)
@@ -650,6 +651,8 @@ function App() {
 
       {/* CHAT ASSISTANT */}
       <ChatAssistant kinData={kinData} />
+
+      <PWAPrompt />
 
     </Box>
   )
