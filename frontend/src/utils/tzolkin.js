@@ -242,48 +242,60 @@ const isLeapYear = (year) => {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 };
 
-const countLeapDays = (startDate, endDate) => {
+// Helper to normalize a date to UTC Noon
+// This avoids timezone issues where midnight might fall into the previous day
+const getNoonUTC = (dateInput) => {
+    const date = new Date(dateInput);
+    // Use local year/month/day to preserve the "calendar day" the user sees
+    return new Date(Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        12, 0, 0, 0
+    ));
+};
+
+const countLeapDays = (startUTC, endUTC) => {
     let count = 0;
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
+    // Ensure we work with years from the normalized dates
+    const startYear = startUTC.getUTCFullYear();
+    const endYear = endUTC.getUTCFullYear();
 
-    const direction = end >= start ? 1 : -1;
-    const earlier = direction === 1 ? start : end;
-    const later = direction === 1 ? end : start;
-
-    const startYear = earlier.getFullYear();
-    const endYear = later.getFullYear();
+    // Determine direction
+    const start = startUTC < endUTC ? startUTC : endUTC;
+    const end = startUTC < endUTC ? endUTC : startUTC;
+    const isForward = endUTC >= startUTC;
 
     for (let year = startYear; year <= endYear; year++) {
         if (isLeapYear(year)) {
-            const feb29 = new Date(year, 1, 29);
-            if (feb29 > earlier && feb29 <= later) {
+            // Feb 29 at Noon UTC for that year
+            const feb29 = new Date(Date.UTC(year, 1, 29, 12, 0, 0));
+            if (feb29 > start && feb29 <= end) {
                 count++;
             }
         }
     }
-    return count * direction;
+    return isForward ? count : -count;
 };
 
 export const calculateKin = (date) => {
-    const refDate = new Date('2026-01-22T00:00:00');
-    const refKin = 44; // Kin correct verified
+    // Reference: Jan 22, 2026 (Kin 44) - Normalized to UTC Noon
+    const refDate = new Date(Date.UTC(2026, 0, 22, 12, 0, 0, 0));
+    const refKin = 44;
 
-    const current = new Date(date);
-    current.setHours(0, 0, 0, 0);
-    const refDateNormalized = new Date(refDate);
-    refDateNormalized.setHours(0, 0, 0, 0);
+    // Target Date - Normalized from input to UTC Noon
+    // effectively "What calendar day is this?"
+    const targetDate = getNoonUTC(date);
 
-    const diffTime = current.getTime() - refDateNormalized.getTime();
+    const diffTime = targetDate.getTime() - refDate.getTime();
     let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-    const leapDaysToSubtract = countLeapDays(refDateNormalized, current);
+    const leapDaysToSubtract = countLeapDays(refDate, targetDate);
     diffDays -= leapDaysToSubtract;
 
+    // Modulo arithmetic for Kin (1-260)
     let kin = (refKin + diffDays) % 260;
-    if (kin <= 0) kin += 260;
+    while (kin <= 0) kin += 260;
 
     return kin;
 };
