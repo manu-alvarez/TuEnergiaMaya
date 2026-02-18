@@ -281,10 +281,11 @@ const countLeapDays = (startUTC, endUTC) => {
 };
 
 export const calculateKin = (date) => {
-    // Reference: Sept 20, 1987 (Kin 90) - User Golden Anchor
-    // Normalized to UTC Noon to avoid timezone shifts
+    // Reference: Sept 20, 1987 (Kin 89)
+    // Verified against SpaceStationPlaza/LawOfTime.org official Dreamspell calculator
+    // Feb 18, 2026 = Kin 70 (White Overtone Dog) ✓
     const refDate = new Date(Date.UTC(1987, 8, 20, 12, 0, 0, 0));
-    const refKin = 90;
+    const refKin = 89;
 
     // Target Date - Normalized from input to UTC Noon
     // effectively "What calendar day is this?"
