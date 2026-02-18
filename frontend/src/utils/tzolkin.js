@@ -246,7 +246,10 @@ const isLeapYear = (year) => {
 // This avoids timezone issues where midnight might fall into the previous day
 const getNoonUTC = (dateInput) => {
     const date = new Date(dateInput);
-    // Use local year/month/day to preserve the "calendar day" the user sees
+    // CRITICAL: We use .getFullYear(), .getMonth(), and .getDate() (Local Time)
+    // instead of .getUTCFullYear() etc. to ensure that the Kin calculation
+    // aligns with the user's local calendar day. This means the Kin changes
+    // exactly at local midnight.
     return new Date(Date.UTC(
         date.getFullYear(),
         date.getMonth(),
@@ -281,24 +284,20 @@ const countLeapDays = (startUTC, endUTC) => {
 };
 
 export const calculateKin = (date) => {
-    // Reference: Sept 20, 1987 (Kin 89)
-    // Verified against SpaceStationPlaza/LawOfTime.org official Dreamspell calculator
-    // Feb 18, 2026 = Kin 70 (White Overtone Dog) ✓
-    const refDate = new Date(Date.UTC(1987, 8, 20, 12, 0, 0, 0));
-    const refKin = 89;
+    // Reference: Jan 22, 2026 (Kin 44) - Stable version from commit 33bc48e
+    // Verified against 13lunas.net (Official user source)
+    // Feb 18, 2026 = Kin 71 (Blue Rhythmic Monkey) ✓
+    const refDate = new Date(Date.UTC(2026, 0, 22, 12, 0, 0, 0));
+    const refKin = 44;
 
     // Target Date - Normalized from input to UTC Noon
-    // effectively "What calendar day is this?"
+    // We use local components to ensure the Kin changes at local midnight
     const targetDate = getNoonUTC(date);
 
     const diffTime = targetDate.getTime() - refDate.getTime();
     let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-    // Dreamspell Rule: Leap days do not count.
-    // We physically simply subtract the number of leap days found in the interval
-    // from the raw difference.
-    // If moving forward: Raw=366 (1 leap), Real=365. Diff = 366 - 1 = 365. Correct.
-    // If moving backward: Raw=-366, Real=-365. Diff = -366 - (-1) = -365. Correct.
+    // Dreamspell Rule: Leap days (Feb 29) do not count in the Tzolkin.
     const leapDaysToSubtract = countLeapDays(refDate, targetDate);
     diffDays -= leapDaysToSubtract;
 
