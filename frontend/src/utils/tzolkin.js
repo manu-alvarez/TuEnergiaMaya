@@ -257,19 +257,21 @@ const getNoonUTC = (dateInput) => {
 
 const countLeapDays = (startUTC, endUTC) => {
     let count = 0;
-    // Ensure we work with years from the normalized dates
-    const startYear = startUTC.getUTCFullYear();
-    const endYear = endUTC.getUTCFullYear();
 
-    // Determine direction
+    // Determine direction and sorted dates for year extraction
     const start = startUTC < endUTC ? startUTC : endUTC;
     const end = startUTC < endUTC ? endUTC : startUTC;
     const isForward = endUTC >= startUTC;
 
-    for (let year = startYear; year <= endYear; year++) {
+    // Ensure we work with years from the sorted dates to guarantee correct loop range
+    const year1 = start.getUTCFullYear();
+    const year2 = end.getUTCFullYear();
+
+    for (let year = year1; year <= year2; year++) {
         if (isLeapYear(year)) {
             // Feb 29 at Noon UTC for that year
             const feb29 = new Date(Date.UTC(year, 1, 29, 12, 0, 0));
+            // Check if Feb 29 sits strictly between the start and end interval
             if (feb29 > start && feb29 <= end) {
                 count++;
             }
@@ -279,9 +281,10 @@ const countLeapDays = (startUTC, endUTC) => {
 };
 
 export const calculateKin = (date) => {
-    // Reference: Jan 22, 2026 (Kin 44) - Normalized to UTC Noon
-    const refDate = new Date(Date.UTC(2026, 0, 22, 12, 0, 0, 0));
-    const refKin = 44;
+    // Reference: Sept 20, 1987 (Kin 90) - User Golden Anchor
+    // Normalized to UTC Noon to avoid timezone shifts
+    const refDate = new Date(Date.UTC(1987, 8, 20, 12, 0, 0, 0));
+    const refKin = 90;
 
     // Target Date - Normalized from input to UTC Noon
     // effectively "What calendar day is this?"
@@ -290,6 +293,11 @@ export const calculateKin = (date) => {
     const diffTime = targetDate.getTime() - refDate.getTime();
     let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
+    // Dreamspell Rule: Leap days do not count.
+    // We physically simply subtract the number of leap days found in the interval
+    // from the raw difference.
+    // If moving forward: Raw=366 (1 leap), Real=365. Diff = 366 - 1 = 365. Correct.
+    // If moving backward: Raw=-366, Real=-365. Diff = -366 - (-1) = -365. Correct.
     const leapDaysToSubtract = countLeapDays(refDate, targetDate);
     diffDays -= leapDaysToSubtract;
 
