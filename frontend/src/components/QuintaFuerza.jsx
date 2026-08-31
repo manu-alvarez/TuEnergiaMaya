@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Tooltip, Zoom, Fade, Modal, Backdrop, Button } from '@mui/material';
+import { Box, Typography, Tooltip, Zoom, Fade, Modal, Backdrop, Button, CircularProgress } from '@mui/material';
 import { getColorHex, getColorGlow } from '../utils/colorUtils';
 // CloseIcon removed
 
@@ -275,11 +275,18 @@ const QuintaFuerza = ({ kinData }) => {
     const [aiReading, setAiReading] = useState(null);
     const [isLoadingReading, setIsLoadingReading] = useState(false);
     const [showAiModal, setShowAiModal] = useState(false);
+    const [isAudioLoading, setIsAudioLoading] = useState(false);
+    const [audioUrl, setAudioUrl] = useState(null);
+    const audioRef = useRef(null);
 
     const handleGetOracleReading = async () => {
         setIsLoadingReading(true);
         setShowAiModal(true);
         setAiReading(null);
+        setAudioUrl(null);
+        if (audioRef.current) {
+            audioRef.current.pause();
+        }
         try {
             const { api } = await import('../services/api');
             const response = await api.getOracleReading(kin);
@@ -288,6 +295,28 @@ const QuintaFuerza = ({ kinData }) => {
             setAiReading("Lo siento, no pude conectar con el Oráculo en este momento. Inténtalo más tarde.");
         } finally {
             setIsLoadingReading(false);
+        }
+    };
+
+    const handlePlayAudio = async () => {
+        if (!aiReading) return;
+        if (audioUrl) {
+            audioRef.current.play();
+            return;
+        }
+        
+        setIsAudioLoading(true);
+        try {
+            const { api } = await import('../services/api');
+            const url = await api.getAudioTTS(aiReading);
+            setAudioUrl(url);
+            setTimeout(() => {
+                if (audioRef.current) audioRef.current.play();
+            }, 100);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsAudioLoading(false);
         }
     };
 
@@ -391,16 +420,42 @@ const QuintaFuerza = ({ kinData }) => {
                                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                             </Box>
                         ) : (
-                            <Typography variant="body1" sx={{ 
-                                color: 'rgba(255,255,255,0.9)', 
-                                lineHeight: 1.8, 
-                                fontFamily: 'Lora', 
-                                mb: 4,
-                                textAlign: 'left',
-                                whiteSpace: 'pre-line'
-                            }}>
-                                {aiReading}
-                            </Typography>
+                            <Box>
+                                <Typography variant="body1" sx={{ 
+                                    color: 'rgba(255,255,255,0.9)', 
+                                    lineHeight: 1.8, 
+                                    fontFamily: 'Lora', 
+                                    mb: 4,
+                                    textAlign: 'left',
+                                    whiteSpace: 'pre-line'
+                                }}>
+                                    {aiReading}
+                                </Typography>
+                                
+                                {aiReading && (
+                                    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
+                                        <Button
+                                            variant="contained"
+                                            onClick={handlePlayAudio}
+                                            disabled={isAudioLoading}
+                                            startIcon={isAudioLoading ? <CircularProgress size={20} color="inherit" /> : <span>🎧</span>}
+                                            sx={{
+                                                bgcolor: 'rgba(192, 132, 252, 0.2)',
+                                                color: '#c084fc',
+                                                border: '1px solid #c084fc',
+                                                borderRadius: '20px',
+                                                px: 3,
+                                                py: 1,
+                                                '&:hover': { bgcolor: 'rgba(192, 132, 252, 0.4)' },
+                                                '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.3)' }
+                                            }}
+                                        >
+                                            {isAudioLoading ? 'GENERANDO AUDIO...' : (audioUrl ? 'REPRODUCIR DE NUEVO' : 'ESCUCHAR LECTURA')}
+                                        </Button>
+                                        {audioUrl && <audio ref={audioRef} src={audioUrl} style={{ display: 'none' }} />}
+                                    </Box>
+                                )}
+                            </Box>
                         )}
 
                         <Button

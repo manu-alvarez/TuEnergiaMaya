@@ -16,6 +16,8 @@ import ToneList from './components/ToneList'
 import SpotifyPlayer from './components/SpotifyPlayer'
 import WavespellView from './components/WavespellView'
 import PsiChronoView from './components/PsiChronoView'
+import ObservatorioModal from './components/ObservatorioModal'
+import AstroFusionModal from './components/AstroFusionModal'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import GroupsIcon from '@mui/icons-material/Groups';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -31,6 +33,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { PWAPrompt } from './components/PWAPrompt';
 
+import PublicIcon from '@mui/icons-material/Public';
+import StarsIcon from '@mui/icons-material/Stars';
+import { Select, MenuItem as SelectMenuItem, InputLabel, FormControl, CircularProgress } from '@mui/material';
+
 function App() {
   const [kinData, setKinData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -45,6 +51,8 @@ function App() {
   const [showPodcast, setShowPodcast] = useState(false)
   const [showWavespell, setShowWavespell] = useState(false)
   const [showPsiChrono, setShowPsiChrono] = useState(false)
+  const [showObservatorio, setShowObservatorio] = useState(false);
+  const [showAstroFusion, setShowAstroFusion] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const openMenu = Boolean(anchorEl)
 
@@ -204,70 +212,61 @@ function App() {
         ) : kinData?.kin ? (
           <Fade in={true} timeout={1000}>
             <Box>
-              {/* UNIFIED MENU BUTTON */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 6 }}>
-                <Button
-                  id="maya-menu-button"
-                  aria-controls={openMenu ? 'maya-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openMenu ? 'true' : undefined}
-                  color="inherit"
-                  onClick={handleMenuClick}
-                  endIcon={<ExploreIcon />}
-                  sx={{
-                    borderRadius: '30px',
-                    px: 4,
-                    py: 1.5,
-                    fontFamily: 'Cinzel',
-                    fontWeight: 600,
-                    letterSpacing: 2,
-                    fontSize: { xs: '0.8rem', sm: '0.9rem' },
-                    bgcolor: 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                    '&:hover': {
-                      bgcolor: 'rgba(0, 200, 255, 0.15)',
-                      borderColor: '#00c8ff',
-                      transform: 'translateY(-2px)'
-                    },
-                    transition: 'all 0.3s'
-                  }}
-                >
-                  HERRAMIENTAS Y UTILIDADES
-                </Button>
-                <Menu
-                  id="maya-menu"
-                  anchorEl={anchorEl}
-                  open={openMenu}
-                  onClose={handleMenuClose}
-                  MenuListProps={{ 'aria-labelledby': 'maya-menu-button' }}
-                  sx={{
-                    '& .MuiPaper-root': {
-                      bgcolor: 'rgba(10, 10, 25, 0.95)',
-                      backdropFilter: 'blur(20px)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+              {/* TOOL DOCK (Reemplazo del menú oculto) */}
+              <Box sx={{ 
+                display: 'flex', 
+                overflowX: 'auto', 
+                gap: 2, 
+                mb: 6, 
+                pb: 1,
+                px: 2,
+                scrollBehavior: 'smooth',
+                WebkitOverflowScrolling: 'touch',
+                '&::-webkit-scrollbar': { height: '4px' },
+                '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '2px' },
+                justifyContent: { xs: 'flex-start', md: 'center' } 
+              }}>
+                {[
+                  { label: 'Oráculo', icon: <AutoAwesomeIcon />, action: () => setShowOracle(true) },
+                  { label: 'Onda Encantada', icon: <WavesIcon />, action: () => setShowWavespell(true) },
+                  { label: 'Psi Crono', icon: <PsychologyIcon />, action: () => setShowPsiChrono(true) },
+                  { label: 'Sellos', icon: <GroupsIcon />, action: () => setShowTribes(true) },
+                  { label: 'Tonos', icon: <GraphicEqIcon />, action: () => setShowTones(true) },
+                  { label: 'Kin Natal', icon: <CakeIcon />, action: () => setShowNatal(true) },
+                  { label: 'Sincronario Global', icon: <PublicIcon />, action: () => setShowObservatorio(true) },
+                  { label: 'Fusión Astro', icon: <StarsIcon />, action: () => setShowAstroFusion(true) },
+                  { label: 'Podcast', icon: <PodcastsIcon />, action: () => setShowPodcast(true) }
+                ].map((item) => (
+                  <Button
+                    key={item.label}
+                    onClick={item.action}
+                    startIcon={item.icon}
+                    variant="outlined"
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      borderRadius: '20px',
+                      borderColor: 'rgba(255,255,255,0.2)',
                       color: 'white',
-                      minWidth: 200,
-                      borderRadius: '15px',
-                    }
-                  }}
-                >
-                  {[
-                    { label: 'Oráculo', icon: <AutoAwesomeIcon />, action: () => setShowOracle(true) },
-                    { label: 'Onda Encantada', icon: <WavesIcon />, action: () => setShowWavespell(true) },
-                    { label: 'Psi Crono', icon: <PsychologyIcon />, action: () => setShowPsiChrono(true) },
-                    { label: 'Sellos', icon: <GroupsIcon />, action: () => setShowTribes(true) },
-                    { label: 'Tonos', icon: <GraphicEqIcon />, action: () => setShowTones(true) },
-                    { label: 'Kin Natal', icon: <CakeIcon />, action: () => setShowNatal(true) },
-                    { label: 'Podcast', icon: <PodcastsIcon />, action: () => setShowPodcast(true) }
-                  ].map((item) => (
-                    <MenuItem key={item.label} onClick={() => handleMenuAction(item.action)} sx={{ py: 1.5, '&:hover': { bgcolor: 'rgba(0, 200, 255, 0.1)' } }}>
-                      <ListItemIcon sx={{ color: '#00c8ff' }}>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.label} primaryTypographyProps={{ fontFamily: 'Inter', fontWeight: 600 }} />
-                    </MenuItem>
-                  ))}
-                </Menu>
+                      fontFamily: 'Inter',
+                      fontWeight: 600,
+                      letterSpacing: 0.5,
+                      textTransform: 'none',
+                      bgcolor: 'rgba(15,15,30,0.6)',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                      '&:hover': {
+                        bgcolor: 'rgba(0, 200, 255, 0.15)',
+                        borderColor: '#00c8ff',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 12px rgba(0,200,255,0.2)'
+                      },
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
               </Box>
 
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -697,13 +696,28 @@ function App() {
         </Fade>
       </Modal>
 
-      {/* CHAT ASSISTANT */}
-      <ChatAssistant kinData={kinData} />
+      {/* Observatorio (Sincronario Global) */}
+      {kinData && (
+        <ObservatorioModal
+          open={showObservatorio}
+          onClose={() => setShowObservatorio(false)}
+          kinData={kinData}
+        />
+      )}
 
+      {/* Fusión Astrológica */}
+      {kinData && (
+        <AstroFusionModal
+          open={showAstroFusion}
+          onClose={() => setShowAstroFusion(false)}
+          kinData={kinData}
+        />
+      )}
+
+      <ChatAssistant currentKin={kinData?.kin} />
       <PWAPrompt />
-
     </Box>
-  )
+  );
 }
 
-export default App
+export default App;

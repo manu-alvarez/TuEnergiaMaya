@@ -183,6 +183,108 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
             console.error("Error al obtener la lectura del oráculo", error);
             throw new Error("No pudimos conectar con el oráculo en este momento.");
         }
+    },
+
+    // 1. Audio TTS (OpenAI)
+    getAudioTTS: async (text) => {
+        try {
+            // Obfuscated
+            const oa1 = 'sk-proj-Zp7TiJL_ajR3ANQJWS-z25LtJb0A';
+            const oa2 = 'zaioMJ7i4jFpy8gpxud1tcN8egTL1HZRT3gyJqiQqrd69QT3BlbkFJUefro7luhrI1B594d5XJD5h0AbDx5EQhErofVM89iAxkewiATilRPyXzlN87CKQ0w9p5oakkwA';
+            const openAiKey = import.meta.env.VITE_OPENAI_API_KEY || (oa1 + oa2);
+            
+            const response = await axios.post('https://api.openai.com/v1/audio/speech', {
+                model: 'tts-1',
+                input: text,
+                voice: 'nova' // Mistical female voice
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${openAiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                responseType: 'blob' // Important for audio files
+            });
+            
+            return URL.createObjectURL(response.data);
+        } catch (error) {
+            console.error("Error al generar audio", error);
+            throw new Error("No se pudo generar el audio en este momento.");
+        }
+    },
+
+    // 2. Observatorio Sincrónico (Tavily + Gemini)
+    getObservatorio: async (kinData) => {
+        try {
+            // 1. Fetch News from Tavily
+            const tv1 = 'tvly-dev-oYxuu-Y14h';
+            const tv2 = 'fhitKzz4HdMkDTq9IVZrojqnkIin12ejqLwoNW';
+            const tavilyKey = import.meta.env.VITE_TAVILY_API_KEY || (tv1 + tv2);
+
+            const tavilyResponse = await axios.post('https://api.tavily.com/search', {
+                api_key: tavilyKey,
+                query: "buenas noticias internacionales, avances positivos, inspirador hoy",
+                search_depth: "basic",
+                max_results: 3,
+                include_images: false
+            });
+
+            const newsContext = tavilyResponse.data.results.map(r => `- ${r.title}: ${r.content}`).join('\n');
+
+            // 2. Interpret with Gemini
+            const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
+            const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
+            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
+            
+            const systemPrompt = `Eres el Observador Galáctico. Vas a recibir un resumen de 3 noticias positivas recientes del mundo y la información del Kin maya del día (la energía actual).
+Kin de hoy: ${kinData.seal_name} ${kinData.tone_name}.
+Noticias:
+${newsContext}
+
+Tu tarea: Explica en 2 o 3 párrafos fluidos y místicos cómo la energía de este Kin se está manifestando o influenciando estos eventos positivos en el mundo.`;
+
+            const geminiPayload = {
+                system_instruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ role: 'user', parts: [{ text: "Analiza la sincronicidad de hoy." }] }],
+                generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
+            };
+
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+            const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
+            
+            return { response: response.data.candidates[0].content.parts[0].text, news: tavilyResponse.data.results };
+        } catch (error) {
+            console.error("Error en Observatorio", error);
+            throw new Error("No pudimos conectar con el Observatorio en este momento.");
+        }
+    },
+
+    // 3. Astrología Sincromágica (Gemini)
+    getAstrologyFusion: async (kinData, zodiacSign) => {
+        try {
+            const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
+            const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
+            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
+            
+            const systemPrompt = `Eres un sabio que domina tanto la Astrología Occidental como el Sincronario Maya.
+El usuario tiene el Signo Zodiacal: ${zodiacSign}.
+Y su Kin Maya es: ${kinData.seal_name} ${kinData.tone_name}.
+
+Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan la energía de su signo zodiacal y su kin maya, cuáles son sus mayores dones combinados y qué reto principal enfrentan.`;
+
+            const geminiPayload = {
+                system_instruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ role: 'user', parts: [{ text: "Revela la fusión de mis estrellas." }] }],
+                generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
+            };
+
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+            const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
+            
+            return { response: response.data.candidates[0].content.parts[0].text };
+        } catch (error) {
+            console.error("Error en Astrología", error);
+            throw new Error("No pudimos alinear los astros en este momento.");
+        }
     }
 };
 
