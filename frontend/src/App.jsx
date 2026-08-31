@@ -6,6 +6,7 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import MusicOffIcon from '@mui/icons-material/MusicOff'
 import ZoomInIcon from '@mui/icons-material/ZoomIn'
 import { calculateKin, getKinConfig } from './utils/tzolkin'
+import { getColorGradient, getColorHex, getColorGlow, getGlyphFilter, isWhiteColor } from './utils/colorUtils'
 import dailyData from './data/dailyData.json'
 import Infographic from './components/Infographic'
 import QuintaFuerza from './components/QuintaFuerza'
@@ -13,6 +14,8 @@ import TribeList from './components/TribeList'
 import NatalKinTool from './components/NatalKinTool'
 import ToneList from './components/ToneList'
 import SpotifyPlayer from './components/SpotifyPlayer'
+import WavespellView from './components/WavespellView'
+import PsiChronoView from './components/PsiChronoView'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import GroupsIcon from '@mui/icons-material/Groups';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -297,17 +300,10 @@ function App() {
                     <Box sx={{ mb: 1 }}>
                       <Box sx={{
                         width: { xs: 60, sm: 80 }, height: { xs: 60, sm: 80 }, borderRadius: '50%',
-                        background: ['Blanco', 'Blanca'].includes(kinData.kin.color) ? 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)' :
-                          ['Rojo', 'Roja'].includes(kinData.kin.color) ? 'linear-gradient(135deg, #ff5252 0%, #b71c1c 100%)' :
-                            kinData.kin.color === 'Azul' ? 'linear-gradient(135deg, #448aff 0%, #0d47a1 100%)' :
-                              'linear-gradient(135deg, #ffd740 0%, #f57f17 100%)',
+                        background: getColorGradient(kinData.kin.color),
                         mx: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        boxShadow: `0 0 40px ${['Rojo', 'Roja'].includes(kinData.kin.color) ? 'rgba(255,0,0,0.6)' :
-                          ['Blanco', 'Blanca'].includes(kinData.kin.color) ? 'rgba(255,255,255,0.6)' :
-                            kinData.kin.color === 'Azul' ? 'rgba(0,100,255,0.6)' : 'rgba(255,215,0,0.6)'}`,
-                        border: `2px solid ${['Rojo', 'Roja'].includes(kinData.kin.color) ? '#ef4444' :
-                          ['Blanco', 'Blanca'].includes(kinData.kin.color) ? '#ffffff' :
-                            kinData.kin.color === 'Azul' ? '#3b82f6' : '#eab308'}`,
+                        boxShadow: `0 0 40px ${getColorGlow(kinData.kin.color)}`,
+                        border: `2px solid ${getColorHex(kinData.kin.color)}`,
                         overflow: 'hidden', p: 1.5
                       }}>
                         <img
@@ -315,7 +311,7 @@ function App() {
                           alt={kinData.kin.seal_name}
                           style={{
                             width: '100%', height: '100%', objectFit: 'contain',
-                            filter: ['Blanco', 'Blanca'].includes(kinData.kin.color) ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'drop-shadow(0 0 5px rgba(255,255,255,0.3))'
+                            filter: getGlyphFilter(kinData.kin.color)
                           }}
                         />
                       </Box>
@@ -367,10 +363,10 @@ function App() {
                         startIcon={<ZoomInIcon sx={{ fontSize: '1rem' }} />}
                         sx={{
                           position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
-                          bgcolor: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#ffffff' : (['Rojo', 'Roja'].includes(kinData.kin.color) ? '#ff5252' : (kinData.kin.color === 'Azul' ? '#448aff' : '#ffd740')),
-                          color: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#000000' : '#ffffff',
+                          bgcolor: getColorHex(kinData.kin.color),
+                          color: isWhiteColor(kinData.kin.color) ? '#000000' : '#ffffff',
                           '&:hover': {
-                            bgcolor: (['Blanco', 'Blanca'].includes(kinData.kin.color)) ? '#f0f0f0' : (['Rojo', 'Roja'].includes(kinData.kin.color) ? '#d32f2f' : (kinData.kin.color === 'Azul' ? '#1976d2' : '#fbc02d')),
+                            bgcolor: getColorHex(kinData.kin.color, '#fbc02d'),
                           },
                           zIndex: 10, borderRadius: '30px', textTransform: 'none', fontWeight: 700, px: 2, py: 0.5,
                           fontFamily: 'Lora', fontSize: '0.75rem', minWidth: '200px', border: '2px solid rgba(255,255,255,0.2)'
@@ -417,6 +413,12 @@ function App() {
                       </Fade>
                     </Box>
                   )}
+                </Box>
+
+                {/* ONDA ENCANTADA Y PSI CRONO */}
+                <Box sx={{ mt: 4 }}>
+                  <WavespellView kinNumber={kinData.kin_number} />
+                  <PsiChronoView date={new Date(kinData.date)} kinNumber={kinData.kin_number} />
                 </Box>
 
                 {/* RESTORED SPOTIFY PLAYER CARD */}

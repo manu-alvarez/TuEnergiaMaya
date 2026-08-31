@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Tooltip, Zoom, Fade, Modal, Backdrop, Button } from '@mui/material';
+import { getColorHex, getColorGlow } from '../utils/colorUtils';
 // CloseIcon removed
 
 const QuintaFuerza = ({ kinData }) => {
@@ -106,18 +107,11 @@ const QuintaFuerza = ({ kinData }) => {
                 else if (index === 3 && kin?.oracle?.occult?.color) { targetColorName = kin.oracle.occult.color; } // Bottom - Occult
 
                 // Map color name to hex
-                if (targetColorName.includes('Rojo') || targetColorName === 'Rojo') targetColorHex = '#ef4444';
-                else if (targetColorName.includes('Blanco') || targetColorName === 'Blanco') targetColorHex = '#ffffff';
-                else if (targetColorName.includes('Azul') || targetColorName === 'Azul') targetColorHex = '#3b82f6';
-                else if (targetColorName.includes('Amarillo') || targetColorName === 'Amarillo') targetColorHex = '#eab308';
+                targetColorHex = getColorHex(targetColorName, '#9333ea');
 
                 // Determine center color
-                let centerColorHex = '#9333ea';
                 const centerColorName = kin?.color || 'Morado';
-                if (centerColorName.includes('Rojo')) centerColorHex = '#ef4444';
-                else if (centerColorName.includes('Blanco')) centerColorHex = '#ffffff';
-                else if (centerColorName.includes('Azul')) centerColorHex = '#3b82f6';
-                else if (centerColorName.includes('Amarillo')) centerColorHex = '#eab308';
+                const centerColorHex = getColorHex(centerColorName, '#9333ea');
 
 
                 const gradient = ctx.createLinearGradient(centerX, centerY, target.x, target.y);
@@ -325,17 +319,9 @@ const QuintaFuerza = ({ kinData }) => {
                         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                         width: '90%', maxWidth: 400,
                         bgcolor: 'rgba(0, 0, 0, 0.95)', // Black background as requested
-                        border: `2px solid ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
-                            (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
-                                (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
-                                    '#eab308' // Amarillo
-                            }`,
+                        border: `2px solid ${getColorHex(selectedSeal?.color)}`,
                         borderRadius: 8, p: 4, outline: 'none', textAlign: 'center',
-                        boxShadow: `0 0 50px ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
-                            (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
-                                (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
-                                    '#eab308'
-                            }40`
+                        boxShadow: `0 0 50px ${getColorHex(selectedSeal?.color)}40`
                     }}>
                         {/* Close Icon Removed - Using Volver Button below */}
 
@@ -344,14 +330,8 @@ const QuintaFuerza = ({ kinData }) => {
                                 <Box sx={{
                                     width: 100, height: 100, mx: 'auto', mb: 2, p: 2,
                                     borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-                                    border: `2px solid ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
-                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
-                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
-                                                '#eab308'}`,
-                                    boxShadow: `0 0 30px ${(selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? 'rgba(239,68,68,0.3)' :
-                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? 'rgba(255,255,255,0.3)' :
-                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? 'rgba(59,130,246,0.3)' :
-                                                'rgba(234,179,8,0.3)'}`
+                                    border: `2px solid ${getColorHex(selectedSeal?.color)}`,
+                                    boxShadow: `0 0 30px ${getColorGlow(selectedSeal?.color, 0.3)}`
                                 }}>
                                     <img
                                         src={`assets/glyphs/seals/${selectedSeal.slug}.png`}
@@ -362,10 +342,7 @@ const QuintaFuerza = ({ kinData }) => {
                                 <Typography variant="overline" sx={{
                                     letterSpacing: 3,
                                     fontWeight: 'bold',
-                                    color: (selectedSeal?.color?.includes('Rojo') || selectedSeal?.color === '#ef4444') ? '#ef4444' :
-                                        (selectedSeal?.color?.includes('Blanco') || selectedSeal?.color === '#f9fafb') ? '#ffffff' :
-                                            (selectedSeal?.color?.includes('Azul') || selectedSeal?.color === '#3b82f6') ? '#3b82f6' :
-                                                '#eab308'
+                                    color: getColorHex(selectedSeal?.color)
                                 }}>
                                     {selectedSeal.label}
                                 </Typography>

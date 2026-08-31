@@ -1,17 +1,8 @@
 
 import React from 'react';
 import { Box, Button } from '@mui/material';
+import { getColorHex } from '../utils/colorUtils';
 import './Infographic.css';
-
-const COLORS_HEX = {
-    Rojo: "#ff5252",
-    Roja: "#ff5252",
-    Blanco: "#ffffff",
-    Blanca: "#ffffff",
-    Azul: "#448aff",
-    Amarillo: "#ffd740",
-    Amarilla: "#ffd740"
-};
 
 const extractConsejo = (longDesc) => {
     if (!longDesc) return "Conecta con tu corazón.";
@@ -29,7 +20,7 @@ const Infographic = ({ kinData, isFullScreen, isCard, onClose }) => {
 
     const { kin_number, kin } = kinData;
     const toneNumber = ((kin_number - 1) % 13) + 1;
-    const themeColor = COLORS_HEX[kin.color] || "#ffffff";
+    const themeColor = getColorHex(kin.color);
     const themeGlow = `${themeColor}99`; // roughly 60% opacity hex
 
     // Advice - safe access
