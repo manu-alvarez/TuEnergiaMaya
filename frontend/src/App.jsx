@@ -215,16 +215,10 @@ function App() {
               {/* TOOL DOCK (Reemplazo del menú oculto) */}
               <Box sx={{ 
                 display: 'flex', 
-                overflowX: 'auto', 
-                gap: 2, 
+                flexWrap: 'wrap',
+                gap: 1.5, 
                 mb: 6, 
-                pb: 1,
-                px: 2,
-                scrollBehavior: 'smooth',
-                WebkitOverflowScrolling: 'touch',
-                '&::-webkit-scrollbar': { height: '4px' },
-                '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '2px' },
-                justifyContent: { xs: 'flex-start', md: 'center' } 
+                justifyContent: 'center' 
               }}>
                 {[
                   { label: 'Oráculo', icon: <AutoAwesomeIcon />, action: () => setShowOracle(true) },
