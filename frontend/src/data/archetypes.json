@@ -1,0 +1,128 @@
+{
+  "dragon": {
+    "number": 1,
+    "archetype": "El Primigenio",
+    "hunabKuName": "Dragón",
+    "poem": "Yo soy el Primigenio. Codificado por el Dragón Rojo. Soy el poder del nacimiento. Toda vida recibe su nutrición de mí. Soy la fuente primordial."
+  },
+  "wind": {
+    "number": 2,
+    "archetype": "El Avatar",
+    "hunabKuName": "Viento",
+    "poem": "Yo soy el Avatar. Codificado por el Viento Blanco. Dos es mi número. Soy el aliento del espíritu. Mi mensaje es la verdad del cosmos."
+  },
+  "night": {
+    "number": 3,
+    "archetype": "El Soñador",
+    "hunabKuName": "Noche",
+    "poem": "Yo soy el Soñador. Codificado por la Noche Azul. Tres es mi número. En el interior de mi santuario moran todos los sueños de la abundancia infinita."
+  },
+  "seed": {
+    "number": 4,
+    "archetype": "La Inocente",
+    "hunabKuName": "Semilla",
+    "poem": "Yo soy la Inocente. Codificada por la Semilla Amarilla. Cuatro es mi número. El potencial de toda la creación reposa en mí como una promesa."
+  },
+  "serpent": {
+    "number": 5,
+    "archetype": "La Serpiente Iniciada",
+    "hunabKuName": "Serpiente",
+    "poem": "Yo soy la Serpiente Iniciada. Codificada por la Serpiente Roja. Cinco es mi número. Mi cuerpo es el templo de la fuerza vital kundalini."
+  },
+  "worldbridger": {
+    "number": 6,
+    "archetype": "El Jerarca",
+    "hunabKuName": "Enlazador de Mundos",
+    "poem": "Yo soy el Jerarca. Codificado por el Enlazador de Mundos Blanco. Seis es mi número. Yo igualo todas las cosas en la muerte y la oportunidad."
+  },
+  "hand": {
+    "number": 7,
+    "archetype": "La Sanadora",
+    "hunabKuName": "Mano",
+    "poem": "Yo soy la Sanadora. Codificada por la Mano Azul. Siete es mi número. Con mis manos toco las heridas del mundo para transformarlas en realizaciones."
+  },
+  "star": {
+    "number": 8,
+    "archetype": "La Artista",
+    "hunabKuName": "Estrella",
+    "poem": "Yo soy la Artista. Codificada por la Estrella Amarilla. Ocho es mi número. La elegancia y la armonía son mi firma cósmica."
+  },
+  "moon": {
+    "number": 9,
+    "archetype": "La Sanadora",
+    "hunabKuName": "Luna",
+    "poem": "Yo soy la Musa. Codificada por la Luna Roja. Nueve es mi número. Purifico con el agua universal y dejo fluir todas las emociones."
+  },
+  "dog": {
+    "number": 10,
+    "archetype": "El Compañero",
+    "hunabKuName": "Perro",
+    "poem": "Yo soy el Compañero. Codificado por el Perro Blanco. Diez es mi número. El amor incondicional de mi corazón sirve a todos los seres."
+  },
+  "monkey": {
+    "number": 11,
+    "archetype": "El Mago",
+    "hunabKuName": "Mono",
+    "poem": "Yo soy el Mago. Codificado por el Mono Azul. Once es mi número. Mi ilusión crea la magia del juego cósmico y el humor divino."
+  },
+  "human": {
+    "number": 12,
+    "archetype": "El Sabio",
+    "hunabKuName": "Humano",
+    "poem": "Yo soy el Sabio. Codificado por el Humano Amarillo. Doce es mi número. La sabiduría del libre albedrío es mi influencia sagrada."
+  },
+  "skywalker": {
+    "number": 13,
+    "archetype": "El Profeta",
+    "hunabKuName": "Caminante del Cielo",
+    "poem": "Yo soy el Profeta. Codificado por el Caminante del Cielo Rojo. Trece es mi número. Explorador del espacio entre el cielo y la tierra."
+  },
+  "wizard": {
+    "number": 14,
+    "archetype": "El Mago",
+    "hunabKuName": "Mago",
+    "poem": "Yo soy el Mago. Codificado por el Mago Blanco. El siete duplicado es mi número. Dentro de mi esfera de cristal está todo lo que puede ser visto o conocido. Soy el dador de los nombres mágicos."
+  },
+  "eagle": {
+    "number": 15,
+    "archetype": "El Vidente",
+    "hunabKuName": "Águila",
+    "poem": "Yo soy el Vidente. Codificado por el Águila Azul. Quince es mi número. Mi hogar es el cielo interminable. Por el poder de la visión me deslizo a través de las dimensiones."
+  },
+  "warrior": {
+    "number": 16,
+    "archetype": "El Descubridor",
+    "hunabKuName": "Guerrero",
+    "poem": "Yo soy el Descubridor. Codificado por el Guerrero Amarillo. Mi número es el ocho duplicado. Soy el descubridor de la matriz radial. Mi espíritu intrépido despeja los obstáculos."
+  },
+  "earth": {
+    "number": 17,
+    "archetype": "El Navegante",
+    "hunabKuName": "Tierra",
+    "poem": "Yo soy el Navegante. Codificado por la Tierra Roja. Tengo los mapas del origen celestial y sigo las señales de la sincronicidad."
+  },
+  "mirror": {
+    "number": 18,
+    "archetype": "Yogui/Yoguini",
+    "hunabKuName": "Espejo",
+    "poem": "Yo soy el Yogui. Codificado por el Espejo Blanco. Habito en el estado de meditación sin distracción. Soy el reflejo del sueño sin fin."
+  },
+  "storm": {
+    "number": 19,
+    "archetype": "El Cambiador de Mundos",
+    "hunabKuName": "Tormenta",
+    "poem": "Yo soy el Cambiador de Mundos. Codificado por la Tormenta Azul. Mi número es el diecinueve. Soy el maestro alquimista, la fuerza detrás de la piedra filosofal."
+  },
+  "sun": {
+    "number": 20,
+    "archetype": "El Iluminado",
+    "hunabKuName": "Sol",
+    "poem": "Yo soy el Iluminado. Codificado por el Sol Amarillo. Mi número es el veinte. Yo soy la verdad superior y el renovador de la vida."
+  },
+  "hunabKu": {
+    "number": 21,
+    "archetype": "Hunab Ku 21",
+    "hunabKuName": "Mago del Infinito",
+    "poem": "De todos los tesoros ocultos que salen a la luz, ninguno existe más grandioso que Hunab Ku 21. La unidad de la totalidad. Único Dador de Movimiento y Medida."
+  }
+}
