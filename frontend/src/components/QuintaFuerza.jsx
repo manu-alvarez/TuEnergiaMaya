@@ -272,6 +272,25 @@ const QuintaFuerza = ({ kinData }) => {
         );
     };
 
+    const [aiReading, setAiReading] = useState(null);
+    const [isLoadingReading, setIsLoadingReading] = useState(false);
+    const [showAiModal, setShowAiModal] = useState(false);
+
+    const handleGetOracleReading = async () => {
+        setIsLoadingReading(true);
+        setShowAiModal(true);
+        setAiReading(null);
+        try {
+            const { api } = await import('../services/api');
+            const response = await api.getOracleReading(kin);
+            setAiReading(response.response);
+        } catch (error) {
+            setAiReading("Lo siento, no pude conectar con el Oráculo en este momento. Inténtalo más tarde.");
+        } finally {
+            setIsLoadingReading(false);
+        }
+    };
+
     return (
         <Box sx={{
             position: 'relative',
@@ -281,6 +300,7 @@ const QuintaFuerza = ({ kinData }) => {
             mx: 'auto',
             my: 4,
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center'
         }}>
@@ -306,7 +326,106 @@ const QuintaFuerza = ({ kinData }) => {
             <SelloSagrado seal={antipode} label="ANTÍPODA" position={{ left: { xs: 0, sm: 20 } }} />
             <SelloSagrado seal={occult} label="OCULTO" position={{ bottom: 0 }} />
 
-            {/* Modal de Información del Sello */}
+            {/* Botón de IA */}
+            <Box sx={{ position: 'absolute', bottom: -40, zIndex: 10 }}>
+                <Button
+                    variant="outlined"
+                    onClick={handleGetOracleReading}
+                    startIcon={<span>✨</span>}
+                    sx={{
+                        color: '#c084fc',
+                        borderColor: 'rgba(192, 132, 252, 0.5)',
+                        borderRadius: '20px',
+                        px: 3,
+                        py: 0.8,
+                        fontSize: '0.8rem',
+                        fontFamily: 'Cinzel',
+                        fontWeight: 'bold',
+                        letterSpacing: 1,
+                        bgcolor: 'rgba(15, 15, 30, 0.8)',
+                        backdropFilter: 'blur(5px)',
+                        boxShadow: '0 0 15px rgba(192, 132, 252, 0.2)',
+                        '&:hover': {
+                            borderColor: '#c084fc',
+                            bgcolor: 'rgba(192, 132, 252, 0.1)',
+                            boxShadow: '0 0 25px rgba(192, 132, 252, 0.4)'
+                        }
+                    }}
+                >
+                    LECTURA PROFUNDA DEL ORÁCULO
+                </Button>
+            </Box>
+
+            {/* Modal de Lectura de IA */}
+            <Modal
+                open={showAiModal}
+                onClose={() => setShowAiModal(false)}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{ timeout: 500, sx: { backdropFilter: 'blur(10px)', bgcolor: 'rgba(0,0,0,0.8)' } }}
+            >
+                <Fade in={showAiModal}>
+                    <Box sx={{
+                        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                        width: '90%', maxWidth: 500, maxHeight: '80vh', overflowY: 'auto',
+                        bgcolor: 'rgba(15, 15, 30, 0.95)',
+                        border: '1px solid rgba(192, 132, 252, 0.5)',
+                        borderRadius: 4, p: { xs: 3, sm: 4 }, outline: 'none', textAlign: 'center',
+                        boxShadow: '0 0 50px rgba(192, 132, 252, 0.3)'
+                    }}>
+                        <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: '#c084fc', mb: 3, fontWeight: 'bold' }}>
+                            ✨ LECTURA DEL ORÁCULO ✨
+                        </Typography>
+                        
+                        {isLoadingReading ? (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 4 }}>
+                                <Box sx={{
+                                    width: 40, height: 40, borderRadius: '50%',
+                                    border: '3px solid rgba(192, 132, 252, 0.2)',
+                                    borderTopColor: '#c084fc',
+                                    animation: 'spin 1s linear infinite'
+                                }} />
+                                <Typography sx={{ mt: 3, fontFamily: 'Lora', color: 'rgba(255,255,255,0.7)' }}>
+                                    Conectando con la sabiduría galáctica...
+                                </Typography>
+                                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                            </Box>
+                        ) : (
+                            <Typography variant="body1" sx={{ 
+                                color: 'rgba(255,255,255,0.9)', 
+                                lineHeight: 1.8, 
+                                fontFamily: 'Lora', 
+                                mb: 4,
+                                textAlign: 'left',
+                                whiteSpace: 'pre-line'
+                            }}>
+                                {aiReading}
+                            </Typography>
+                        )}
+
+                        <Button
+                            variant="outlined"
+                            onClick={() => setShowAiModal(false)}
+                            sx={{
+                                color: 'white',
+                                borderColor: 'rgba(255, 255, 255, 0.5)',
+                                borderRadius: '20px',
+                                px: 4,
+                                py: 0.5,
+                                fontSize: '0.8rem',
+                                '&:hover': {
+                                    borderColor: 'white',
+                                    bgcolor: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }}
+                        >
+                            CERRAR
+                        </Button>
+                    </Box>
+                </Fade>
+            </Modal>
+
+            {/* Modal de Información del Sello (Original) */}
             <Modal
                 open={Boolean(selectedSeal)}
                 onClose={() => setSelectedSeal(null)}
@@ -318,13 +437,11 @@ const QuintaFuerza = ({ kinData }) => {
                     <Box sx={{
                         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                         width: '90%', maxWidth: 400,
-                        bgcolor: 'rgba(0, 0, 0, 0.95)', // Black background as requested
+                        bgcolor: 'rgba(0, 0, 0, 0.95)',
                         border: `2px solid ${getColorHex(selectedSeal?.color)}`,
                         borderRadius: 8, p: 4, outline: 'none', textAlign: 'center',
                         boxShadow: `0 0 50px ${getColorHex(selectedSeal?.color)}40`
                     }}>
-                        {/* Close Icon Removed - Using Volver Button below */}
-
                         {selectedSeal && (
                             <>
                                 <Box sx={{

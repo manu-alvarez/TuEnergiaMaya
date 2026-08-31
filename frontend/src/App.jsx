@@ -211,16 +211,17 @@ function App() {
                   aria-controls={openMenu ? 'maya-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={openMenu ? 'true' : undefined}
-                  variant="contained"
+                  color="inherit"
                   onClick={handleMenuClick}
-                  startIcon={<ExploreIcon />}
+                  endIcon={<ExploreIcon />}
                   sx={{
                     borderRadius: '30px',
                     px: 4,
                     py: 1.5,
                     fontFamily: 'Cinzel',
-                    fontWeight: 700,
+                    fontWeight: 600,
                     letterSpacing: 2,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' },
                     bgcolor: 'rgba(255, 255, 255, 0.05)',
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -233,7 +234,7 @@ function App() {
                     transition: 'all 0.3s'
                   }}
                 >
-                  EXPLORAR COSMOS
+                  HERRAMIENTAS Y UTILIDADES
                 </Button>
                 <Menu
                   id="maya-menu"

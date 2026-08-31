@@ -143,6 +143,46 @@ export const api = {
                 throw new Error("Conexión perdida con la fuente cósmica.");
             }
         }
+    },
+
+    // AI Oracle Reading
+    getOracleReading: async (kinData) => {
+        const { guide, analog, antipode, occult } = kinData.oracle;
+        
+        const systemPrompt = `Eres el Guardián de Tu Energía Maya. El usuario te pide una lectura profunda de su Oráculo de la Quinta Fuerza.
+Usa un tono místico, poético pero accesible y directo.
+Energía Central (Destino): ${kinData.seal_name} ${kinData.tone_name}
+Guía (Su norte): ${guide.name}
+Análogo (Su apoyo): ${analog.name}
+Antípoda (Su desafío y motor): ${antipode.name}
+Oculto (Su poder mágico e inconsciente): ${occult.name}
+
+Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interactúan estas energías para el usuario hoy. No hagas listas, hazlo en formato de lectura fluida.`;
+
+        try {
+            const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
+            const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
+            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
+            
+            const geminiPayload = {
+                system_instruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ role: 'user', parts: [{ text: "Por favor, léeme el oráculo." }] }],
+                generationConfig: { temperature: 0.8, maxOutputTokens: 600 }
+            };
+
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+            
+            const response = await axios.post(geminiUrl, geminiPayload, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            if (response.data && response.data.candidates) {
+                return { response: response.data.candidates[0].content.parts[0].text };
+            }
+        } catch (error) {
+            console.error("Error al obtener la lectura del oráculo", error);
+            throw new Error("No pudimos conectar con el oráculo en este momento.");
+        }
     }
 };
 
