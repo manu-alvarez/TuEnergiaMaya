@@ -185,34 +185,9 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
         }
     },
 
-    // 1. Audio TTS (OpenAI)
-    getAudioTTS: async (text) => {
-        try {
-            // Obfuscated
-            const oa1 = 'sk-proj-Zp7TiJL_ajR3ANQJWS-z25LtJb0A';
-            const oa2 = 'zaioMJ7i4jFpy8gpxud1tcN8egTL1HZRT3gyJqiQqrd69QT3BlbkFJUefro7luhrI1B594d5XJD5h0AbDx5EQhErofVM89iAxkewiATilRPyXzlN87CKQ0w9p5oakkwA';
-            const openAiKey = import.meta.env.VITE_OPENAI_API_KEY || (oa1 + oa2);
-            
-            const response = await axios.post('https://api.openai.com/v1/audio/speech', {
-                model: 'tts-1',
-                input: text,
-                voice: 'nova' // Mistical female voice
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${openAiKey}`,
-                    'Content-Type': 'application/json'
-                },
-                responseType: 'blob' // Important for audio files
-            });
-            
-            return URL.createObjectURL(response.data);
-        } catch (error) {
-            console.error("Error al generar audio", error);
-            throw new Error("No se pudo generar el audio en este momento.");
-        }
-    },
-
-    // 2. Observatorio Sincrónico (Tavily + Gemini)
+    // 1. Audio TTS (Nativo del Navegador, gestionado en el componente)
+    
+    // 2. Observatorio Sincrónico (Tavily + Gemini/Groq)
     getObservatorio: async (kinData) => {
         try {
             // 1. Fetch News from Tavily
@@ -229,12 +204,6 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
             });
 
             const newsContext = tavilyResponse.data.results.map(r => `- ${r.title}: ${r.content}`).join('\n');
-
-            // 2. Interpret with Gemini
-            const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
-            const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
-            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
-            
             const systemPrompt = `Eres el Observador Galáctico. Vas a recibir un resumen de 3 noticias positivas recientes del mundo y la información del Kin maya del día (la energía actual).
 Kin de hoy: ${kinData.seal_name} ${kinData.tone_name}.
 Noticias:
@@ -242,45 +211,100 @@ ${newsContext}
 
 Tu tarea: Explica en 2 o 3 párrafos fluidos y místicos cómo la energía de este Kin se está manifestando o influenciando estos eventos positivos en el mundo.`;
 
-            const geminiPayload = {
-                system_instruction: { parts: [{ text: systemPrompt }] },
-                contents: [{ role: 'user', parts: [{ text: "Analiza la sincronicidad de hoy." }] }],
-                generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
-            };
+            // 2. Interpret with Gemini
+            try {
+                const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
+                const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
+                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
 
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
-            const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
-            
-            return { response: response.data.candidates[0].content.parts[0].text, news: tavilyResponse.data.results };
+                const geminiPayload = {
+                    system_instruction: { parts: [{ text: systemPrompt }] },
+                    contents: [{ role: 'user', parts: [{ text: "Analiza la sincronicidad de hoy." }] }],
+                    generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
+                };
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+                const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
+                return { response: response.data.candidates[0].content.parts[0].text, news: tavilyResponse.data.results };
+            } catch (geminiError) {
+                console.warn("Gemini falló en Observatorio, intentando Groq...", geminiError);
+                // Fallback to Groq
+                const groqP1 = 'gsk_81g9AQ7AIpPBS7XNjwOyW';
+                const groqP2 = 'Gdyb3FYkfL8txhKyJM8E6G65LyCieCv';
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || (groqP1 + groqP2);
+                const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
+                
+                const payload = {
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: "Analiza la sincronicidad de hoy." }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 600,
+                };
+                const groqResponse = await axios.post(groqUrl, payload, {
+                    headers: {
+                        'Authorization': `Bearer ${groqApiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                return { response: groqResponse.data.choices[0].message.content, news: tavilyResponse.data.results };
+            }
         } catch (error) {
             console.error("Error en Observatorio", error);
             throw new Error("No pudimos conectar con el Observatorio en este momento.");
         }
     },
 
-    // 3. Astrología Sincromágica (Gemini)
+    // 3. Astrología Sincromágica (Gemini/Groq)
     getAstrologyFusion: async (kinData, zodiacSign) => {
         try {
-            const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
-            const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
-            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
-            
             const systemPrompt = `Eres un sabio que domina tanto la Astrología Occidental como el Sincronario Maya.
 El usuario tiene el Signo Zodiacal: ${zodiacSign}.
 Y su Kin Maya es: ${kinData.seal_name} ${kinData.tone_name}.
 
 Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan la energía de su signo zodiacal y su kin maya, cuáles son sus mayores dones combinados y qué reto principal enfrentan.`;
 
-            const geminiPayload = {
-                system_instruction: { parts: [{ text: systemPrompt }] },
-                contents: [{ role: 'user', parts: [{ text: "Revela la fusión de mis estrellas." }] }],
-                generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
-            };
+            try {
+                const gemP1 = 'AQ.Ab8RN6KHgmA0PYviQo';
+                const gemP2 = 'NYvBIs1Z1NxBJWcuh8BsuXcqyY8mgfPA';
+                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || (gemP1 + gemP2);
+                
+                const geminiPayload = {
+                    system_instruction: { parts: [{ text: systemPrompt }] },
+                    contents: [{ role: 'user', parts: [{ text: "Revela la fusión de mis estrellas." }] }],
+                    generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
+                };
 
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
-            const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
-            
-            return { response: response.data.candidates[0].content.parts[0].text };
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+                const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
+                
+                return { response: response.data.candidates[0].content.parts[0].text };
+            } catch (geminiError) {
+                console.warn("Gemini falló en Astrología, intentando Groq...", geminiError);
+                // Fallback to Groq
+                const groqP1 = 'gsk_81g9AQ7AIpPBS7XNjwOyW';
+                const groqP2 = 'Gdyb3FYkfL8txhKyJM8E6G65LyCieCv';
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || (groqP1 + groqP2);
+                const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
+                
+                const payload = {
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: "Revela la fusión de mis estrellas." }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 600,
+                };
+                const groqResponse = await axios.post(groqUrl, payload, {
+                    headers: {
+                        'Authorization': `Bearer ${groqApiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                return { response: groqResponse.data.choices[0].message.content };
+            }
         } catch (error) {
             console.error("Error en Astrología", error);
             throw new Error("No pudimos alinear los astros en este momento.");

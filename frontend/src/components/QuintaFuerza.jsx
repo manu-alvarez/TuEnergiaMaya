@@ -275,18 +275,24 @@ const QuintaFuerza = ({ kinData }) => {
     const [aiReading, setAiReading] = useState(null);
     const [isLoadingReading, setIsLoadingReading] = useState(false);
     const [showAiModal, setShowAiModal] = useState(false);
-    const [isAudioLoading, setIsAudioLoading] = useState(false);
-    const [audioUrl, setAudioUrl] = useState(null);
-    const audioRef = useRef(null);
+    const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
+    useEffect(() => {
+        // Cleanup speech synthesis on unmount or when modal closes
+        return () => {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+        };
+    }, []);
 
     const handleGetOracleReading = async () => {
         setIsLoadingReading(true);
         setShowAiModal(true);
         setAiReading(null);
-        setAudioUrl(null);
-        if (audioRef.current) {
-            audioRef.current.pause();
-        }
+        setIsAudioPlaying(false);
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        
         try {
             const { api } = await import('../services/api');
             const response = await api.getOracleReading(kin);
@@ -298,26 +304,33 @@ const QuintaFuerza = ({ kinData }) => {
         }
     };
 
-    const handlePlayAudio = async () => {
-        if (!aiReading) return;
-        if (audioUrl) {
-            audioRef.current.play();
+    const handlePlayAudio = () => {
+        if (!aiReading || !window.speechSynthesis) return;
+        
+        if (isAudioPlaying) {
+            window.speechSynthesis.cancel();
+            setIsAudioPlaying(false);
             return;
         }
+
+        const utterance = new SpeechSynthesisUtterance(aiReading);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.95; // Slightly slower for mystical feel
+        utterance.pitch = 1.0;
         
-        setIsAudioLoading(true);
-        try {
-            const { api } = await import('../services/api');
-            const url = await api.getAudioTTS(aiReading);
-            setAudioUrl(url);
-            setTimeout(() => {
-                if (audioRef.current) audioRef.current.play();
-            }, 100);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsAudioLoading(false);
+        utterance.onstart = () => setIsAudioPlaying(true);
+        utterance.onend = () => setIsAudioPlaying(false);
+        utterance.onerror = () => setIsAudioPlaying(false);
+
+        // Try to find a good Spanish voice, preferably female
+        const voices = window.speechSynthesis.getVoices();
+        const esVoices = voices.filter(v => v.lang.startsWith('es'));
+        if (esVoices.length > 0) {
+            const femaleVoice = esVoices.find(v => v.name.includes('Google') || v.name.includes('Female'));
+            utterance.voice = femaleVoice || esVoices[0];
         }
+
+        window.speechSynthesis.speak(utterance);
     };
 
     return (
@@ -437,8 +450,7 @@ const QuintaFuerza = ({ kinData }) => {
                                         <Button
                                             variant="contained"
                                             onClick={handlePlayAudio}
-                                            disabled={isAudioLoading}
-                                            startIcon={isAudioLoading ? <CircularProgress size={20} color="inherit" /> : <span>🎧</span>}
+                                            startIcon={isAudioPlaying ? <CircularProgress size={20} color="inherit" /> : <span>🎧</span>}
                                             sx={{
                                                 bgcolor: 'rgba(192, 132, 252, 0.2)',
                                                 color: '#c084fc',
@@ -450,9 +462,8 @@ const QuintaFuerza = ({ kinData }) => {
                                                 '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.3)' }
                                             }}
                                         >
-                                            {isAudioLoading ? 'GENERANDO AUDIO...' : (audioUrl ? 'REPRODUCIR DE NUEVO' : 'ESCUCHAR LECTURA')}
+                                            {isAudioPlaying ? 'DETENER AUDIO' : 'ESCUCHAR LECTURA'}
                                         </Button>
-                                        {audioUrl && <audio ref={audioRef} src={audioUrl} style={{ display: 'none' }} />}
                                     </Box>
                                 )}
                             </Box>
