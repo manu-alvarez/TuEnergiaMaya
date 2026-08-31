@@ -22,6 +22,8 @@ import CakeIcon from '@mui/icons-material/Cake';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
 import ExploreIcon from '@mui/icons-material/Explore';
+import WavesIcon from '@mui/icons-material/Waves';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import ChatAssistant from './components/ChatAssistant';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -41,6 +43,8 @@ function App() {
   const [showNatal, setShowNatal] = useState(false)
   const [showTones, setShowTones] = useState(false)
   const [showPodcast, setShowPodcast] = useState(false)
+  const [showWavespell, setShowWavespell] = useState(false)
+  const [showPsiChrono, setShowPsiChrono] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const openMenu = Boolean(anchorEl)
 
@@ -250,6 +254,8 @@ function App() {
                 >
                   {[
                     { label: 'Oráculo', icon: <AutoAwesomeIcon />, action: () => setShowOracle(true) },
+                    { label: 'Onda Encantada', icon: <WavesIcon />, action: () => setShowWavespell(true) },
+                    { label: 'Psi Crono', icon: <PsychologyIcon />, action: () => setShowPsiChrono(true) },
                     { label: 'Sellos', icon: <GroupsIcon />, action: () => setShowTribes(true) },
                     { label: 'Tonos', icon: <GraphicEqIcon />, action: () => setShowTones(true) },
                     { label: 'Kin Natal', icon: <CakeIcon />, action: () => setShowNatal(true) },
@@ -415,11 +421,7 @@ function App() {
                   )}
                 </Box>
 
-                {/* ONDA ENCANTADA Y PSI CRONO */}
-                <Box sx={{ mt: 4 }}>
-                  <WavespellView kinNumber={kinData.kin_number} />
-                  <PsiChronoView date={new Date(kinData.date)} kinNumber={kinData.kin_number} />
-                </Box>
+
 
                 {/* RESTORED SPOTIFY PLAYER CARD */}
                 <Box className="glass-card" sx={{
@@ -647,6 +649,49 @@ function App() {
                 VOLVER
               </Button>
             </Box>
+          </Box>
+        </Fade>
+      </Modal>
+      {/* MODAL: ONDA ENCANTADA */}
+      <Modal
+        open={showWavespell}
+        onClose={() => setShowWavespell(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}
+      >
+        <Fade in={showWavespell}>
+          <Box sx={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%', outline: 'none', overflowY: 'auto',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            pt: 4, pb: 4,
+          }}>
+            <WavespellView kinNumber={kinData?.kin_number} onClose={() => setShowWavespell(false)} />
+          </Box>
+        </Fade>
+      </Modal>
+
+      {/* MODAL: PSI CRONO */}
+      <Modal
+        open={showPsiChrono}
+        onClose={() => setShowPsiChrono(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}
+      >
+        <Fade in={showPsiChrono}>
+          <Box sx={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%', outline: 'none', overflowY: 'auto',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            pt: 4, pb: 4,
+          }}>
+            <PsiChronoView
+              date={kinData ? new Date(kinData.date) : new Date()}
+              kinNumber={kinData?.kin_number}
+              onClose={() => setShowPsiChrono(false)}
+            />
           </Box>
         </Fade>
       </Modal>

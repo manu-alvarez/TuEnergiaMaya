@@ -1,137 +1,212 @@
 import React from 'react';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography, Fade, Button } from '@mui/material';
 import { getPsiChrono, isGalacticActivationPortal } from '../utils/psiChrono';
-import { getColorHex, getColorGradient, getColorGlow } from '../utils/colorUtils';
+import { getColorHex, getColorGradient, getColorGlow, getGlyphFilter } from '../utils/colorUtils';
+import { PSI_CHRONO_INTRO, GAP_CONTENT, DFT_CONTENT, SEAL_PSI_MEANINGS } from '../data/psiChronoContent';
 
-const PsiChronoView = ({ date, kinNumber }) => {
+const PsiChronoView = ({ date, kinNumber, onClose }) => {
   if (!date) return null;
 
   const psi = getPsiChrono(date);
   const isGAP = kinNumber ? isGalacticActivationPortal(kinNumber) : false;
 
-  // Si no hay datos Psi para esta fecha, no renderizar
   if (psi.psiKinNumber === null) return null;
 
   const psiColor = psi.psiConfig?.color || 'Amarilla';
+  const psiSlug = psi.psiConfig?.slug || 'sun';
+  const psiMeaning = SEAL_PSI_MEANINGS[psiSlug] || SEAL_PSI_MEANINGS.sun;
 
   return (
-    <Box sx={{
-      background: 'rgba(255, 255, 255, 0.03)',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
-      borderRadius: 4,
-      p: 3,
-      mb: 3,
-    }}>
-      {/* Título */}
-      <Typography variant="overline" sx={{
-        color: '#00c8ff',
-        fontFamily: 'Cinzel',
-        letterSpacing: 3,
-        fontWeight: 'bold',
-        fontSize: '0.7rem',
+    <Fade in={true}>
+      <Box sx={{
+        width: '100%', maxWidth: 600, mx: 'auto', p: { xs: 1, sm: 2 },
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
       }}>
-        Banco Psi Cronológico
-      </Typography>
 
-      {psi.isDayOutOfTime ? (
-        // Día Fuera del Tiempo
-        <Box sx={{ textAlign: 'center', py: 2 }}>
-          <Typography variant="h5" sx={{
-            color: '#22c55e',
-            fontFamily: 'Cinzel',
-            fontWeight: 700,
-            mb: 1,
+        {/* --- PSI CRONO --- */}
+        <Box className="glass-card" sx={{
+          width: '100%', mb: 3, textAlign: 'center',
+          border: '1px solid rgba(0, 200, 255, 0.5)',
+        }}>
+          <Typography variant="overline" sx={{
+            color: '#00c8ff', fontFamily: 'Cinzel', letterSpacing: 4,
+            fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 0.5,
           }}>
-            ✨ Día Fuera del Tiempo ✨
+            🧠 {PSI_CHRONO_INTRO.title}
           </Typography>
+
+          <Typography variant="subtitle2" sx={{
+            color: 'rgba(255,255,255,0.5)', fontFamily: 'Lora', fontStyle: 'italic',
+            mb: 2.5, fontSize: '0.9rem',
+          }}>
+            {PSI_CHRONO_INTRO.subtitle}
+          </Typography>
+
+          {/* Explicación general */}
+          <Typography variant="body1" sx={{
+            color: 'rgba(255,255,255,0.85)', fontFamily: 'Lora',
+            fontSize: '1.05rem', lineHeight: 1.8, textAlign: 'center',
+            px: { xs: 1, sm: 3 }, mb: 1.5,
+          }}>
+            {PSI_CHRONO_INTRO.description}
+          </Typography>
+
           <Typography variant="body2" sx={{
-            color: 'rgba(255,255,255,0.7)',
-            fontFamily: 'Lora',
-            fontStyle: 'italic',
-            maxWidth: 300,
-            mx: 'auto',
+            color: 'rgba(255,255,255,0.5)', fontFamily: 'Lora', fontStyle: 'italic',
+            fontSize: '0.9rem', px: 2, mb: 3,
           }}>
-            Hoy es un portal místico y mágico. Vuelo directo en la cuarta dimensión.
-            Reconexión con la noosfera planetaria.
+            {PSI_CHRONO_INTRO.howToUse}
           </Typography>
-        </Box>
-      ) : (
-        // Día normal con Psi Crono
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1.5 }}>
-          {/* Badge del sello Psi */}
-          <Box sx={{
-            width: 50, height: 50,
-            borderRadius: '50%',
-            background: getColorGradient(psiColor),
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: `2px solid ${getColorHex(psiColor)}`,
-            boxShadow: `0 0 15px ${getColorGlow(psiColor, 0.4)}`,
-            p: 0.8,
-            flexShrink: 0,
-          }}>
-            <img
-              src={`assets/glyphs/seals/${psi.psiConfig?.slug || 'sun'}.png`}
-              alt={psi.psiConfig?.seal_name || 'Psi Crono'}
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-            />
-          </Box>
 
-          {/* Info del Psi Crono */}
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="body1" sx={{
-              color: 'white',
-              fontFamily: 'Cinzel',
-              fontWeight: 600,
-              fontSize: '0.95rem',
-            }}>
-              Kin {psi.psiKinNumber}: {psi.psiConfig?.seal_name} {psi.psiConfig?.tone_name}
-            </Typography>
-            <Typography variant="body2" sx={{
-              color: 'rgba(255,255,255,0.5)',
-              fontFamily: 'Lora',
-              fontStyle: 'italic',
-              fontSize: '0.8rem',
-            }}>
-              Tu placa reguladora del día — la energía que sincroniza tu campo telepático.
-            </Typography>
-          </Box>
-        </Box>
-      )}
+          {/* Separador */}
+          <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.1)', mx: 3, mb: 3 }} />
 
-      {/* Indicadores especiales */}
-      <Box sx={{ display: 'flex', gap: 1, mt: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+          {psi.isDayOutOfTime ? (
+            /* --- DÍA FUERA DEL TIEMPO --- */
+            <Box sx={{ pb: 2 }}>
+              <Typography variant="h5" sx={{
+                color: '#22c55e', fontFamily: 'Cinzel', fontWeight: 800,
+                mb: 0.5, fontSize: '1.4rem',
+              }}>
+                {DFT_CONTENT.emoji} {DFT_CONTENT.title} {DFT_CONTENT.emoji}
+              </Typography>
+
+              <Typography variant="subtitle2" sx={{
+                color: 'rgba(255,255,255,0.5)', fontFamily: 'Cinzel',
+                letterSpacing: 3, mb: 2, fontSize: '0.7rem',
+              }}>
+                {DFT_CONTENT.subtitle}
+              </Typography>
+
+              <Typography variant="body1" sx={{
+                color: 'rgba(255,255,255,0.9)', fontFamily: 'Lora',
+                fontSize: '1.05rem', lineHeight: 1.8, textAlign: 'center',
+                px: { xs: 1, sm: 3 }, mb: 2,
+              }}>
+                {DFT_CONTENT.description}
+              </Typography>
+
+              <Typography variant="body1" sx={{
+                color: 'rgba(255,255,255,0.8)', fontFamily: 'Lora',
+                fontSize: '1rem', lineHeight: 1.8, textAlign: 'center',
+                px: { xs: 1, sm: 3 }, mb: 2,
+              }}>
+                {DFT_CONTENT.ritual}
+              </Typography>
+
+              <Typography variant="body2" sx={{
+                color: '#22c55e', fontFamily: 'Lora', fontStyle: 'italic',
+                fontSize: '1rem', px: 2,
+              }}>
+                "{DFT_CONTENT.affirmation}"
+              </Typography>
+            </Box>
+          ) : (
+            /* --- PSI CRONO DEL DÍA --- */
+            <Box sx={{ pb: 1 }}>
+              {/* Sello Psi con badge circular */}
+              <Box sx={{
+                width: { xs: 70, sm: 90 }, height: { xs: 70, sm: 90 },
+                borderRadius: '50%', mx: 'auto', mb: 2,
+                background: getColorGradient(psiColor),
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                border: `2px solid ${getColorHex(psiColor)}`,
+                boxShadow: `0 0 30px ${getColorGlow(psiColor)}`,
+                p: 1.2,
+              }}>
+                <img
+                  src={`assets/glyphs/seals/${psiSlug}.png`}
+                  alt={psi.psiConfig?.seal_name}
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'contain',
+                    filter: getGlyphFilter(psiColor),
+                  }}
+                />
+              </Box>
+
+              <Typography variant="h6" sx={{
+                color: 'white', fontFamily: 'Cinzel', fontWeight: 700,
+                mb: 0.5, fontSize: '1.1rem',
+              }}>
+                Kin {psi.psiKinNumber}: {psi.psiConfig?.seal_name} {psi.psiConfig?.tone_name}
+              </Typography>
+
+              <Typography variant="subtitle2" sx={{
+                color: getColorHex(psiColor), fontFamily: 'Cinzel',
+                letterSpacing: 2, fontSize: '0.65rem', mb: 2,
+              }}>
+                {psi.psiConfig?.color}
+              </Typography>
+
+              {/* Interpretación del sello Psi */}
+              <Typography variant="body1" sx={{
+                color: 'rgba(255,255,255,0.9)', fontFamily: 'Lora', fontStyle: 'italic',
+                fontSize: '1.05rem', lineHeight: 1.8, textAlign: 'center',
+                px: { xs: 1, sm: 3 }, mb: 1,
+              }}>
+                {psiMeaning}
+              </Typography>
+
+              {psi.isLeapDay && (
+                <Typography variant="body2" sx={{
+                  color: 'rgba(255,255,255,0.4)', fontFamily: 'Lora',
+                  fontSize: '0.85rem', mt: 1,
+                }}>
+                  Día bisiesto — la misma frecuencia que ayer se mantiene.
+                </Typography>
+              )}
+            </Box>
+          )}
+        </Box>
+
+        {/* --- PORTAL DE ACTIVACIÓN GALÁCTICA --- */}
         {isGAP && (
-          <Chip
-            label="🌀 Portal de Activación Galáctica"
-            size="small"
-            sx={{
-              bgcolor: 'rgba(147, 51, 234, 0.2)',
-              color: '#c084fc',
-              fontFamily: 'Lora',
-              fontSize: '0.7rem',
-              border: '1px solid rgba(147, 51, 234, 0.4)',
-              fontWeight: 600,
-            }}
-          />
+          <Box className="glass-card" sx={{
+            width: '100%', mb: 3, textAlign: 'center',
+            border: '1px solid rgba(147, 51, 234, 0.5)',
+            boxShadow: '0 0 25px rgba(147, 51, 234, 0.15), inset 0 0 10px rgba(147, 51, 234, 0.05)',
+          }}>
+            <Typography variant="overline" sx={{
+              color: '#c084fc', fontFamily: 'Cinzel', letterSpacing: 4,
+              fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 1,
+            }}>
+              {GAP_CONTENT.emoji} {GAP_CONTENT.title}
+            </Typography>
+
+            <Typography variant="body1" sx={{
+              color: 'rgba(255,255,255,0.9)', fontFamily: 'Lora',
+              fontSize: '1.05rem', lineHeight: 1.8, textAlign: 'center',
+              px: { xs: 1, sm: 3 }, mb: 2,
+            }}>
+              {GAP_CONTENT.description}
+            </Typography>
+
+            <Typography variant="body2" sx={{
+              color: '#c084fc', fontFamily: 'Lora', fontStyle: 'italic',
+              fontSize: '0.95rem', px: 2,
+            }}>
+              {GAP_CONTENT.advice}
+            </Typography>
+          </Box>
         )}
-        {psi.isLeapDay && (
-          <Chip
-            label="Día bisiesto — Misma energía que ayer"
-            size="small"
+
+        {/* Botón volver */}
+        {onClose && (
+          <Button
+            variant="outlined"
+            onClick={onClose}
             sx={{
-              bgcolor: 'rgba(255, 255, 255, 0.05)',
-              color: 'rgba(255,255,255,0.5)',
-              fontFamily: 'Lora',
-              fontSize: '0.7rem',
-              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'white', borderColor: 'rgba(255, 255, 255, 0.5)',
+              borderRadius: '20px', px: 4, py: 0.5, fontSize: '0.8rem',
+              fontFamily: 'Cinzel', letterSpacing: 2, mt: 1,
+              '&:hover': { borderColor: 'white', bgcolor: 'rgba(255, 255, 255, 0.1)' },
             }}
-          />
+          >
+            VOLVER
+          </Button>
         )}
       </Box>
-    </Box>
+    </Fade>
   );
 };
 
