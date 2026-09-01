@@ -32,6 +32,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { PWAPrompt } from './components/PWAPrompt';
+import ArchetypesView from './components/ArchetypesView';
+import CastlesView from './components/CastlesView';
 
 import PublicIcon from '@mui/icons-material/Public';
 import StarsIcon from '@mui/icons-material/Stars';
@@ -53,6 +55,8 @@ function App() {
   const [showPsiChrono, setShowPsiChrono] = useState(false)
   const [showObservatorio, setShowObservatorio] = useState(false);
   const [showAstroFusion, setShowAstroFusion] = useState(false);
+  const [showArchetypes, setShowArchetypes] = useState(false);
+  const [showCastles, setShowCastles] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const openMenu = Boolean(anchorEl)
 
@@ -229,6 +233,8 @@ function App() {
                   { label: 'Kin Natal', icon: <CakeIcon />, action: () => setShowNatal(true) },
                   { label: 'Sincronario Global', icon: <PublicIcon />, action: () => setShowObservatorio(true) },
                   { label: 'Fusión Astro', icon: <StarsIcon />, action: () => setShowAstroFusion(true) },
+                  { label: 'Arquetipos', icon: <AutoAwesomeIcon />, action: () => setShowArchetypes(true) },
+                  { label: 'Castillos', icon: <ExploreIcon />, action: () => setShowCastles(true) },
                   { label: 'Podcast', icon: <PodcastsIcon />, action: () => setShowPodcast(true) }
                 ].map((item) => (
                   <Button
@@ -662,6 +668,46 @@ function App() {
             pt: 4, pb: 4,
           }}>
             <WavespellView kinNumber={kinData?.kin_number} onClose={() => setShowWavespell(false)} />
+          </Box>
+        </Fade>
+      </Modal>
+
+      {/* MODAL: ARQUETIPOS */}
+      <Modal
+        open={showArchetypes}
+        onClose={() => setShowArchetypes(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}
+      >
+        <Fade in={showArchetypes}>
+          <Box sx={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%', outline: 'none', overflowY: 'auto',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            pt: 4, pb: 4,
+          }}>
+            <ArchetypesView onBack={() => setShowArchetypes(false)} kinData={kinData} />
+          </Box>
+        </Fade>
+      </Modal>
+
+      {/* MODAL: CASTILLOS */}
+      <Modal
+        open={showCastles}
+        onClose={() => setShowCastles(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}
+      >
+        <Fade in={showCastles}>
+          <Box sx={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%', outline: 'none', overflowY: 'auto',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            pt: 4, pb: 4,
+          }}>
+            <CastlesView onBack={() => setShowCastles(false)} kinNumber={kinData?.kin_number} />
           </Box>
         </Fade>
       </Modal>

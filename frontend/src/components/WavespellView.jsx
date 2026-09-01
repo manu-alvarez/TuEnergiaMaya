@@ -1,5 +1,7 @@
-import React from 'react';
-import { Box, Typography, Fade, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Fade, Button, IconButton } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { getWavespell, getCastle } from '../utils/wavespell';
 import { getKinConfig } from '../utils/tzolkin';
 import { getColorHex, getColorGradient, getColorGlow } from '../utils/colorUtils';
@@ -11,17 +13,25 @@ const CASTLE_COLORS = {
 };
 
 const WavespellView = ({ kinNumber, onClose }) => {
-  if (!kinNumber) return null;
+  const [activeKin, setActiveKin] = useState(kinNumber);
 
-  const wavespell = getWavespell(kinNumber);
-  const castle = getCastle(kinNumber);
+  useEffect(() => {
+    if (kinNumber) setActiveKin(kinNumber);
+  }, [kinNumber]);
+
+  if (!kinNumber || !activeKin) return null;
+
+  const wavespell = getWavespell(activeKin);
+  const castle = getCastle(activeKin);
   const startKinConfig = getKinConfig(wavespell.wavespellStartKin);
   const startSlug = startKinConfig.slug;
   const castleColor = CASTLE_COLORS[castle.castle.color] || '#eab308';
 
   // Contenido interpretativo
   const waveContent = WAVE_DESCRIPTIONS[startSlug] || WAVE_DESCRIPTIONS.dragon;
-  const tonePosition = TONE_POSITIONS[wavespell.dayInWave - 1];
+  // Solo mostramos la posición tonal si el kinNumber prop está dentro de esta onda actual
+  const isOriginalWavespell = kinNumber >= wavespell.wavespellStartKin && kinNumber < wavespell.wavespellStartKin + 13;
+  const tonePosition = isOriginalWavespell ? TONE_POSITIONS[getWavespell(kinNumber).dayInWave - 1] : null;
   const castleContent = CASTLE_CONTENT[castle.castle.color] || CASTLE_CONTENT['Rojo'];
 
   // Generar los 13 Kines de la onda
@@ -29,6 +39,9 @@ const WavespellView = ({ kinNumber, onClose }) => {
     const waveKinNum = wavespell.wavespellStartKin + i;
     return { number: waveKinNum, ...getKinConfig(waveKinNum) };
   });
+
+  const handlePrev = () => setActiveKin(prev => prev > 13 ? prev - 13 : prev + 247);
+  const handleNext = () => setActiveKin(prev => prev <= 247 ? prev + 13 : prev - 247);
 
   return (
     <Fade in={true}>
@@ -42,12 +55,20 @@ const WavespellView = ({ kinNumber, onClose }) => {
           width: '100%', mb: 3, textAlign: 'center',
           border: '1px solid rgba(0, 200, 255, 0.5)',
         }}>
-          <Typography variant="overline" sx={{
-            color: '#00c8ff', fontFamily: 'Cinzel', letterSpacing: 4,
-            fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 0.5,
-          }}>
-            🌊 Onda Encantada {wavespell.wavespellNumber} de 20
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5, mt: 1 }}>
+            <IconButton onClick={handlePrev} sx={{ color: '#00c8ff' }}>
+              <ArrowBackIosIcon fontSize="small" />
+            </IconButton>
+            <Typography variant="overline" sx={{
+              color: '#00c8ff', fontFamily: 'Cinzel', letterSpacing: 2,
+              fontWeight: 700, fontSize: '0.7rem', display: 'block', mx: 2
+            }}>
+              🌊 Onda Encantada {wavespell.wavespellNumber} de 20
+            </Typography>
+            <IconButton onClick={handleNext} sx={{ color: '#00c8ff' }}>
+              <ArrowForwardIosIcon fontSize="small" />
+            </IconButton>
+          </Box>
 
           <Typography variant="h5" sx={{
             color: 'white', fontFamily: 'Cinzel', fontWeight: 800,
@@ -120,30 +141,32 @@ const WavespellView = ({ kinNumber, onClose }) => {
             })}
           </Box>
 
-          {/* Posición tonal de hoy */}
-          <Box sx={{
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            pt: 2.5, px: { xs: 1, sm: 3 },
-          }}>
-            <Typography variant="subtitle2" sx={{
-              color: '#00c8ff', fontFamily: 'Cinzel', fontWeight: 800,
-              letterSpacing: 2, mb: 1, fontSize: '0.75rem',
+          {/* Posición tonal de hoy (solo si es la onda actual) */}
+          {tonePosition && (
+            <Box sx={{
+              borderTop: '1px solid rgba(255,255,255,0.1)',
+              pt: 2.5, px: { xs: 1, sm: 3 }, mb: 2
             }}>
-              HOY: DÍA {wavespell.dayInWave} — TONO {tonePosition.name.toUpperCase()}
-            </Typography>
-            <Typography variant="overline" sx={{
-              color: 'rgba(255,255,255,0.5)', fontFamily: 'Cinzel',
-              letterSpacing: 3, fontSize: '0.65rem',
-            }}>
-              Función: {tonePosition.function}
-            </Typography>
-            <Typography variant="body1" sx={{
-              color: 'rgba(255,255,255,0.85)', fontFamily: 'Lora', fontStyle: 'italic',
-              fontSize: '1rem', lineHeight: 1.8, mt: 1, textAlign: 'center',
-            }}>
-              {tonePosition.description}
-            </Typography>
-          </Box>
+              <Typography variant="subtitle2" sx={{
+                color: '#00c8ff', fontFamily: 'Cinzel', fontWeight: 800,
+                letterSpacing: 2, mb: 1, fontSize: '0.75rem',
+              }}>
+                HOY: DÍA {getWavespell(kinNumber).dayInWave} — TONO {tonePosition.name.toUpperCase()}
+              </Typography>
+              <Typography variant="overline" sx={{
+                color: 'rgba(255,255,255,0.5)', fontFamily: 'Cinzel',
+                letterSpacing: 3, fontSize: '0.65rem',
+              }}>
+                Función: {tonePosition.function}
+              </Typography>
+              <Typography variant="body1" sx={{
+                color: 'rgba(255,255,255,0.85)', fontFamily: 'Lora', fontStyle: 'italic',
+                fontSize: '1rem', lineHeight: 1.8, mt: 1, textAlign: 'center',
+              }}>
+                {tonePosition.description}
+              </Typography>
+            </Box>
+          )}
         </Box>
 
         {/* --- CASTILLO --- */}

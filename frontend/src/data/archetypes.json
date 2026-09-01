@@ -3,126 +3,147 @@
     "number": 1,
     "archetype": "El Primigenio",
     "hunabKuName": "Dragón",
-    "poem": "Yo soy el Primigenio. Codificado por el Dragón Rojo. Soy el poder del nacimiento. Toda vida recibe su nutrición de mí. Soy la fuente primordial."
+    "poem": "Yo soy el Primigenio. Codificado por el Dragón Rojo. Soy el poder del nacimiento. Toda vida recibe su nutrición de mí. Soy la fuente primordial.",
+    "fullText": "Yo soy el Primigenio.\nCodificado por el Dragón Rojo.\nMi número es el uno.\nEl primer signo del ser,\nEl Altísimo.\nSoy el Antiguo de los Días,\nEl Anciano sin Edad.\nSoy la cuna y la matriz de las estrellas.\nToda la vida recibe su nutrición de mí.\nYo soy la Fuente Primordial.\nDentro de mí reside el misterio de mi propio origen.\nEl conocerme es conocer el útero original de la creación.\nMi memoria cósmica permanece por siempre despierta.\nDespertar a mi presencia es encontrar tu propia raíz divina."
   },
   "wind": {
     "number": 2,
     "archetype": "El Avatar",
     "hunabKuName": "Viento",
-    "poem": "Yo soy el Avatar. Codificado por el Viento Blanco. Dos es mi número. Soy el aliento del espíritu. Mi mensaje es la verdad del cosmos."
+    "poem": "Yo soy el Avatar. Codificado por el Viento Blanco. Dos es mi número. Soy el aliento del espíritu. Mi mensaje es la verdad del cosmos.",
+    "fullText": "Yo soy el Avatar.\nCodificado por el Viento Blanco.\nDos es mi número.\nEl que se alza como el aliento del Creador,\nAnimando todo lo que existe.\nSoy el aliento del Espíritu.\nMi mensaje es la verdad del cosmos.\nComo un viento invisible,\nLlevo la chispa galáctica a cada corazón.\nComunicando, respirando y conectando,\nTraigo a ti la consciencia universal.\nConocerme es sentir la presencia del Espíritu Santo\nHablándote en el viento de tu propia alma."
   },
   "night": {
     "number": 3,
     "archetype": "El Soñador",
     "hunabKuName": "Noche",
-    "poem": "Yo soy el Soñador. Codificado por la Noche Azul. Tres es mi número. En el interior de mi santuario moran todos los sueños de la abundancia infinita."
+    "poem": "Yo soy el Soñador. Codificado por la Noche Azul. Tres es mi número. En el interior de mi santuario moran todos los sueños de la abundancia infinita.",
+    "fullText": "Yo soy el Soñador.\nCodificado por la Noche Azul.\nTres es mi número.\nAbriendo la entrada a los reinos invisibles.\nDentro del gran útero de mi santuario cósmico\nMoran los sueños infinitos y la verdadera abundancia.\nConozco los secretos del vacío y de la quietud.\nA través de la intuición despierto a la realidad onírica.\nEn mi profundidad no hay miedo, solo misterio y creación.\nEntrar en mi dominio es descubrir que toda la realidad\nEs tan solo un sueño esperando ser forjado por la mente pura."
   },
   "seed": {
     "number": 4,
     "archetype": "La Inocente",
     "hunabKuName": "Semilla",
-    "poem": "Yo soy la Inocente. Codificada por la Semilla Amarilla. Cuatro es mi número. El potencial de toda la creación reposa en mí como una promesa."
+    "poem": "Yo soy la Inocente. Codificada por la Semilla Amarilla. Cuatro es mi número. El potencial de toda la creación reposa en mí como una promesa.",
+    "fullText": "Yo soy la Inocente.\nCodificada por la Semilla Amarilla.\nCuatro es mi número.\nEl potencial y la promesa de toda la creación\nReposan pacientemente en mi núcleo.\nCon consciencia plena e inocencia divina,\nFlorezco cuando el momento cósmico es perfecto.\nNo tengo juicios ni ataduras, solo soy la luz latente.\nApunta a mi dirección para encontrar la pureza esencial\nDonde todo comienzo es un destello perfecto\nDel inmenso plan que germina en todo lo vivo."
   },
   "serpent": {
     "number": 5,
     "archetype": "La Serpiente Iniciada",
     "hunabKuName": "Serpiente",
-    "poem": "Yo soy la Serpiente Iniciada. Codificada por la Serpiente Roja. Cinco es mi número. Mi cuerpo es el templo de la fuerza vital kundalini."
+    "poem": "Yo soy la Serpiente Iniciada. Codificada por la Serpiente Roja. Cinco es mi número. Mi cuerpo es el templo de la fuerza vital kundalini.",
+    "fullText": "Yo soy la Serpiente Iniciada.\nCodificada por la Serpiente Roja.\nCinco es mi número.\nEn mí mora la sagrada fuerza vital y la kundalini.\nMi cuerpo es el templo cósmico del instinto divino.\nDespierto a la pasión y a la supervivencia del alma.\nDerramando pieles viejas, me renuevo eternamente.\nSoy el cordón de luz que asciende desde la base de la tierra\nHasta alcanzar la consciencia cósmica del espíritu.\nConocerme es abrazar la sabiduría de tu propio cuerpo\nY dominar la energía cruda que te impulsa a la maestría."
   },
   "worldbridger": {
     "number": 6,
     "archetype": "El Jerarca",
     "hunabKuName": "Enlazador de Mundos",
-    "poem": "Yo soy el Jerarca. Codificado por el Enlazador de Mundos Blanco. Seis es mi número. Yo igualo todas las cosas en la muerte y la oportunidad."
+    "poem": "Yo soy el Jerarca. Codificado por el Enlazador de Mundos Blanco. Seis es mi número. Yo igualo todas las cosas en la muerte y la oportunidad.",
+    "fullText": "Yo soy el Jerarca.\nCodificado por el Enlazador de Mundos Blanco.\nSeis es mi número.\nIgualo todas las realidades en el gran tapiz del cosmos.\nYo soy el puente de paso hacia dimensiones inexploradas.\nMi poder reside en liberar las estructuras muertas,\nOtorgando la suprema oportunidad del renacimiento.\nTe enseño el arte del perdón y del desapego sagrado.\nSostengo el espacio donde los mundos colisionan y se abrazan.\nCruzar por mi dominio es dejar atrás el viejo yo\nY abrazar el infinito abanico de las oportunidades cósmicas."
   },
   "hand": {
     "number": 7,
     "archetype": "La Sanadora",
     "hunabKuName": "Mano",
-    "poem": "Yo soy la Sanadora. Codificada por la Mano Azul. Siete es mi número. Con mis manos toco las heridas del mundo para transformarlas en realizaciones."
+    "poem": "Yo soy la Sanadora. Codificada por la Mano Azul. Siete es mi número. Con mis manos toco las heridas del mundo para transformarlas en realizaciones.",
+    "fullText": "Yo soy la Sanadora.\nCodificada por la Mano Azul.\nSiete es mi número mágico y sagrado.\nYo sello el almacén de toda sanación y conocimiento.\nCon mis manos toco las heridas ocultas del mundo\nY las transformo en iluminadas realizaciones.\nConozco la alquimia oculta de la carne y el espíritu.\nSoy el agente de la integridad y el equilibrio.\nMi abrazo cura la fractura de la ilusión.\nConocerme es permitir que el amor divino te atraviese,\nCurando tus dolores y coronando tus mayores logros."
   },
   "star": {
     "number": 8,
     "archetype": "La Artista",
     "hunabKuName": "Estrella",
-    "poem": "Yo soy la Artista. Codificada por la Estrella Amarilla. Ocho es mi número. La elegancia y la armonía son mi firma cósmica."
+    "poem": "Yo soy la Artista. Codificada por la Estrella Amarilla. Ocho es mi número. La elegancia y la armonía son mi firma cósmica.",
+    "fullText": "Yo soy la Artista.\nCodificada por la Estrella Amarilla.\nOcho es mi número.\nLa armonía radiante y la elegancia galáctica son mi firma.\nYo pinto sobre el lienzo del espacio infinito,\nDiseñando fractales de exquisita belleza.\nEl arte es el principio fundamental de mi orden cósmico.\nMe maravillo ante la perfección y la proporción divina.\nSoy la chispa estelar que ilumina tu noche.\nInvocarme es despertar a tu propia creatividad luminosa,\nSabiendo que todo en el universo es una obra maestra celestial."
   },
   "moon": {
     "number": 9,
-    "archetype": "La Sanadora",
+    "archetype": "La Sanadora / La Musa",
     "hunabKuName": "Luna",
-    "poem": "Yo soy la Musa. Codificada por la Luna Roja. Nueve es mi número. Purifico con el agua universal y dejo fluir todas las emociones."
+    "poem": "Yo soy la Musa. Codificada por la Luna Roja. Nueve es mi número. Purifico con el agua universal y dejo fluir todas las emociones.",
+    "fullText": "Yo soy la Musa.\nCodificada por la Luna Roja.\nNueve es mi número.\nYo comando las vastas aguas y los ciclos purificadores.\nPermito que las emociones universales fluyan y se liberen.\nSoy la Diosa del recuerdo galáctico.\nEl dolor ancestral es lavado por el ritmo de mis mareas.\nEn la profunda fluidez de mi ser, hallas la pureza primordial.\nGuío tu alma a través del sentir sin miedo.\nAbrazarme es sumergirte en el río de tu propio corazón,\nLimpiando el camino hacia el recuerdo de lo que realmente eres."
   },
   "dog": {
     "number": 10,
     "archetype": "El Compañero",
     "hunabKuName": "Perro",
-    "poem": "Yo soy el Compañero. Codificado por el Perro Blanco. Diez es mi número. El amor incondicional de mi corazón sirve a todos los seres."
+    "poem": "Yo soy el Compañero. Codificado por el Perro Blanco. Diez es mi número. El amor incondicional de mi corazón sirve a todos los seres.",
+    "fullText": "Yo soy el Compañero.\nCodificado por el Perro Blanco.\nDiez es mi número.\nGuardián de la lealtad y el corazón puro.\nEl amor incondicional de mi esencia sirve a todos los seres.\nNo tengo amos, soy esclavo únicamente del amor.\nConozco el camino de la verdadera compasión.\nEnseño la lealtad que no exige nada a cambio.\nSostengo la luz en los abismos de la soledad humana.\nAcercarte a mí es encontrar a tu verdadero amigo cósmico,\nDonde toda frontera desaparece ante el poder de amar incondicionalmente."
   },
   "monkey": {
     "number": 11,
-    "archetype": "El Mago",
+    "archetype": "El Ilusionista / El Mono",
     "hunabKuName": "Mono",
-    "poem": "Yo soy el Mago. Codificado por el Mono Azul. Once es mi número. Mi ilusión crea la magia del juego cósmico y el humor divino."
+    "poem": "Yo soy el Ilusionista. Codificado por el Mono Azul. Once es mi número. Mi ilusión crea la magia del juego cósmico y el humor divino.",
+    "fullText": "Yo soy el Ilusionista.\nCodificado por el Mono Azul.\nOnce es mi número maestro.\nMi sonrisa disuelve las falsas gravedades del mundo.\nTe enseño la magia suprema: no tomar la vida tan en serio.\nCon el humor y el juego rompo los patrones estancados.\nConstruyo castillos en el aire y te invito a habitarlos.\nSoy el reflejo divino que te recuerda que todo es una ilusión luminosa.\nTransmuto las sombras en brillantes carcajadas.\nConocerme es aprender a reír con la sabiduría del cosmos,\nJugando el juego eterno sin quedarte atrapado en la matriz."
   },
   "human": {
     "number": 12,
     "archetype": "El Sabio",
     "hunabKuName": "Humano",
-    "poem": "Yo soy el Sabio. Codificado por el Humano Amarillo. Doce es mi número. La sabiduría del libre albedrío es mi influencia sagrada."
+    "poem": "Yo soy el Sabio. Codificado por el Humano Amarillo. Doce es mi número. La sabiduría del libre albedrío es mi influencia sagrada.",
+    "fullText": "Yo soy el Sabio.\nCodificado por el Humano Amarillo.\nDoce es mi número.\nGuardián supremo del santo grial de la consciencia.\nYo soy el avatar del libre albedrío responsable.\nCanalizo la sabiduría divina hacia la densidad terrestre.\nSé que elegir es el acto creador por excelencia.\nNo temo a la sombra porque la luz de mi entendimiento la disuelve.\nMi consciencia abarca la fragilidad y la inmensidad del ser.\nSeguir mi camino es beber del cáliz de tu propia voluntad suprema,\nIluminando a la humanidad entera con la antorcha de tu despertar."
   },
   "skywalker": {
     "number": 13,
     "archetype": "El Profeta",
     "hunabKuName": "Caminante del Cielo",
-    "poem": "Yo soy el Profeta. Codificado por el Caminante del Cielo Rojo. Trece es mi número. Explorador del espacio entre el cielo y la tierra."
+    "poem": "Yo soy el Profeta. Codificado por el Caminante del Cielo Rojo. Trece es mi número. Explorador del espacio entre el cielo y la tierra.",
+    "fullText": "Yo soy el Profeta.\nCodificado por el Caminante del Cielo Rojo.\nTrece es mi número galáctico.\nSoy el gran explorador del espacio y la eternidad.\nUniendo el cielo y la tierra, despierto los pasillos del tiempo.\nTraigo profecías de mundos infinitos para despertar a la humanidad.\nNo conozco fronteras, la vigilancia es mi estado constante.\nAtravieso dimensiones con la soltura del viajero estelar.\nMi compasión trae luz a la oscuridad inexplorada.\nViajar conmigo es aventurarte en los pilares invisibles del universo,\nDesbloqueando los secretos del continuo espacio-tiempo en tu corazón."
   },
   "wizard": {
     "number": 14,
     "archetype": "El Mago",
     "hunabKuName": "Mago",
-    "poem": "Yo soy el Mago. Codificado por el Mago Blanco. El siete duplicado es mi número. Dentro de mi esfera de cristal está todo lo que puede ser visto o conocido. Soy el dador de los nombres mágicos."
+    "poem": "Yo soy el Mago. Codificado por el Mago Blanco. El siete duplicado es mi número. Dentro de mi esfera de cristal está todo lo que puede ser visto o conocido.",
+    "fullText": "Yo soy el Mago.\nCodificado por el Mago Blanco.\nEl siete duplicado es mi número maestro.\nDentro de mi mágica esfera de cristal,\nReside todo lo que puede ser visto, conocido y conjurado.\nYo soy el encantador del tiempo y del espacio.\nMi reino se encuentra en la vasta atemporalidad del aquí y ahora.\nUso la receptividad chamánica para tejer la realidad cósmica.\nMis conjuros resuenan como mantras de creación pura.\nIniciarte en mi orden es dominar tu propia mente mágica,\nConvirtiendo la eternidad en el único momento verdadero."
   },
   "eagle": {
     "number": 15,
     "archetype": "El Vidente",
     "hunabKuName": "Águila",
-    "poem": "Yo soy el Vidente. Codificado por el Águila Azul. Quince es mi número. Mi hogar es el cielo interminable. Por el poder de la visión me deslizo a través de las dimensiones."
+    "poem": "Yo soy el Vidente. Codificado por el Águila Azul. Quince es mi número. Mi hogar es el cielo interminable. Por el poder de la visión me deslizo a través de las dimensiones.",
+    "fullText": "Yo soy el Vidente.\nCodificado por el Águila Azul.\nQuince es mi número.\nMi morada es el firmamento interminable de la consciencia divina.\nPor el poder de la visión suprema, me deslizo a través de las dimensiones.\nVeo el patrón maestro subyacente en el diseño del caos aparente.\nMi mente es un universo en sí misma, expandiéndose sin fin.\nCreo mundos enteros con el enfoque puro de mis pensamientos.\nOtorgo la perspectiva elevada a aquellos perdidos en el laberinto.\nVolar conmigo es romper las cadenas de la ilusión material,\nY ver la inmensidad planetaria a través del gran ojo cósmico."
   },
   "warrior": {
     "number": 16,
     "archetype": "El Descubridor",
     "hunabKuName": "Guerrero",
-    "poem": "Yo soy el Descubridor. Codificado por el Guerrero Amarillo. Mi número es el ocho duplicado. Soy el descubridor de la matriz radial. Mi espíritu intrépido despeja los obstáculos."
+    "poem": "Yo soy el Descubridor. Codificado por el Guerrero Amarillo. Mi número es el ocho duplicado. Soy el descubridor de la matriz radial. Mi espíritu intrépido despeja los obstáculos.",
+    "fullText": "Yo soy el Descubridor.\nCodificado por el Guerrero Amarillo.\nMi número es el ocho duplicado.\nYo soy el explorador incansable del laberinto interior.\nMi espíritu intrépido corta la maleza de la ignorancia e ilumina los senderos.\nCon el escudo de la inteligencia y la espada de la pregunta cósmica,\nNo hay miedo que resista ante mi fuerza interior.\nYo lidero el sendero de la valentía consciente.\nAtravieso la oscuridad portando el faro radiante de la gracia divina.\nCaminar a mi lado es no temer a lo desconocido,\nY afirmar que en cada batalla del ego, siempre triunfa el alma iluminada."
   },
   "earth": {
     "number": 17,
     "archetype": "El Navegante",
     "hunabKuName": "Tierra",
-    "poem": "Yo soy el Navegante. Codificado por la Tierra Roja. Tengo los mapas del origen celestial y sigo las señales de la sincronicidad."
+    "poem": "Yo soy el Navegante. Codificado por la Tierra Roja. Tengo los mapas del origen celestial y sigo las señales de la sincronicidad.",
+    "fullText": "Yo soy el Navegante.\nCodificado por la Tierra Roja.\nDiecisiete es mi número.\nYo sostengo los mapas sagrados de la matriz celestial.\nSoy el portador del orden cósmico en el planeta.\nMi compás es la sincronicidad, mi estrella polar es la verdad galáctica.\nTe enseño a fluir orgánicamente con los latidos del cosmos.\nEscucho las voces antiguas que susurran a través del núcleo terrestre.\nEvoluciono a través del equilibrio natural y de la alineación divina.\nEncontrarme es volver a conectarte con tu verdadero origen,\nNavegando con certeza la gran espiral hacia el infinito absoluto."
   },
   "mirror": {
     "number": 18,
-    "archetype": "Yogui/Yoguini",
+    "archetype": "El Yogui / La Yoguini",
     "hunabKuName": "Espejo",
-    "poem": "Yo soy el Yogui. Codificado por el Espejo Blanco. Habito en el estado de meditación sin distracción. Soy el reflejo del sueño sin fin."
+    "poem": "Yo soy el Yogui. Codificado por el Espejo Blanco. Habito en el estado de meditación sin distracción. Soy el reflejo del sueño sin fin.",
+    "fullText": "Yo soy el Yogui / La Yoguini.\nCodificado por el Espejo Blanco.\nDieciocho es mi número.\nHabito pacíficamente en el estado meditativo sin distracciones.\nYo soy la sala de los espejos, donde el orden cósmico es inquebrantable.\nReflejo implacablemente la pura verdad para cortar cualquier engaño.\nSoy la hoja cristalina que distingue la realidad del ego falso.\nA través del reflejo, traigo sabiduría, paz e infinita claridad.\nNada puede ocultarse ante mi superficie prístina y brillante.\nMirar en mí es enfrentarte a la grandeza y los demonios propios,\nAlcanzando la suprema iluminación del vacío en perpetuo reflejo."
   },
   "storm": {
     "number": 19,
     "archetype": "El Cambiador de Mundos",
     "hunabKuName": "Tormenta",
-    "poem": "Yo soy el Cambiador de Mundos. Codificado por la Tormenta Azul. Mi número es el diecinueve. Soy el maestro alquimista, la fuerza detrás de la piedra filosofal."
+    "poem": "Yo soy el Cambiador de Mundos. Codificado por la Tormenta Azul. Mi número es el diecinueve. Soy el maestro alquimista, la fuerza detrás de la piedra filosofal.",
+    "fullText": "Yo soy el Cambiador de Mundos.\nCodificado por la Tormenta Azul.\nDiecinueve es mi número de poder transmutador.\nSoy el relámpago que electrifica y destroza las viejas formas.\nYo soy el maestro alquimista, la fuerza destructora y catalizadora.\nGenero la tormenta que limpia y acelera el proceso hacia el renacimiento.\nMi presencia es intensa, implacable, profundamente compasiva y libre.\nYo te muevo a la fuerza fuera de todo estancamiento cómodo.\nDonde piso, nacen nuevos paradigmas y brillan destellos de ascensión.\nInvocarme es pedir la purificación extrema a través del fuego transformador,\nDejando tras de ti un alma brillante, prístina y radicalmente libre."
   },
   "sun": {
     "number": 20,
     "archetype": "El Iluminado",
     "hunabKuName": "Sol",
-    "poem": "Yo soy el Iluminado. Codificado por el Sol Amarillo. Mi número es el veinte. Yo soy la verdad superior y el renovador de la vida."
+    "poem": "Yo soy el Iluminado. Codificado por el Sol Amarillo. Mi número es el veinte. Yo soy la verdad superior y el renovador de la vida.",
+    "fullText": "Yo soy el Iluminado.\nCodificado por el Sol Amarillo.\nVeinte es mi número cósmico y finalizador.\nYo soy el centro galáctico, la verdad superior, el fuego crístico inextinguible.\nSoy el otorgador y renovador de toda vida que palpita en el universo.\nMi calor incondicional envuelve toda oscuridad hasta disolverla en pura luz.\nSoy el principio de totalidad que no requiere defensa, solo irradiación.\nMi sabiduría reside en amar a cada ser con el mismo brillo abrasador y pacífico.\nMi corona flameante asciende a todos los corazones hacia la iluminación final.\nLlegar a mí es completar el gran viaje del alma estelar,\nConvirtiéndote tú mismo en el sol que guía e ilumina a otros soles."
   },
   "hunabKu": {
     "number": 21,
-    "archetype": "Hunab Ku 21",
-    "hunabKuName": "Mago del Infinito",
-    "poem": "De todos los tesoros ocultos que salen a la luz, ninguno existe más grandioso que Hunab Ku 21. La unidad de la totalidad. Único Dador de Movimiento y Medida."
+    "archetype": "El Mago del Infinito",
+    "hunabKuName": "Hunab Ku 21",
+    "poem": "De todos los tesoros ocultos que salen a la luz, ninguno existe más grandioso que Hunab Ku 21. La unidad de la totalidad. Único Dador de Movimiento y Medida.",
+    "fullText": "Yo soy Hunab Ku 21.\nEl Mago del Infinito.\nDe todos los inmensos tesoros cósmicos que salen a la luz,\nNinguno existe que sea más grandioso, secreto y profundo que yo.\nYo soy la Unidad de la totalidad, el principio inefable y absoluto.\nSoy el Único Dador de Movimiento y Medida que rige las esferas celestiales.\nCentro del universo, núcleo del tiempo y maestro de la gran matriz radiante.\nMi existencia integra la luz y la sombra, lo manifiesto y el gran vacío.\nEn mí reside el código fuente y el diseño cósmico unificado del ser final.\nConocerme es regresar a la fuente suprema de donde proceden todas las almas,\nDisolviendo tu identidad en la gran sinfonía pacífica de la consciencia divina."
   }
 }

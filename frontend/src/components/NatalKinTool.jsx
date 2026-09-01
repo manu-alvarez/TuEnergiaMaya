@@ -9,6 +9,8 @@ import QuintaFuerza from './QuintaFuerza';
 const NatalKinTool = ({ onClose }) => {
     const [birthDate, setBirthDate] = useState('');
     const [result, setResult] = useState(null);
+    const [transitResult, setTransitResult] = useState(null);
+    const [showTransit, setShowTransit] = useState(false);
 
     const handleCalculate = () => {
         if (!birthDate) {
@@ -16,7 +18,8 @@ const NatalKinTool = ({ onClose }) => {
             return;
         }
 
-        const kinNumber = calculateKin(new Date(birthDate));
+        const birthDateObj = new Date(birthDate);
+        const kinNumber = calculateKin(birthDateObj);
         const config = getKinConfig(kinNumber);
 
         // Obtener descripción rica de dailyData
@@ -34,6 +37,22 @@ const NatalKinTool = ({ onClose }) => {
         };
 
         setResult(kinData);
+
+        // Kin de Tránsito (Último cumpleaños)
+        const today = new Date();
+        let lastBirthday = new Date(today.getFullYear(), birthDateObj.getMonth(), birthDateObj.getDate());
+        if (lastBirthday > today) {
+            lastBirthday.setFullYear(today.getFullYear() - 1);
+        }
+
+        const transitKinNumber = calculateKin(lastBirthday);
+        const transitConfig = getKinConfig(transitKinNumber);
+        setTransitResult({
+            ...transitConfig,
+            kin_number: transitConfig.number,
+            name: `${transitConfig.seal_name} ${transitConfig.tone_name}`
+        });
+        setShowTransit(false);
     };
 
     return (
@@ -106,19 +125,41 @@ const NatalKinTool = ({ onClose }) => {
                     <Box sx={{ mt: 2 }}>
                         <Divider sx={{ mb: 4, bgcolor: 'rgba(255,255,255,0.1)' }} />
 
+                        <Box sx={{ textAlign: 'center', mb: 2, display: 'flex', justifyContent: 'center', gap: 2 }}>
+                            <Button 
+                                variant={!showTransit ? "contained" : "outlined"}
+                                onClick={() => setShowTransit(false)}
+                                sx={{ color: !showTransit ? 'black' : 'white', bgcolor: !showTransit ? '#00c8ff' : 'transparent', borderColor: '#00c8ff' }}
+                            >
+                                KIN NATAL
+                            </Button>
+                            <Button 
+                                variant={showTransit ? "contained" : "outlined"}
+                                onClick={() => setShowTransit(true)}
+                                sx={{ color: showTransit ? 'black' : 'white', bgcolor: showTransit ? '#00c8ff' : 'transparent', borderColor: '#00c8ff' }}
+                            >
+                                KIN DE TRÁNSITO
+                            </Button>
+                        </Box>
+
                         <Box sx={{ textAlign: 'center', mb: 4 }}>
                             <Typography variant="h6" sx={{ color: 'white', fontFamily: 'Cinzel', mb: 1 }}>
-                                Eres Kin {result.kin_number}: {result.name}
+                                {!showTransit ? `Eres Kin ${result.kin_number}: ${result.name}` : `Tu Kin de Tránsito actual es ${transitResult.kin_number}: ${transitResult.name}`}
                             </Typography>
+                            {showTransit && (
+                                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>
+                                    (Firma galáctica de tu último cumpleaños en el año solar)
+                                </Typography>
+                            )}
                         </Box>
 
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <QuintaFuerza kinData={result} />
+                            <QuintaFuerza kinData={!showTransit ? result : transitResult} />
                         </Box>
 
                         <Box sx={{ mt: 4, p: 3, bgcolor: 'rgba(0,0,0,0.2)', borderRadius: 4, textAlign: 'left' }}>
                             <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', lineHeight: 1.8, fontFamily: 'Lora', whiteSpace: 'pre-line' }}>
-                                {result.mysticalMessage}
+                                {!showTransit ? result.mysticalMessage : (transitResult.mysticalMessage || `Este año transitas bajo la energía del ${transitResult.name}. Te acompaña la vibración del tono ${transitResult.tone_name} para tu propósito anual.`)}
                             </Typography>
                         </Box>
 

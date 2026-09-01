@@ -49,33 +49,18 @@ const ObservatorioModal = ({ open, onClose, kinData }) => {
                         SINCRONARIO GLOBAL
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', mb: 3, textAlign: 'center' }}>
-                        Cómo la energía del Kin de hoy influye en las buenas noticias del mundo.
+                        Personajes ilustres e históricos que comparten la energía de este Kin.
                     </Typography>
 
                     {isLoading ? (
                         <Box sx={{ py: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <CircularProgress sx={{ color: '#00c8ff', mb: 3 }} />
                             <Typography sx={{ color: 'rgba(255,255,255,0.7)', fontStyle: 'italic' }}>
-                                Escaneando la red global y alineando con el Tzolkin...
+                                Explorando los registros akáshicos y la historia humana...
                             </Typography>
                         </Box>
                     ) : (
                         <Box>
-                            {newsData && (
-                                <Box sx={{ mb: 4, p: 2, bgcolor: 'rgba(0,0,0,0.3)', borderRadius: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
-                                    <Typography variant="overline" sx={{ color: '#00c8ff', fontWeight: 'bold' }}>Titulares Sincrónicos de Hoy</Typography>
-                                    <ul style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '20px', marginTop: '8px', marginBottom: 0, fontSize: '0.9rem' }}>
-                                        {newsData.map((news, idx) => (
-                                            <li key={idx} style={{ marginBottom: '8px' }}>
-                                                <a href={news.url} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
-                                                    {news.title}
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Box>
-                            )}
-
                             {reading && (
                                 <Box sx={{ mb: 4 }}>
                                     <Typography sx={{ color: 'white', lineHeight: 1.8, whiteSpace: 'pre-line', fontFamily: 'Lora' }}>

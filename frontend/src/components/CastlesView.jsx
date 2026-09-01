@@ -1,0 +1,119 @@
+import React, { useState } from 'react';
+import { Box, Typography, Card, CardContent, Grid, Button } from '@mui/material';
+
+const castlesData = [
+    {
+        id: 1,
+        name: "Castillo Rojo del Este",
+        color: "#ff3333",
+        action: "Corte del Nacimiento",
+        power: "Iniciar",
+        kins: "1 - 52",
+        description: "El Castillo Rojo es la puerta de entrada a la espiral del tiempo. Aquí se siembra la semilla de la creación y se inicia un nuevo ciclo galáctico de 260 días. Es la fuerza primordial de la sangre y la vida."
+    },
+    {
+        id: 2,
+        name: "Castillo Blanco del Norte",
+        color: "#ffffff",
+        action: "Corte de la Muerte",
+        power: "Refinar",
+        kins: "53 - 104",
+        description: "El Castillo Blanco cruza la espiral del tiempo para purificar y refinar lo que nació en el Este. Aquí el espíritu se fortalece enfrentando los desafíos de la ilusión material y soltando lo innecesario."
+    },
+    {
+        id: 3,
+        name: "Castillo Azul del Oeste",
+        color: "#3366ff",
+        action: "Corte de la Magia",
+        power: "Transformar",
+        kins: "105 - 156",
+        description: "El Castillo Azul es el corazón de la transformación y la alquimia. La energía se condensa y se quema en el fuego de la magia. Es una etapa de cambios profundos, misterio y revelación."
+    },
+    {
+        id: 4,
+        name: "Castillo Amarillo del Sur",
+        color: "#ffcc00",
+        action: "Corte de la Inteligencia",
+        power: "Madurar",
+        kins: "157 - 208",
+        description: "El Castillo Amarillo irradia la luz del sol interior. Aquí lo transformado florece y madura. Es la cosecha de la sabiduría adquirida y el florecimiento de la conciencia inteligente."
+    },
+    {
+        id: 5,
+        name: "Castillo Verde Central",
+        color: "#00cc66",
+        action: "Corte de la Sincronización",
+        power: "Sincronizar",
+        kins: "209 - 260",
+        description: "El Castillo Verde es el centro del laberinto, el vuelo mágico de regreso al origen. Sincroniza todas las experiencias de los 4 castillos anteriores para dar el salto cuántico al próximo giro."
+    }
+];
+
+const CastlesView = ({ onBack, kinNumber }) => {
+    const currentCastleId = Math.ceil(kinNumber / 52);
+
+    return (
+        <Box sx={{ width: '100%', maxWidth: '1000px', mx: 'auto', p: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+                <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: '#ffcc00', textShadow: '0 0 10px rgba(255, 204, 0, 0.5)' }}>
+                    Los 5 Castillos
+                </Typography>
+                <Button variant="outlined" onClick={onBack} sx={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+                    VOLVER
+                </Button>
+            </Box>
+
+            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', mb: 4, textAlign: 'center' }}>
+                El Tzolkin se divide en 5 Castillos de 52 días cada uno. Juntos forman el viaje evolutivo de 260 días.
+            </Typography>
+
+            <Grid container spacing={3}>
+                {castlesData.map((castle) => {
+                    const isCurrent = castle.id === currentCastleId;
+                    
+                    return (
+                        <Grid item xs={12} md={isCurrent ? 12 : 6} key={castle.id}>
+                            <Card sx={{ 
+                                bgcolor: isCurrent ? 'rgba(0, 0, 0, 0.6)' : 'rgba(20, 20, 35, 0.8)', 
+                                border: `2px solid ${castle.color}`,
+                                opacity: isCurrent ? 1 : 0.7,
+                                borderRadius: 4,
+                                height: '100%',
+                                transition: 'all 0.3s ease',
+                                boxShadow: isCurrent ? `0 0 20px ${castle.color}40` : 'none',
+                                '&:hover': {
+                                    opacity: 1,
+                                    transform: 'scale(1.02)'
+                                }
+                            }}>
+                                <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                                    {isCurrent && (
+                                        <Typography variant="overline" sx={{ color: castle.color, fontWeight: 'bold', letterSpacing: 2 }}>
+                                            CASTILLO ACTUAL (HOY)
+                                        </Typography>
+                                    )}
+                                    <Typography variant="h5" sx={{ color: castle.color, fontFamily: 'Cinzel', mb: 1, fontWeight: 'bold' }}>
+                                        {castle.name}
+                                    </Typography>
+                                    <Typography variant="subtitle1" sx={{ color: 'white', mb: 2 }}>
+                                        {castle.action} • {castle.power}
+                                    </Typography>
+                                    <Box sx={{ display: 'inline-block', px: 2, py: 0.5, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 2, mb: 3 }}>
+                                        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                                            Kines: {castle.kins}
+                                        </Typography>
+                                    </Box>
+                                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', fontStyle: 'italic', lineHeight: 1.8 }}>
+                                        {castle.description}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    );
+                })}
+            </Grid>
+        </Box>
+    );
+};
+
+export default CastlesView;
