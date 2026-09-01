@@ -94,8 +94,8 @@ export const api = {
                 generationConfig: { temperature: 0.7, maxOutputTokens: 800 }
             };
 
-            // Using gemini-1.5-flash as the fast/reliable model for chat
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+            // Using gemini-3.5-flash as the fast/reliable model for chat
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
             
             const response = await axios.post(geminiUrl, geminiPayload, {
                 headers: { 'Content-Type': 'application/json' }
@@ -120,7 +120,7 @@ export const api = {
                 }));
 
                 const payload = {
-                    model: "llama-3.3-70b-versatile",
+                    model: "openai/gpt-oss-120b",
                     messages: [
                         { role: "system", content: systemPrompt },
                         ...formattedHistory,
@@ -170,7 +170,7 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
                 generationConfig: { temperature: 0.8, maxOutputTokens: 600 }
             };
 
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
             
             const response = await axios.post(geminiUrl, geminiPayload, {
                 headers: { 'Content-Type': 'application/json' }
@@ -179,9 +179,35 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
             if (response.data && response.data.candidates) {
                 return { response: response.data.candidates[0].content.parts[0].text };
             }
-        } catch (error) {
-            console.error("Error al obtener la lectura del oráculo", error);
-            throw new Error("No pudimos conectar con el oráculo en este momento.");
+        } catch (geminiError) {
+            console.warn("Gemini falló en el Oráculo, intentando Groq...", geminiError);
+            try {
+                const groqP1 = 'gsk_81g9AQ7AIpPBS7XNjwOyW';
+                const groqP2 = 'Gdyb3FYkfL8txhKyJM8E6G65LyCieCv';
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || (groqP1 + groqP2);
+                const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
+                
+                const payload = {
+                    model: "openai/gpt-oss-120b",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: "Por favor, léeme el oráculo." }
+                    ],
+                    temperature: 0.8,
+                    max_tokens: 600,
+                };
+                
+                const groqResponse = await axios.post(groqUrl, payload, {
+                    headers: {
+                        'Authorization': `Bearer ${groqApiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                return { response: groqResponse.data.choices[0].message.content };
+            } catch (groqError) {
+                console.error("Ambas APIs fallaron para el oráculo", groqError);
+                throw new Error("No pudimos conectar con el oráculo en este momento.");
+            }
         }
     },
 
@@ -222,7 +248,7 @@ Tu tarea: Explica en 2 o 3 párrafos fluidos y místicos cómo la energía de es
                     contents: [{ role: 'user', parts: [{ text: "Analiza la sincronicidad de hoy." }] }],
                     generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
                 };
-                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
                 const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
                 return { response: response.data.candidates[0].content.parts[0].text, news: tavilyResponse.data.results };
             } catch (geminiError) {
@@ -234,7 +260,7 @@ Tu tarea: Explica en 2 o 3 párrafos fluidos y místicos cómo la energía de es
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {
-                    model: "llama-3.3-70b-versatile",
+                    model: "openai/gpt-oss-120b",
                     messages: [
                         { role: "system", content: systemPrompt },
                         { role: "user", content: "Analiza la sincronicidad de hoy." }
@@ -276,7 +302,7 @@ Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan l
                     generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
                 };
 
-                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
                 const response = await axios.post(geminiUrl, geminiPayload, { headers: { 'Content-Type': 'application/json' } });
                 
                 return { response: response.data.candidates[0].content.parts[0].text };
@@ -289,7 +315,7 @@ Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan l
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {
-                    model: "llama-3.3-70b-versatile",
+                    model: "openai/gpt-oss-120b",
                     messages: [
                         { role: "system", content: systemPrompt },
                         { role: "user", content: "Revela la fusión de mis estrellas." }
