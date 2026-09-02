@@ -19,6 +19,17 @@ export const PWAPrompt = () => {
         },
     });
 
+    // Auto-update when a new version is detected
+    useEffect(() => {
+        if (needRefresh) {
+            // Give 1 second for the new SW to fully activate, then reload
+            const timer = setTimeout(() => {
+                updateServiceWorker(true);
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [needRefresh]);
+
     // 2. Manages installation prompt (for users who don't have the app)
     const [installPrompt, setInstallPrompt] = useState(null);
 
@@ -41,8 +52,6 @@ export const PWAPrompt = () => {
         installPrompt.prompt();
         const { outcome } = await installPrompt.userChoice;
         console.log(`User response to install prompt: ${outcome}`);
-        // We don't clear the prompt immediately in case they cancel, 
-        // but usually the event is one-time use.
         if (outcome === 'accepted') {
             setInstallPrompt(null);
         }
