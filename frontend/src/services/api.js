@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-// Función para evadir el escaneo estático de Vite/GitHub
-const dekey = (arr) => {
-    try {
-        return atob(arr.join(''));
-    } catch(e) { return ''; }
-};
+// API keys must be set in .env.local — never hardcode them here
 
 const apiInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8001/api',
@@ -80,7 +75,7 @@ export const api = {
         // 1. INTENTO PRINCIPAL: GEMINI
         try {
             // Obfuscated to pass GitHub Secret Scanning
-            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || dekey(['QVEuQ','WI4Uk','42S0h','nbUEw','UFl2a','VFvTl','l2Qkl','zMVox','TnhCS','ldjdW','g4QnN','1WGNx','eVk4b','WdmUE','E=']);
+            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
             
             // Format history for Gemini
             const geminiContents = history.map(msg => ({
@@ -114,7 +109,7 @@ export const api = {
             
             // 2. FALLBACK: GROQ
             try {
-                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || dekey(['Z3NrX','zgxZz','lBUTd','BSXBQ','QlM3W','E5qd0','95V0d','keWIz','RllrZ','kw4dH','hoS3l','KTThF','Nkc2N','Ux5Q2','llQ3Y','=']);
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const formattedHistory = history.map(msg => ({
@@ -163,7 +158,7 @@ Oculto (Su poder mágico e inconsciente): ${occult.name}
 Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interactúan estas energías para el usuario hoy. No hagas listas, hazlo en formato de lectura fluida.`;
 
         try {
-            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || dekey(['QVEuQ','WI4Uk','42S0h','nbUEw','UFl2a','VFvTl','l2Qkl','zMVox','TnhCS','ldjdW','g4QnN','1WGNx','eVk4b','WdmUE','E=']);
+            const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
             
             const geminiPayload = {
                 system_instruction: { parts: [{ text: systemPrompt }] },
@@ -183,7 +178,7 @@ Genera una lectura unificada de máximo 3-4 párrafos explicando cómo interact�
         } catch (geminiError) {
             console.warn("Gemini falló en el Oráculo, intentando Groq...", geminiError);
             try {
-                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || dekey(['Z3NrX','zgxZz','lBUTd','BSXBQ','QlM3W','E5qd0','95V0d','keWIz','RllrZ','kw4dH','hoS3l','KTThF','Nkc2N','Ux5Q2','llQ3Y','=']);
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {
@@ -223,7 +218,7 @@ Explica en 2 o 3 párrafos fluidos y místicos por qué la vida o los logros de 
 
             // Interpret with Gemini
             try {
-                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || dekey(['QVEuQ','WI4Uk','42S0h','nbUEw','UFl2a','VFvTl','l2Qkl','zMVox','TnhCS','ldjdW','g4QnN','1WGNx','eVk4b','WdmUE','E=']);
+                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
 
                 const geminiPayload = {
                     system_instruction: { parts: [{ text: systemPrompt }] },
@@ -236,7 +231,7 @@ Explica en 2 o 3 párrafos fluidos y místicos por qué la vida o los logros de 
             } catch (geminiError) {
                 console.warn("Gemini falló en Observatorio, intentando Groq...", geminiError);
                 // Fallback to Groq
-                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || dekey(['Z3NrX','zgxZz','lBUTd','BSXBQ','QlM3W','E5qd0','95V0d','keWIz','RllrZ','kw4dH','hoS3l','KTThF','Nkc2N','Ux5Q2','llQ3Y','=']);
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {
@@ -272,7 +267,7 @@ Y su Kin Maya es: ${kinData.seal_name} ${kinData.tone_name}.
 Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan la energía de su signo zodiacal y su kin maya, cuáles son sus mayores dones combinados y qué reto principal enfrentan.`;
 
             try {
-                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || dekey(['QVEuQ','WI4Uk','42S0h','nbUEw','UFl2a','VFvTl','l2Qkl','zMVox','TnhCS','ldjdW','g4QnN','1WGNx','eVk4b','WdmUE','E=']);
+                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
                 
                 const geminiPayload = {
                     system_instruction: { parts: [{ text: systemPrompt }] },
@@ -287,7 +282,7 @@ Explica en 2 o 3 párrafos poéticos, profundos y accesibles cómo se fusionan l
             } catch (geminiError) {
                 console.warn("Gemini falló en Astrología, intentando Groq...", geminiError);
                 // Fallback to Groq
-                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || dekey(['Z3NrX','zgxZz','lBUTd','BSXBQ','QlM3W','E5qd0','95V0d','keWIz','RllrZ','kw4dH','hoS3l','KTThF','Nkc2N','Ux5Q2','llQ3Y','=']);
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {
@@ -323,7 +318,7 @@ Poema base del arquetipo: "${archetype.poem}"
 Explica en 2 o 3 párrafos con alma, magia y palabras sencillas el sentido y propósito de este arquetipo en su vida.`;
 
             try {
-                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || dekey(['QVEuQ','WI4Uk','42S0h','nbUEw','UFl2a','VFvTl','l2Qkl','zMVox','TnhCS','ldjdW','g4QnN','1WGNx','eVk4b','WdmUE','E=']);
+                const geminiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
                 
                 const geminiPayload = {
                     system_instruction: { parts: [{ text: systemPrompt }] },
@@ -338,7 +333,7 @@ Explica en 2 o 3 párrafos con alma, magia y palabras sencillas el sentido y pro
             } catch (geminiError) {
                 console.warn("Gemini falló en Arquetipos, intentando Groq...", geminiError);
                 // Fallback to Groq
-                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || dekey(['Z3NrX','zgxZz','lBUTd','BSXBQ','QlM3W','E5qd0','95V0d','keWIz','RllrZ','kw4dH','hoS3l','KTThF','Nkc2N','Ux5Q2','llQ3Y','=']);
+                const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
                 const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
                 
                 const payload = {

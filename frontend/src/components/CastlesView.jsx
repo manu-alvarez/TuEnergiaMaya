@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Typography, Card, CardContent, Grid, Button } from '@mui/material';
+import { getCastle } from '../utils/wavespell';
+import { CASTLE_CONTENT } from '../data/wavespellContent';
 
 const castlesData = [
     {
         id: 1,
         name: "Castillo Rojo del Este",
-        color: "#ff3333",
+        color: "#ef4444",
         action: "Corte del Nacimiento",
         power: "Iniciar",
         kins: "1 - 52",
@@ -23,7 +25,7 @@ const castlesData = [
     {
         id: 3,
         name: "Castillo Azul del Oeste",
-        color: "#3366ff",
+        color: "#3b82f6",
         action: "Corte de la Magia",
         power: "Transformar",
         kins: "105 - 156",
@@ -32,7 +34,7 @@ const castlesData = [
     {
         id: 4,
         name: "Castillo Amarillo del Sur",
-        color: "#ffcc00",
+        color: "#eab308",
         action: "Corte de la Inteligencia",
         power: "Madurar",
         kins: "157 - 208",
@@ -41,7 +43,7 @@ const castlesData = [
     {
         id: 5,
         name: "Castillo Verde Central",
-        color: "#00cc66",
+        color: "#22c55e",
         action: "Corte de la Sincronización",
         power: "Sincronizar",
         kins: "209 - 260",
@@ -50,7 +52,11 @@ const castlesData = [
 ];
 
 const CastlesView = ({ onBack, kinNumber }) => {
-    const currentCastleId = Math.ceil(kinNumber / 52);
+    const castleInfo = getCastle(kinNumber);
+    const currentCastleId = castleInfo.castleIndex + 1;
+    const castleColorName = castleInfo.castle.color;
+    const castleContent = CASTLE_CONTENT[castleColorName] || CASTLE_CONTENT['Rojo'];
+    const castleColorHex = castlesData.find(c => c.id === currentCastleId)?.color || '#eab308';
 
     return (
         <Box sx={{ width: '100%', maxWidth: '1000px', mx: 'auto', p: 2 }}>
@@ -66,6 +72,50 @@ const CastlesView = ({ onBack, kinNumber }) => {
             <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', mb: 4, textAlign: 'center' }}>
                 El Tzolkin se divide en 5 Castillos de 52 días cada uno. Juntos forman el viaje evolutivo de 260 días.
             </Typography>
+
+            {/* --- CASTILLO ACTUAL INFO --- */}
+            <Box className="glass-card" sx={{
+                width: '100%', mb: 5, textAlign: 'center', p: 4,
+                border: `1px solid ${castleColorHex}40`,
+                boxShadow: `0 0 25px ${castleColorHex}15, inset 0 0 10px ${castleColorHex}05`,
+                bgcolor: 'rgba(0,0,0,0.3)', borderRadius: 4
+            }}>
+                <Typography variant="overline" sx={{
+                    color: castleColorHex, fontFamily: 'Cinzel', letterSpacing: 4,
+                    fontWeight: 700, fontSize: '0.9rem', display: 'block', mb: 1,
+                }}>
+                    🏰 {castleContent.subtitle} (CASTILLO ACTUAL)
+                </Typography>
+
+                <Typography variant="h4" sx={{
+                    color: 'white', fontFamily: 'Cinzel', fontWeight: 700,
+                    mb: 1,
+                }}>
+                    {castleContent.name}
+                </Typography>
+
+                <Typography variant="subtitle1" sx={{
+                    color: 'rgba(255,255,255,0.6)', fontFamily: 'Lora', fontStyle: 'italic',
+                    mb: 2,
+                }}>
+                    Misión: {castleContent.mission}
+                </Typography>
+
+                <Typography variant="body1" sx={{
+                    color: 'rgba(255,255,255,0.9)', fontFamily: 'Lora',
+                    fontSize: '1.1rem', lineHeight: 1.8, textAlign: 'center',
+                    maxWidth: 800, mx: 'auto', mb: 3,
+                }}>
+                    {castleContent.description}
+                </Typography>
+
+                <Typography variant="body2" sx={{
+                    color: 'rgba(255,255,255,0.5)', fontFamily: 'Cinzel',
+                    fontSize: '0.8rem', letterSpacing: 2,
+                }}>
+                    Ondas que lo componen: {castleContent.waves}
+                </Typography>
+            </Box>
 
             <Grid container spacing={3}>
                 {castlesData.map((castle) => {

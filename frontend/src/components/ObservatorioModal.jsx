@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Backdrop, Fade, Box, Typography, Button, CircularProgress } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
-const ObservatorioModal = ({ open, onClose, kinData }) => {
+const ObservatorioModal = ({ open, onClose, kinData, onOpenAstro }) => {
     const [newsData, setNewsData] = useState(null);
     const [reading, setReading] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +46,7 @@ const ObservatorioModal = ({ open, onClose, kinData }) => {
                     boxShadow: '0 0 40px rgba(0, 200, 255, 0.2)'
                 }}>
                     <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: '#00c8ff', mb: 1, fontWeight: 'bold', textAlign: 'center' }}>
-                        SINCRONARIO GLOBAL
+                        CURIOSIDADES
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', mb: 3, textAlign: 'center' }}>
                         Personajes ilustres e históricos que comparten la energía de este Kin.
@@ -71,6 +71,28 @@ const ObservatorioModal = ({ open, onClose, kinData }) => {
                             )}
                         </Box>
                     )}
+
+                    <Box sx={{ textAlign: 'center', mb: 4, pt: 3, borderTop: '1px solid rgba(0, 200, 255, 0.2)' }}>
+                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', mb: 2 }}>
+                            Descubre cómo se entrelaza la Astrología Tradicional con tu Kin Maya.
+                        </Typography>
+                        <Button
+                            variant="contained"
+                            onClick={onOpenAstro}
+                            sx={{
+                                bgcolor: 'rgba(0, 200, 255, 0.15)',
+                                color: '#00c8ff',
+                                border: '1px solid rgba(0, 200, 255, 0.5)',
+                                borderRadius: '20px',
+                                px: 4,
+                                py: 1,
+                                fontWeight: 'bold',
+                                '&:hover': { bgcolor: 'rgba(0, 200, 255, 0.3)' }
+                            }}
+                        >
+                            VER FUSIÓN ASTROLÓGICA
+                        </Button>
+                    </Box>
 
                     <Box sx={{ textAlign: 'center' }}>
                         <Button

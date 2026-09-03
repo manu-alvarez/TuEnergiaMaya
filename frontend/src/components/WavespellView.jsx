@@ -14,10 +14,12 @@ const CASTLE_COLORS = {
 
 const WavespellView = ({ kinNumber, onClose }) => {
   const [activeKin, setActiveKin] = useState(kinNumber);
+  const [prevKinNumber, setPrevKinNumber] = useState(kinNumber);
 
-  useEffect(() => {
-    if (kinNumber) setActiveKin(kinNumber);
-  }, [kinNumber]);
+  if (kinNumber !== prevKinNumber) {
+    setPrevKinNumber(kinNumber);
+    setActiveKin(kinNumber);
+  }
 
   if (!kinNumber || !activeKin) return null;
 
@@ -169,48 +171,7 @@ const WavespellView = ({ kinNumber, onClose }) => {
           )}
         </Box>
 
-        {/* --- CASTILLO --- */}
-        <Box className="glass-card" sx={{
-          width: '100%', mb: 3, textAlign: 'center',
-          border: `1px solid ${castleColor}40`,
-          boxShadow: `0 0 25px ${castleColor}15, inset 0 0 10px ${castleColor}05`,
-        }}>
-          <Typography variant="overline" sx={{
-            color: castleColor, fontFamily: 'Cinzel', letterSpacing: 4,
-            fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 0.5,
-          }}>
-            🏰 {castleContent.subtitle}
-          </Typography>
 
-          <Typography variant="h6" sx={{
-            color: 'white', fontFamily: 'Cinzel', fontWeight: 700,
-            mb: 0.5, fontSize: '1.2rem',
-          }}>
-            {castleContent.name}
-          </Typography>
-
-          <Typography variant="subtitle2" sx={{
-            color: 'rgba(255,255,255,0.4)', fontFamily: 'Lora', fontStyle: 'italic',
-            mb: 2, fontSize: '0.85rem',
-          }}>
-            Misión: {castleContent.mission}
-          </Typography>
-
-          <Typography variant="body1" sx={{
-            color: 'rgba(255,255,255,0.85)', fontFamily: 'Lora',
-            fontSize: '1rem', lineHeight: 1.8, textAlign: 'center',
-            px: { xs: 1, sm: 3 }, mb: 2,
-          }}>
-            {castleContent.description}
-          </Typography>
-
-          <Typography variant="body2" sx={{
-            color: 'rgba(255,255,255,0.4)', fontFamily: 'Cinzel',
-            fontSize: '0.7rem', letterSpacing: 2,
-          }}>
-            Ondas: {castleContent.waves}
-          </Typography>
-        </Box>
 
         {/* Botón volver */}
         {onClose && (

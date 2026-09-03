@@ -344,7 +344,7 @@ export const getKinConfig = (kinNumber) => {
 
 export const generateMysticalMessage = (kinNumber) => {
     const kin = getKinConfig(kinNumber);
-    const { seal_name, tone_name, advice, seal_desc, affirmation, oracle } = kin;
+    const { seal_name, advice, seal_desc, affirmation, oracle } = kin;
 
     const intros = [
         "Desde el corazón del cielo,",
