@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Grid, Card, Avatar, Modal, Backdrop, Fade, Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Typography, Box, Grid, Card, Avatar, Modal, Backdrop, Fade, Button } from '@mui/material';
+import Brightness3Icon from '@mui/icons-material/Brightness3';
+import ModalLayout from './ModalLayout';
 
 // Static Data for the 13 Tones
 const TONES = [
@@ -24,98 +25,76 @@ const ToneList = ({ onClose }) => {
     const primaryColor = '#00c8ff'; // Turquoise
 
     return (
-        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'transparent', overflowY: 'auto' }}>
-
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Box sx={{ textAlign: 'center', mb: 6, position: 'relative' }}>
-                    {/* Close Icon Removed */}
-
-                    <Typography variant="h3" sx={{ fontFamily: 'Cinzel', color: primaryColor, textShadow: '0 0 20px rgba(0,200,255,0.8)', mb: 2 }}>
-                        TONOS LUNARES
-                    </Typography>
-                    <Typography variant="subtitle1" sx={{ fontFamily: 'Lora', color: 'rgba(0, 200, 255, 0.8)', fontStyle: 'italic', mb: 3 }}>
-                        Los 13 poderes de la creación. Descubre tu frecuencia de acción.
-                    </Typography>
-                    <Button
-                        variant="outlined"
-                        onClick={onClose}
-                        sx={{
-                            color: 'white',
-                            borderColor: 'rgba(255, 255, 255, 0.5)',
-                            borderRadius: '20px',
-                            px: 4,
-                            py: 0.5,
-                            fontSize: '0.8rem',
-                            '&:hover': {
-                                borderColor: 'white',
-                                bgcolor: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }}
-                    >
-                        VOLVER
-                    </Button>
-                </Box>
-
-                <Grid container spacing={3} justifyContent="center">
-                    {TONES.map((tone) => (
-                        <Grid item xs={6} sm={4} md={3} lg={2.4} key={tone.number}>
-                            <Card
-                                onClick={() => setSelectedTone(tone)}
-                                className="glass-card"
-                                sx={{
-                                    p: 2,
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    height: '100%',
-                                    borderColor: 'rgba(0, 200, 255, 0.3)',
-                                    '&:hover': {
-                                        transform: 'translateY(-10px) scale(1.05)',
-                                        boxShadow: `0 0 30px ${primaryColor}50`,
-                                        borderColor: primaryColor
-                                    }
-                                }}
-                            >
-                                <Box sx={{
-                                    width: 80,
-                                    height: 80,
-                                    mb: 2,
-                                    borderRadius: '24px', // Squircle shape to fit square glyphs better
-                                    border: `2px solid ${primaryColor}`,
-                                    p: 2, // Padding to give breathing room
-                                    bgcolor: 'rgba(0,0,0,0.2)',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                    <img
-                                        src={`assets/glyphs/tones/${tone.slug}.png`}
-                                        alt={tone.name}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'contain',
-                                            filter: 'brightness(0) invert(1) drop-shadow(0 0 2px #00c8ff)'
-                                        }}
-                                    />
-                                </Box>
-                                <Typography variant="h6" sx={{ fontFamily: 'Cinzel', fontSize: '1rem', fontWeight: 'bold', color: primaryColor }}>
-                                    {tone.name}
-                                </Typography>
-                                <Typography variant="caption" sx={{ fontFamily: 'Cinzel', color: 'white', fontWeight: 'bold', letterSpacing: 1, display: 'block', mt: 1 }}>
-                                    {tone.listTitle}
-                                </Typography>
-                                <Typography variant="caption" sx={{ fontFamily: 'Lora', color: 'rgba(255, 255, 255, 0.6)', display: 'block', fontStyle: 'italic', fontSize: '0.7rem' }}>
-                                    {tone.listSubtitle}
-                                </Typography>
-                            </Card>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
+        <ModalLayout
+            title="TONOS LUNARES"
+            subtitle="Los 13 poderes de la creación. Descubre tu frecuencia de acción."
+            icon={<Brightness3Icon fontSize="large" />}
+            onClose={onClose}
+            maxWidth="lg"
+            color={primaryColor}
+        >
+            <Grid container spacing={3} justifyContent="center">
+                {TONES.map((tone) => (
+                    <Grid item xs={6} sm={4} md={3} lg={2.4} key={tone.number}>
+                        <Card
+                            onClick={() => setSelectedTone(tone)}
+                            className="glass-card"
+                            sx={{
+                                p: 2,
+                                textAlign: 'center',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                height: '100%',
+                                bgcolor: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(0, 200, 255, 0.1)',
+                                borderRadius: 3,
+                                '&:hover': {
+                                    transform: 'translateY(-10px) scale(1.05)',
+                                    boxShadow: `0 0 30px ${primaryColor}50`,
+                                    borderColor: primaryColor,
+                                    bgcolor: 'rgba(0,200,255,0.05)'
+                                }
+                            }}
+                        >
+                            <Box sx={{
+                                width: 80,
+                                height: 80,
+                                mb: 2,
+                                borderRadius: '24px', // Squircle shape to fit square glyphs better
+                                border: `2px solid ${primaryColor}`,
+                                p: 2, // Padding to give breathing room
+                                bgcolor: 'rgba(0,0,0,0.4)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <img
+                                    src={`assets/glyphs/tones/${tone.slug}.png`}
+                                    alt={tone.name}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'contain',
+                                        filter: 'brightness(0) invert(1) drop-shadow(0 0 2px #00c8ff)'
+                                    }}
+                                />
+                            </Box>
+                            <Typography variant="h6" sx={{ fontFamily: 'Cinzel', fontSize: '1rem', fontWeight: 'bold', color: primaryColor }}>
+                                {tone.name}
+                            </Typography>
+                            <Typography variant="caption" sx={{ fontFamily: 'Cinzel', color: 'white', fontWeight: 'bold', letterSpacing: 1, display: 'block', mt: 1 }}>
+                                {tone.listTitle}
+                            </Typography>
+                            <Typography variant="caption" sx={{ fontFamily: 'Lora', color: 'rgba(255, 255, 255, 0.6)', display: 'block', fontStyle: 'italic', fontSize: '0.7rem' }}>
+                                {tone.listSubtitle}
+                            </Typography>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
 
             {/* Tone Detail Modal */}
             <Modal
@@ -128,18 +107,17 @@ const ToneList = ({ onClose }) => {
                 }}
             >
                 <Fade in={!!selectedTone}>
-                    <Box sx={{
+                    <Box className="glass-card" sx={{
                         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                         width: { xs: '90%', sm: 500 },
-                        bgcolor: 'transparent', // Transparent to match
-                        border: `1px solid ${primaryColor}`,
-                        borderRadius: 8,
+                        bgcolor: 'rgba(12, 12, 28, 0.95)',
+                        border: `1px solid ${primaryColor}40`,
+                        borderRadius: 4,
                         boxShadow: `0 0 50px ${primaryColor}30`,
-                        p: 4,
+                        p: { xs: 3, md: 5 },
                         outline: 'none',
                         color: primaryColor,
                         textAlign: 'center',
-                        backdropFilter: 'blur(10px)'
                     }}>
                         {selectedTone && (
                             <>
@@ -189,7 +167,7 @@ const ToneList = ({ onClose }) => {
                                     />
                                 </Box>
 
-                                <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: primaryColor, mb: 1, textShadow: '0 0 10px rgba(0,200,255,0.5)' }}>
+                                <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: primaryColor, mb: 1, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 3, textShadow: `0 0 20px ${primaryColor}80` }}>
                                     Tono {selectedTone.name}
                                 </Typography>
 
@@ -197,7 +175,7 @@ const ToneList = ({ onClose }) => {
                                     Nivel {selectedTone.number} de la Onda Encantada
                                 </Typography>
 
-                                <Box sx={{ p: 2, mb: 3, textAlign: 'center' }}>
+                                <Box sx={{ p: 2, mb: 3, textAlign: 'center', bgcolor: 'rgba(255,255,255,0.05)', borderRadius: 4, border: '1px solid rgba(255,255,255,0.1)' }}>
                                     <Typography variant="body1" paragraph sx={{ color: 'white', fontFamily: 'Lora', fontSize: '1.1rem' }}>
                                         <strong>Poder:</strong> {selectedTone.power}
                                     </Typography>
@@ -209,31 +187,36 @@ const ToneList = ({ onClose }) => {
                                     </Typography>
                                 </Box>
 
-                                <Button
-                                    onClick={() => setSelectedTone(null)}
-                                    variant="outlined"
-                                    sx={{
-                                        mt: 3,
-                                        color: 'white',
-                                        borderColor: 'rgba(255, 255, 255, 0.5)',
-                                        borderRadius: '20px',
-                                        px: 4,
-                                        py: 0.5,
-                                        fontSize: '0.8rem',
-                                        '&:hover': {
-                                            borderColor: 'white',
-                                            bgcolor: 'rgba(255, 255, 255, 0.1)'
-                                        }
-                                    }}
-                                >
-                                    VOLVER
-                                </Button>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+                                    <Button
+                                        onClick={() => setSelectedTone(null)}
+                                        variant="outlined"
+                                        sx={{
+                                            color: 'white',
+                                            borderColor: 'rgba(255, 255, 255, 0.3)',
+                                            borderRadius: '30px',
+                                            px: 5, py: 1,
+                                            fontFamily: 'Cinzel',
+                                            fontWeight: 700,
+                                            letterSpacing: 2,
+                                            transition: 'all 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: primaryColor,
+                                                bgcolor: `${primaryColor}10`,
+                                                boxShadow: `0 0 20px ${primaryColor}40`,
+                                                transform: 'scale(1.05)'
+                                            }
+                                        }}
+                                    >
+                                        VOLVER
+                                    </Button>
+                                </Box>
                             </>
                         )}
                     </Box>
                 </Fade>
             </Modal>
-        </Box>
+        </ModalLayout>
     );
 };
 

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Typography, Card, CardContent, Grid, Button, Modal, Backdrop, Fade, CircularProgress, IconButton, Chip } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Button, Modal, Backdrop, Fade, IconButton, Chip } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CloseIcon from '@mui/icons-material/Close';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import archetypesData from '../data/archetypes.json';
+import ModalLayout from './ModalLayout';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -19,24 +21,14 @@ const ArchetypesView = ({ onBack, kinData }) => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '1200px', mx: 'auto', p: { xs: 1, sm: 2 } }}>
-            {/* Header */}
-            <Box sx={{ position: 'relative', mb: 4, textAlign: 'center' }}>
-                <Button
-                    variant="outlined"
-                    onClick={onBack}
-                    sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}
-                >
-                    VOLVER
-                </Button>
-                <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: '#c084fc', textShadow: '0 0 10px rgba(192, 132, 252, 0.5)' }}>
-                    Arquetipos Galácticos
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', mt: 0.5 }}>
-                    Hunab Ku 21 · Los 21 Arquetipos del Tzolkin
-                </Typography>
-            </Box>
-
+        <ModalLayout
+            title="LOS 21 ARQUETIPOS GALÁCTICOS"
+            subtitle="Explora los perfiles míticos de la consciencia divina (Hunab Ku 21)"
+            icon={<AutoFixHighIcon fontSize="large" />}
+            onClose={onBack}
+            maxWidth="lg"
+            color="#00c8ff"
+        >
             <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)', mb: 4, textAlign: 'center', maxWidth: '800px', mx: 'auto', lineHeight: 1.8 }}>
                 Los 21 Arquetipos Galácticos del sistema Hunab Ku 21, codificados por José Argüelles, representan los modelos originales de la memoria cósmica asociados a cada uno de los 20 sellos solares más el centro galáctico.
             </Typography>
@@ -49,24 +41,33 @@ const ArchetypesView = ({ onBack, kinData }) => {
 
                     return (
                         <Grid item xs={12} sm={6} md={4} key={key} sx={{ display: 'flex' }}>
-                            <Card sx={{
+                            <Card className="glass-card" sx={{
                                 width: '100%',
-                                bgcolor: 'rgba(15, 15, 30, 0.9)',
-                                border: '1px solid rgba(192, 132, 252, 0.25)',
-                                borderRadius: 3,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 transition: 'all 0.3s ease',
                                 overflow: 'hidden',
+                                border: '1px solid rgba(0, 200, 255, 0.25)',
+                                borderRadius: 4,
                                 '&:hover': {
                                     transform: 'translateY(-4px)',
-                                    boxShadow: '0 12px 35px rgba(192, 132, 252, 0.25)',
-                                    borderColor: 'rgba(192, 132, 252, 0.5)'
+                                    boxShadow: '0 12px 35px rgba(0, 200, 255, 0.25)',
+                                    borderColor: 'rgba(0, 200, 255, 0.6)'
                                 }
                             }}>
-                {/* Imagen */}
+                                {/* Contenedor de la Imagen */}
                                 <Box
-                                    sx={{ position: 'relative', height: '260px', overflow: 'hidden', flexShrink: 0, cursor: 'zoom-in' }}
+                                    sx={{ 
+                                        position: 'relative', 
+                                        height: '240px', 
+                                        flexShrink: 0, 
+                                        cursor: 'zoom-in',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        p: 3,
+                                        bgcolor: 'rgba(0, 0, 0, 0.2)'
+                                    }}
                                     onClick={(e) => { e.stopPropagation(); setZoomedImage({ src: imageSrc, name: arch.archetype }); }}
                                 >
                                     <Box
@@ -75,38 +76,38 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                         alt={arch.archetype}
                                         onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                                         sx={{
-                                            width: '100%',
                                             height: '100%',
-                                            objectFit: 'cover',
-                                            objectPosition: 'top center',
-                                            display: 'block'
+                                            objectFit: 'contain',
+                                            borderRadius: 2,
+                                            boxShadow: '0 8px 25px rgba(0,0,0,0.5)',
+                                            transition: 'transform 0.3s ease',
+                                            '&:hover': { transform: 'scale(1.03)' }
                                         }}
                                     />
                                     {/* Fallback si no carga la imagen */}
                                     <Box sx={{
                                         display: 'none',
-                                        width: '100%',
-                                        height: '100%',
+                                        width: '120px',
+                                        height: '160px',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        background: 'linear-gradient(135deg, rgba(192,132,252,0.15), rgba(0,200,255,0.1))'
+                                        borderRadius: 2,
+                                        background: 'linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,200,255,0.1))',
+                                        border: '1px solid rgba(0,200,255,0.3)'
                                     }}>
-                                        <AutoAwesomeIcon sx={{ fontSize: 60, color: 'rgba(192,132,252,0.4)' }} />
+                                        <AutoAwesomeIcon sx={{ fontSize: 40, color: 'rgba(0,200,255,0.4)' }} />
                                     </Box>
-                                    {/* Gradient overlay */}
-                                    <Box sx={{
-                                        position: 'absolute', bottom: 0, left: 0, width: '100%', height: '80px',
-                                        background: 'linear-gradient(to top, rgba(15,15,30,1) 0%, rgba(15,15,30,0) 100%)'
-                                    }} />
+                                    
                                     {/* Badge número */}
                                     <Chip
                                         label={arch.number}
                                         size="small"
                                         sx={{
-                                            position: 'absolute', top: 10, left: 10,
-                                            bgcolor: 'rgba(0,0,0,0.7)', color: '#c084fc',
+                                            position: 'absolute', top: 12, left: 12,
+                                            bgcolor: 'rgba(0,200,255,0.2)', color: '#ffffff',
                                             fontWeight: 'bold', fontSize: '0.75rem',
-                                            border: '1px solid rgba(192,132,252,0.5)'
+                                            border: '1px solid rgba(0,200,255,0.5)',
+                                            backdropFilter: 'blur(4px)'
                                         }}
                                     />
                                 </Box>
@@ -118,8 +119,8 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    p: 2.5,
-                                    '&:last-child': { pb: 2.5 }
+                                    p: 3,
+                                    '&:last-child': { pb: 3 }
                                 }}>
                                     <Typography variant="caption" sx={{ color: '#00c8ff', fontWeight: 'bold', mb: 0.5, textTransform: 'uppercase', letterSpacing: 1 }}>
                                         {arch.sealName}
@@ -128,37 +129,43 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                         {arch.archetype}
                                     </Typography>
 
-                                    {/* Poema corto completo sin truncar */}
+                                    {/* Poema corto */}
                                     <Box sx={{
                                         flexGrow: 1,
                                         width: '100%',
-                                        mb: 2.5
+                                        mb: 3
                                     }}>
                                         <Typography variant="body2" sx={{
-                                            color: 'rgba(255,255,255,0.65)',
+                                            color: 'rgba(255,255,255,0.7)',
                                             fontStyle: 'italic',
                                             whiteSpace: 'pre-line',
                                             fontFamily: 'Lora',
                                             lineHeight: 1.7,
-                                            fontSize: '0.82rem'
+                                            fontSize: '0.85rem'
                                         }}>
                                             {arch.poem}
                                         </Typography>
                                     </Box>
 
                                     <Button
-                                        variant="contained"
+                                        variant="outlined"
                                         onClick={() => handleOpenFullText(arch)}
                                         startIcon={<AutoAwesomeIcon />}
                                         fullWidth
                                         sx={{
-                                            bgcolor: 'rgba(192, 132, 252, 0.15)',
-                                            color: '#c084fc',
-                                            borderRadius: '20px',
-                                            border: '1px solid rgba(192,132,252,0.3)',
-                                            py: 0.8,
+                                            color: '#00c8ff',
+                                            borderColor: 'rgba(0,200,255,0.5)',
+                                            borderRadius: '30px',
+                                            py: 1,
                                             mt: 'auto',
-                                            '&:hover': { bgcolor: 'rgba(192, 132, 252, 0.3)' }
+                                            fontFamily: 'Cinzel',
+                                            fontWeight: 'bold',
+                                            transition: 'all 0.3s ease',
+                                            '&:hover': { 
+                                                bgcolor: 'rgba(0, 200, 255, 0.15)',
+                                                borderColor: '#00c8ff',
+                                                boxShadow: '0 0 15px rgba(0,200,255,0.3)'
+                                            }
                                         }}
                                     >
                                         Lectura completa
@@ -170,22 +177,24 @@ const ArchetypesView = ({ onBack, kinData }) => {
                 })}
             </Grid>
 
-            {/* Modal de Lectura con Alma */}
+            {/* Modal de Lectura completa */}
             <Modal
                 open={showReadingModal}
                 onClose={() => setShowReadingModal(false)}
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{ timeout: 500, sx: { backdropFilter: 'blur(10px)', bgcolor: 'rgba(0,0,0,0.8)' } }}
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: { timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }
+                }}
             >
                 <Fade in={showReadingModal}>
-                    <Box sx={{
+                    <Box className="glass-card" sx={{
                         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                         width: '92%', maxWidth: 620, maxHeight: '88vh', overflowY: 'auto',
-                        bgcolor: 'rgba(12, 12, 28, 0.97)',
-                        border: '1px solid rgba(192, 132, 252, 0.4)',
-                        borderRadius: 4, p: { xs: 3, sm: 4 }, outline: 'none',
-                        boxShadow: '0 0 60px rgba(192, 132, 252, 0.15)'
+                        bgcolor: 'rgba(12, 12, 28, 0.95)',
+                        border: '1px solid rgba(0, 200, 255, 0.4)',
+                        borderRadius: 4, p: { xs: 3, md: 5 }, outline: 'none',
+                        boxShadow: '0 0 60px rgba(0, 200, 255, 0.15)'
                     }}>
                         <IconButton
                             onClick={() => setShowReadingModal(false)}
@@ -199,18 +208,42 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                 <Typography variant="caption" sx={{ color: '#00c8ff', display: 'block', textAlign: 'center', mb: 0.5, textTransform: 'uppercase', letterSpacing: 1 }}>
                                     {selectedArchetype.sealName}
                                 </Typography>
-                                <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: '#c084fc', mb: 0.5, fontWeight: 'bold', textAlign: 'center' }}>
+                                <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: '#00c8ff', mb: 0.5, fontWeight: 800, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2, textShadow: '0 0 20px rgba(0,200,255,0.8)' }}>
                                     {selectedArchetype.archetype}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', mb: 3, textAlign: 'center', fontStyle: 'italic' }}>
+                                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', mb: 3, textAlign: 'center', fontStyle: 'italic', fontFamily: 'Lora' }}>
                                     Lectura completa
                                 </Typography>
 
                                 {/* Texto completo del arquetipo */}
-                                <Box sx={{ mb: 1, p: 3, bgcolor: 'rgba(192,132,252,0.05)', borderRadius: 2, borderLeft: '3px solid rgba(192,132,252,0.4)' }}>
+                                <Box sx={{ mb: 1, p: 3, bgcolor: 'rgba(0,200,255,0.05)', borderRadius: 2, borderLeft: '3px solid rgba(0,200,255,0.4)', border: '1px solid rgba(0,200,255,0.1)' }}>
                                     <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', whiteSpace: 'pre-line', fontFamily: 'Lora', lineHeight: 1.9, fontSize: '1.05rem' }}>
                                         {selectedArchetype.fullText}
                                     </Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                                    <Button
+                                        onClick={() => setShowReadingModal(false)}
+                                        variant="outlined"
+                                        sx={{
+                                            color: 'white',
+                                            borderColor: 'rgba(255, 255, 255, 0.3)',
+                                            borderRadius: '30px',
+                                            px: 5, py: 1,
+                                            fontFamily: 'Cinzel',
+                                            fontWeight: 700,
+                                            letterSpacing: 2,
+                                            transition: 'all 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: '#00c8ff',
+                                                bgcolor: 'rgba(0, 200, 255, 0.1)',
+                                                boxShadow: '0 0 20px rgba(0, 200, 255, 0.4)',
+                                                transform: 'scale(1.05)'
+                                            }
+                                        }}
+                                    >
+                                        VOLVER
+                                    </Button>
                                 </Box>
                             </>
                         )}
@@ -223,8 +256,8 @@ const ArchetypesView = ({ onBack, kinData }) => {
                 open={Boolean(zoomedImage)}
                 onClose={() => setZoomedImage(null)}
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{ timeout: 300, sx: { bgcolor: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(8px)', cursor: 'zoom-out' } }}
+                slots={{ backdrop: Backdrop }}
+                slotProps={{ backdrop: { timeout: 300, sx: { bgcolor: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(8px)', cursor: 'zoom-out' } } }}
             >
                 <Fade in={Boolean(zoomedImage)}>
                     <Box
@@ -240,7 +273,7 @@ const ArchetypesView = ({ onBack, kinData }) => {
                         <IconButton
                             onClick={() => setZoomedImage(null)}
                             sx={{ position: 'absolute', top: -16, right: -16, bgcolor: 'rgba(0,0,0,0.7)', color: 'white', zIndex: 1,
-                                '&:hover': { bgcolor: 'rgba(192,132,252,0.3)' }
+                                '&:hover': { bgcolor: 'rgba(0,200,255,0.3)' }
                             }}
                         >
                             <CloseIcon />
@@ -256,8 +289,8 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                         maxWidth: '88vw', maxHeight: '82vh',
                                         objectFit: 'contain',
                                         borderRadius: 2,
-                                        boxShadow: '0 0 60px rgba(192,132,252,0.3)',
-                                        border: '1px solid rgba(192,132,252,0.3)'
+                                        boxShadow: '0 0 60px rgba(0,200,255,0.3)',
+                                        border: '1px solid rgba(0,200,255,0.3)'
                                     }}
                                 />
                                 <Typography variant="caption" sx={{
@@ -271,9 +304,8 @@ const ArchetypesView = ({ onBack, kinData }) => {
                     </Box>
                 </Fade>
             </Modal>
-        </Box>
+        </ModalLayout>
     );
 };
-
 
 export default ArchetypesView;

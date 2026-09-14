@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Fade, Button, IconButton } from '@mui/material';
+import { Box, Typography, Fade, Button, IconButton, Grid } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import WavesIcon from '@mui/icons-material/Waves';
 import { getWavespell, getCastle } from '../utils/wavespell';
 import { getKinConfig } from '../utils/tzolkin';
 import { getColorHex, getColorGradient, getColorGlow } from '../utils/colorUtils';
 import { WAVE_DESCRIPTIONS, TONE_POSITIONS, CASTLE_CONTENT } from '../data/wavespellContent';
+import ModalLayout from './ModalLayout';
 
 const CASTLE_COLORS = {
   'Rojo': '#ef4444', 'Blanco': '#ffffff', 'Azul': '#3b82f6',
@@ -46,16 +48,18 @@ const WavespellView = ({ kinNumber, onClose }) => {
   const handleNext = () => setActiveKin(prev => prev <= 247 ? prev + 13 : prev - 247);
 
   return (
-    <Fade in={true}>
-      <Box sx={{
-        width: '100%', maxWidth: 600, mx: 'auto', p: { xs: 1, sm: 2 },
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-      }}>
-
-        {/* --- ONDA ENCANTADA --- */}
+    <ModalLayout
+        title="ONDA ENCANTADA"
+        subtitle="El ciclo de 13 días con un propósito específico"
+        icon={<WavesIcon fontSize="large" />}
+        onClose={onClose}
+        maxWidth="md"
+    >
+        {/* --- ONDA ENCANTADA ACTUAL INFO --- */}
         <Box className="glass-card" sx={{
-          width: '100%', mb: 3, textAlign: 'center',
+          width: '100%', mb: 3, textAlign: 'center', p: 3,
           border: '1px solid rgba(0, 200, 255, 0.5)',
+          borderRadius: 4
         }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5, mt: 1 }}>
             <IconButton onClick={handlePrev} sx={{ color: '#00c8ff' }}>
@@ -171,25 +175,55 @@ const WavespellView = ({ kinNumber, onClose }) => {
           )}
         </Box>
 
+        {/* --- LAS 20 ONDAS ENCANTADAS (DESGLOSE) --- */}
+        <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: 'white', mb: 4, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 }}>
+            EL CICLO DE LAS 20 ONDAS ENCANTADAS
+        </Typography>
 
-
-        {/* Botón volver */}
-        {onClose && (
-          <Button
-            variant="outlined"
-            onClick={onClose}
-            sx={{
-              color: 'white', borderColor: 'rgba(255, 255, 255, 0.5)',
-              borderRadius: '20px', px: 4, py: 0.5, fontSize: '0.8rem',
-              fontFamily: 'Cinzel', letterSpacing: 2, mt: 1,
-              '&:hover': { borderColor: 'white', bgcolor: 'rgba(255, 255, 255, 0.1)' },
-            }}
-          >
-            VOLVER
-          </Button>
-        )}
-      </Box>
-    </Fade>
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          {Object.entries(WAVE_DESCRIPTIONS).map(([slug, wave]) => {
+            const isCurrentWave = slug === startSlug;
+            return (
+              <Grid item xs={12} sm={6} key={slug}>
+                <Box className="glass-card" sx={{
+                  p: 3, height: '100%', display: 'flex', flexDirection: 'column',
+                  border: isCurrentWave ? '1px solid #00c8ff' : '1px solid rgba(255,255,255,0.1)',
+                  bgcolor: isCurrentWave ? 'rgba(0, 200, 255, 0.05)' : 'rgba(0,0,0,0.3)',
+                  boxShadow: isCurrentWave ? '0 0 20px rgba(0, 200, 255, 0.2)' : 'none',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderColor: '#00c8ff',
+                    transform: 'translateY(-2px)'
+                  }
+                }}>
+                  {isCurrentWave && (
+                    <Typography variant="overline" sx={{ color: '#00c8ff', fontWeight: 800, mb: 1, display: 'block' }}>
+                      ONDA ACTUAL
+                    </Typography>
+                  )}
+                  <Typography variant="h6" sx={{ color: 'white', fontFamily: 'Cinzel', fontWeight: 800, mb: 0.5, fontSize: '1.1rem' }}>
+                    {wave.name}
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'Lora', fontStyle: 'italic', mb: 2 }}>
+                    Propósito: {wave.purpose}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.85)', fontFamily: 'Lora', mb: 2, flexGrow: 1, lineHeight: 1.6 }}>
+                    {wave.description}
+                  </Typography>
+                  <Box sx={{ mt: 'auto', p: 1.5, bgcolor: 'rgba(0,200,255,0.05)', borderRadius: '10px', borderLeft: '3px solid #00c8ff' }}>
+                    <Typography variant="caption" sx={{ color: '#00c8ff', fontFamily: 'Cinzel', fontWeight: 800, display: 'block', mb: 0.5 }}>
+                      MANTRA
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'Lora', fontStyle: 'italic', fontSize: '0.85rem' }}>
+                      "{wave.mantra}"
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            );
+          })}
+        </Grid>
+    </ModalLayout>
   );
 };
 

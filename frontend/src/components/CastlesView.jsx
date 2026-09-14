@@ -1,168 +1,153 @@
 import React from 'react';
-import { Box, Typography, Card, CardContent, Grid, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import FortIcon from '@mui/icons-material/Fort';
 import { getCastle } from '../utils/wavespell';
 import { CASTLE_CONTENT } from '../data/wavespellContent';
+import ModalLayout from './ModalLayout';
 
-const castlesData = [
-    {
-        id: 1,
-        name: "Castillo Rojo del Este",
-        color: "#ef4444",
-        action: "Corte del Nacimiento",
-        power: "Iniciar",
-        kins: "1 - 52",
-        description: "El Castillo Rojo es la puerta de entrada a la espiral del tiempo. Aquí se siembra la semilla de la creación y se inicia un nuevo ciclo galáctico de 260 días. Es la fuerza primordial de la sangre y la vida."
-    },
-    {
-        id: 2,
-        name: "Castillo Blanco del Norte",
-        color: "#ffffff",
-        action: "Corte de la Muerte",
-        power: "Refinar",
-        kins: "53 - 104",
-        description: "El Castillo Blanco cruza la espiral del tiempo para purificar y refinar lo que nació en el Este. Aquí el espíritu se fortalece enfrentando los desafíos de la ilusión material y soltando lo innecesario."
-    },
-    {
-        id: 3,
-        name: "Castillo Azul del Oeste",
-        color: "#3b82f6",
-        action: "Corte de la Magia",
-        power: "Transformar",
-        kins: "105 - 156",
-        description: "El Castillo Azul es el corazón de la transformación y la alquimia. La energía se condensa y se quema en el fuego de la magia. Es una etapa de cambios profundos, misterio y revelación."
-    },
-    {
-        id: 4,
-        name: "Castillo Amarillo del Sur",
-        color: "#eab308",
-        action: "Corte de la Inteligencia",
-        power: "Madurar",
-        kins: "157 - 208",
-        description: "El Castillo Amarillo irradia la luz del sol interior. Aquí lo transformado florece y madura. Es la cosecha de la sabiduría adquirida y el florecimiento de la conciencia inteligente."
-    },
-    {
-        id: 5,
-        name: "Castillo Verde Central",
-        color: "#22c55e",
-        action: "Corte de la Sincronización",
-        power: "Sincronizar",
-        kins: "209 - 260",
-        description: "El Castillo Verde es el centro del laberinto, el vuelo mágico de regreso al origen. Sincroniza todas las experiencias de los 4 castillos anteriores para dar el salto cuántico al próximo giro."
-    }
-];
+const CASTLE_COLORS = {
+  'Rojo': '#ef4444',
+  'Blanco': '#ffffff',
+  'Azul': '#3b82f6',
+  'Amarillo': '#eab308',
+  'Verde': '#22c55e',
+};
 
 const CastlesView = ({ onBack, kinNumber }) => {
     const castleInfo = getCastle(kinNumber);
-    const currentCastleId = castleInfo.castleIndex + 1;
     const castleColorName = castleInfo.castle.color;
-    const castleContent = CASTLE_CONTENT[castleColorName] || CASTLE_CONTENT['Rojo'];
-    const castleColorHex = castlesData.find(c => c.id === currentCastleId)?.color || '#eab308';
+    const currentCastleContent = CASTLE_CONTENT[castleColorName] || CASTLE_CONTENT['Rojo'];
+    const currentCastleColorHex = CASTLE_COLORS[castleColorName] || '#ef4444';
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '1000px', mx: 'auto', p: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-                <Typography variant="h4" sx={{ fontFamily: 'Cinzel', color: '#ffcc00', textShadow: '0 0 10px rgba(255, 204, 0, 0.5)' }}>
-                    Los 5 Castillos
-                </Typography>
-                <Button variant="outlined" onClick={onBack} sx={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-                    VOLVER
-                </Button>
-            </Box>
-
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', mb: 4, textAlign: 'center' }}>
-                El Tzolkin se divide en 5 Castillos de 52 días cada uno. Juntos forman el viaje evolutivo de 260 días.
-            </Typography>
-
+        <ModalLayout
+            title="Los 5 Castillos"
+            subtitle="El Tzolkin se divide en 5 Castillos de 52 días cada uno. Juntos forman el viaje evolutivo de 260 días."
+            icon={<FortIcon fontSize="large" />}
+            onClose={onBack}
+            maxWidth="lg"
+            color="#00c8ff"
+        >
             {/* --- CASTILLO ACTUAL INFO --- */}
             <Box className="glass-card" sx={{
-                width: '100%', mb: 5, textAlign: 'center', p: 4,
-                border: `1px solid ${castleColorHex}40`,
-                boxShadow: `0 0 25px ${castleColorHex}15, inset 0 0 10px ${castleColorHex}05`,
-                bgcolor: 'rgba(0,0,0,0.3)', borderRadius: 4
+                width: '100%', mb: 6, textAlign: 'center', p: 4,
+                border: `1px solid ${currentCastleColorHex}50`,
+                boxShadow: `0 0 30px ${currentCastleColorHex}20, inset 0 0 15px ${currentCastleColorHex}10`,
+                bgcolor: 'rgba(0,0,0,0.4)', borderRadius: '30px'
             }}>
                 <Typography variant="overline" sx={{
-                    color: castleColorHex, fontFamily: 'Cinzel', letterSpacing: 4,
-                    fontWeight: 700, fontSize: '0.9rem', display: 'block', mb: 1,
+                    color: currentCastleColorHex, fontFamily: 'Cinzel', letterSpacing: 4,
+                    fontWeight: 800, fontSize: '0.9rem', display: 'block', mb: 1, textShadow: `0 0 10px ${currentCastleColorHex}80`
                 }}>
-                    🏰 {castleContent.subtitle} (CASTILLO ACTUAL)
+                    🏰 {currentCastleContent.subtitle} (CASTILLO ACTUAL)
                 </Typography>
 
                 <Typography variant="h4" sx={{
-                    color: 'white', fontFamily: 'Cinzel', fontWeight: 700,
-                    mb: 1,
+                    color: 'white', fontFamily: 'Cinzel', fontWeight: 800,
+                    mb: 1, textTransform: 'uppercase', textShadow: '0 0 15px rgba(255,255,255,0.3)'
                 }}>
-                    {castleContent.name}
+                    {currentCastleContent.name}
                 </Typography>
 
                 <Typography variant="subtitle1" sx={{
-                    color: 'rgba(255,255,255,0.6)', fontFamily: 'Lora', fontStyle: 'italic',
-                    mb: 2,
+                    color: 'rgba(255,255,255,0.7)', fontFamily: 'Lora', fontStyle: 'italic',
+                    mb: 3, fontSize: '1.1rem'
                 }}>
-                    Misión: {castleContent.mission}
+                    Misión: {currentCastleContent.mission}
                 </Typography>
 
                 <Typography variant="body1" sx={{
                     color: 'rgba(255,255,255,0.9)', fontFamily: 'Lora',
                     fontSize: '1.1rem', lineHeight: 1.8, textAlign: 'center',
-                    maxWidth: 800, mx: 'auto', mb: 3,
+                    maxWidth: 800, mx: 'auto', mb: 4,
                 }}>
-                    {castleContent.description}
+                    {currentCastleContent.description}
                 </Typography>
 
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, mb: 4, justifyContent: 'center' }}>
+                    <Box sx={{ flex: 1, p: 2, bgcolor: 'rgba(255,255,255,0.03)', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <Typography variant="overline" sx={{ color: '#22c55e', fontWeight: 'bold', mb: 1, display: 'block' }}>EL REGALO</Typography>
+                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'Lora', fontStyle: 'italic' }}>
+                            {currentCastleContent.theGift}
+                        </Typography>
+                    </Box>
+                    <Box sx={{ flex: 1, p: 2, bgcolor: 'rgba(255,255,255,0.03)', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <Typography variant="overline" sx={{ color: '#ef4444', fontWeight: 'bold', mb: 1, display: 'block' }}>EL DESAFÍO</Typography>
+                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'Lora', fontStyle: 'italic' }}>
+                            {currentCastleContent.theChallenge}
+                        </Typography>
+                    </Box>
+                </Box>
+
                 <Typography variant="body2" sx={{
-                    color: 'rgba(255,255,255,0.5)', fontFamily: 'Cinzel',
-                    fontSize: '0.8rem', letterSpacing: 2,
+                    color: currentCastleColorHex, fontFamily: 'Cinzel',
+                    fontSize: '0.8rem', letterSpacing: 2, fontWeight: 'bold'
                 }}>
-                    Ondas que lo componen: {castleContent.waves}
+                    Ondas: {currentCastleContent.waves}
                 </Typography>
             </Box>
 
-            <Grid container spacing={3}>
-                {castlesData.map((castle) => {
-                    const isCurrent = castle.id === currentCastleId;
+            <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: 'white', mb: 4, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 }}>
+                EL VIAJE DE LOS 5 CASTILLOS
+            </Typography>
+
+            <Grid container spacing={4}>
+                {Object.entries(CASTLE_CONTENT).map(([colorKey, castle]) => {
+                    const castleColor = CASTLE_COLORS[colorKey];
+                    const isCurrent = colorKey === castleColorName;
                     
                     return (
-                        <Grid item xs={12} md={isCurrent ? 12 : 6} key={castle.id}>
-                            <Card sx={{ 
-                                bgcolor: isCurrent ? 'rgba(0, 0, 0, 0.6)' : 'rgba(20, 20, 35, 0.8)', 
-                                border: `2px solid ${castle.color}`,
-                                opacity: isCurrent ? 1 : 0.7,
-                                borderRadius: 4,
-                                height: '100%',
-                                transition: 'all 0.3s ease',
-                                boxShadow: isCurrent ? `0 0 20px ${castle.color}40` : 'none',
+                        <Grid item xs={12} key={colorKey}>
+                            <Card className="glass-card" sx={{ 
+                                bgcolor: isCurrent ? 'rgba(0, 0, 0, 0.5)' : 'rgba(15, 15, 25, 0.6)', 
+                                border: `1px solid ${castleColor}40`,
+                                borderRadius: '24px',
+                                transition: 'all 0.4s ease',
+                                boxShadow: isCurrent ? `0 0 25px ${castleColor}20` : 'none',
                                 '&:hover': {
-                                    opacity: 1,
-                                    transform: 'scale(1.02)'
+                                    transform: 'translateY(-4px)',
+                                    borderColor: castleColor,
+                                    boxShadow: `0 0 30px ${castleColor}30`
                                 }
                             }}>
-                                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                                    {isCurrent && (
-                                        <Typography variant="overline" sx={{ color: castle.color, fontWeight: 'bold', letterSpacing: 2 }}>
-                                            CASTILLO ACTUAL (HOY)
-                                        </Typography>
-                                    )}
-                                    <Typography variant="h5" sx={{ color: castle.color, fontFamily: 'Cinzel', mb: 1, fontWeight: 'bold' }}>
-                                        {castle.name}
-                                    </Typography>
-                                    <Typography variant="subtitle1" sx={{ color: 'white', mb: 2 }}>
-                                        {castle.action} • {castle.power}
-                                    </Typography>
-                                    <Box sx={{ display: 'inline-block', px: 2, py: 0.5, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 2, mb: 3 }}>
-                                        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                                            Kines: {castle.kins}
-                                        </Typography>
+                                <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+                                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, alignItems: 'flex-start' }}>
+                                        <Box sx={{ flex: '0 0 auto', minWidth: '250px' }}>
+                                            {isCurrent && (
+                                                <Typography variant="overline" sx={{ color: castleColor, fontWeight: 800, letterSpacing: 2, display: 'block', mb: 1 }}>
+                                                    CASTILLO ACTUAL
+                                                </Typography>
+                                            )}
+                                            <Typography variant="h5" sx={{ color: castleColor, fontFamily: 'Cinzel', mb: 1, fontWeight: 800 }}>
+                                                {castle.name}
+                                            </Typography>
+                                            <Typography variant="subtitle1" sx={{ color: 'white', mb: 1, fontFamily: 'Cinzel', fontSize: '0.9rem', letterSpacing: 1 }}>
+                                                {castle.subtitle}
+                                            </Typography>
+                                            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', mb: 2, fontStyle: 'italic', fontFamily: 'Lora' }}>
+                                                Misión: {castle.mission}
+                                            </Typography>
+                                        </Box>
+
+                                        <Box sx={{ flex: '1 1 auto' }}>
+                                            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', lineHeight: 1.8, fontFamily: 'Lora', mb: 2 }}>
+                                                {castle.description}
+                                            </Typography>
+                                            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', fontFamily: 'Lora', mb: 1 }}>
+                                                <span style={{ color: '#22c55e', fontStyle: 'normal' }}>Regalo:</span> {castle.theGift}
+                                            </Typography>
+                                            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', fontFamily: 'Lora' }}>
+                                                <span style={{ color: '#ef4444', fontStyle: 'normal' }}>Desafío:</span> {castle.theChallenge}
+                                            </Typography>
+                                        </Box>
                                     </Box>
-                                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', fontStyle: 'italic', lineHeight: 1.8 }}>
-                                        {castle.description}
-                                    </Typography>
                                 </CardContent>
                             </Card>
                         </Grid>
                     );
                 })}
             </Grid>
-        </Box>
+        </ModalLayout>
     );
 };
 

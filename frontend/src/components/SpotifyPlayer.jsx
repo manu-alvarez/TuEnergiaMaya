@@ -8,7 +8,6 @@ const SpotifyPlayer = () => {
 
     return (
         <Box sx={{
-            mt: 4,
             width: '100%',
             maxWidth: '100%',
             overflow: 'hidden',

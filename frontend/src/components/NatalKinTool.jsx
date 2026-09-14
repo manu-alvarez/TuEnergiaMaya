@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, Card, Fade, Divider, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Typography, TextField, Button, Fade, Divider } from '@mui/material';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { calculateKin, getKinConfig, generateMysticalMessage } from '../utils/tzolkin';
 import dailyData from '../data/dailyData.json';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QuintaFuerza from './QuintaFuerza';
+import ModalLayout from './ModalLayout';
 
 const NatalKinTool = ({ onClose }) => {
     const [birthDate, setBirthDate] = useState('');
@@ -56,40 +56,13 @@ const NatalKinTool = ({ onClose }) => {
     };
 
     return (
-        <Card className="glass-card" sx={{
-            p: 4,
-            width: '100%',
-            maxWidth: 800,
-            mx: 'auto',
-            border: '1px solid rgba(0, 200, 255, 0.3)', // Turquoise
-            boxShadow: '0 0 30px rgba(0, 200, 255, 0.1)', // Turquoise glow
-            position: 'relative',
-            overflow: 'visible' // Changed to visible for close button
-        }}>
-            <IconButton
-                onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    top: 10,
-                    right: 10,
-                    color: 'rgba(255,255,255,0.5)',
-                    zIndex: 10,
-                    '&:hover': { color: 'white' }
-                }}
-            >
-                <CloseIcon />
-            </IconButton>
-
-            <Box sx={{ position: 'absolute', top: -50, right: -50, width: 200, height: 200, bgcolor: 'rgba(0, 200, 255, 0.1)', filter: 'blur(60px)', borderRadius: '50%' }} />
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-                <Typography variant="h5" sx={{ fontFamily: 'Cinzel', color: '#00c8ff', mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                    <CalendarMonthIcon /> TU KIN NATAL
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'Lora' }}>
-                    Calcula tu Kin de nacimiento y descubre tu mapa galáctico personal.
-                </Typography>
-            </Box>
-
+        <ModalLayout 
+            title="TU KIN NATAL" 
+            subtitle="Calcula tu Kin de nacimiento y descubre tu mapa galáctico personal."
+            icon={<CalendarMonthIcon fontSize="large" />}
+            onClose={onClose}
+            maxWidth="md"
+        >
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center', mb: 4 }}>
                 <TextField
                     type="date"
@@ -110,6 +83,7 @@ const NatalKinTool = ({ onClose }) => {
                     onClick={handleCalculate}
                     sx={{
                         bgcolor: '#00c8ff',
+                        color: '#000',
                         px: 4,
                         fontFamily: 'Cinzel',
                         fontWeight: 'bold',
@@ -166,50 +140,20 @@ const NatalKinTool = ({ onClose }) => {
                         <Box sx={{ mt: 4, textAlign: 'center' }}>
                             <Button
                                 variant="outlined"
-                                onClick={onClose}
+                                onClick={() => setResult(null)}
                                 sx={{
-                                    color: 'white',
-                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                    borderRadius: '20px',
-                                    px: 4,
-                                    py: 0.5,
-                                    fontSize: '0.8rem',
-                                    '&:hover': {
-                                        borderColor: 'white',
-                                        bgcolor: 'rgba(255, 255, 255, 0.1)'
-                                    }
+                                    color: 'white', borderColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '20px',
+                                    px: 4, py: 0.5, fontSize: '0.8rem', fontFamily: 'Cinzel', letterSpacing: 2,
+                                    '&:hover': { borderColor: '#00c8ff', bgcolor: 'rgba(0,200,255, 0.1)' }
                                 }}
                             >
-                                VOLVER
+                                VOLVER A CALCULAR
                             </Button>
                         </Box>
                     </Box>
                 </Fade>
             )}
-
-            {!result && (
-                <Box sx={{ mt: 4, textAlign: 'center' }}>
-                    <Button
-                        variant="outlined"
-                        onClick={onClose}
-                        sx={{
-                            color: 'white',
-                            borderColor: 'rgba(255, 255, 255, 0.5)',
-                            borderRadius: '20px',
-                            px: 4,
-                            py: 0.5,
-                            fontSize: '0.8rem',
-                            '&:hover': {
-                                borderColor: 'white',
-                                bgcolor: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }}
-                    >
-                        VOLVER
-                    </Button>
-                </Box>
-            )}
-        </Card>
+        </ModalLayout>
     );
 };
 

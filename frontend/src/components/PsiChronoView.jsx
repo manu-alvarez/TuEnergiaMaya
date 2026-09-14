@@ -1,8 +1,10 @@
 import React from 'react';
 import { Box, Typography, Fade, Button } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { getPsiChrono, isGalacticActivationPortal } from '../utils/psiChrono';
 import { getColorHex, getColorGradient, getColorGlow, getGlyphFilter } from '../utils/colorUtils';
 import { PSI_CHRONO_INTRO, GAP_CONTENT, DFT_CONTENT, SEAL_PSI_MEANINGS } from '../data/psiChronoContent';
+import ModalLayout from './ModalLayout';
 
 const PsiChronoView = ({ date, kinNumber, onClose }) => {
   if (!date) return null;
@@ -17,30 +19,18 @@ const PsiChronoView = ({ date, kinNumber, onClose }) => {
   const psiMeaning = SEAL_PSI_MEANINGS[psiSlug] || SEAL_PSI_MEANINGS.sun;
 
   return (
-    <Fade in={true}>
-      <Box sx={{
-        width: '100%', maxWidth: 600, mx: 'auto', p: { xs: 1, sm: 2 },
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-      }}>
-
+    <ModalLayout
+        title={PSI_CHRONO_INTRO.title}
+        subtitle={PSI_CHRONO_INTRO.subtitle}
+        icon={<AccessTimeIcon fontSize="large" />}
+        onClose={onClose}
+        maxWidth="sm"
+    >
         {/* --- PSI CRONO --- */}
         <Box className="glass-card" sx={{
-          width: '100%', mb: 3, textAlign: 'center',
-          border: '1px solid rgba(0, 200, 255, 0.5)',
+          width: '100%', mb: 4, textAlign: 'center', p: { xs: 2, sm: 4 },
+          border: '1px solid rgba(0, 200, 255, 0.3)',
         }}>
-          <Typography variant="overline" sx={{
-            color: '#00c8ff', fontFamily: 'Cinzel', letterSpacing: 4,
-            fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 0.5,
-          }}>
-            🧠 {PSI_CHRONO_INTRO.title}
-          </Typography>
-
-          <Typography variant="subtitle2" sx={{
-            color: 'rgba(255,255,255,0.5)', fontFamily: 'Lora', fontStyle: 'italic',
-            mb: 2.5, fontSize: '0.9rem',
-          }}>
-            {PSI_CHRONO_INTRO.subtitle}
-          </Typography>
 
           {/* Explicación general */}
           <Typography variant="body1" sx={{
@@ -163,11 +153,11 @@ const PsiChronoView = ({ date, kinNumber, onClose }) => {
         {isGAP && (
           <Box className="glass-card" sx={{
             width: '100%', mb: 3, textAlign: 'center',
-            border: '1px solid rgba(147, 51, 234, 0.5)',
-            boxShadow: '0 0 25px rgba(147, 51, 234, 0.15), inset 0 0 10px rgba(147, 51, 234, 0.05)',
+            border: '1px solid rgba(0, 200, 255, 0.5)',
+            boxShadow: '0 0 25px rgba(0, 200, 255, 0.15), inset 0 0 10px rgba(0, 200, 255, 0.05)',
           }}>
             <Typography variant="overline" sx={{
-              color: '#c084fc', fontFamily: 'Cinzel', letterSpacing: 4,
+              color: '#00c8ff', fontFamily: 'Cinzel', letterSpacing: 4,
               fontWeight: 700, fontSize: '0.7rem', display: 'block', mb: 1,
             }}>
               {GAP_CONTENT.emoji} {GAP_CONTENT.title}
@@ -182,31 +172,14 @@ const PsiChronoView = ({ date, kinNumber, onClose }) => {
             </Typography>
 
             <Typography variant="body2" sx={{
-              color: '#c084fc', fontFamily: 'Lora', fontStyle: 'italic',
+              color: '#00c8ff', fontFamily: 'Lora', fontStyle: 'italic',
               fontSize: '0.95rem', px: 2,
             }}>
               {GAP_CONTENT.advice}
             </Typography>
           </Box>
         )}
-
-        {/* Botón volver */}
-        {onClose && (
-          <Button
-            variant="outlined"
-            onClick={onClose}
-            sx={{
-              color: 'white', borderColor: 'rgba(255, 255, 255, 0.5)',
-              borderRadius: '20px', px: 4, py: 0.5, fontSize: '0.8rem',
-              fontFamily: 'Cinzel', letterSpacing: 2, mt: 1,
-              '&:hover': { borderColor: 'white', bgcolor: 'rgba(255, 255, 255, 0.1)' },
-            }}
-          >
-            VOLVER
-          </Button>
-        )}
-      </Box>
-    </Fade>
+    </ModalLayout>
   );
 };
 

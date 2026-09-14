@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
-import { Container, Typography, Box, Fade, IconButton, AppBar, Toolbar, Button, Modal, Backdrop, Tooltip, CircularProgress, Grid } from '@mui/material'
+import { Container, Typography, Box, Fade, IconButton, AppBar, Toolbar, Button, Modal, Backdrop, Tooltip, CircularProgress, Grid, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import MusicOffIcon from '@mui/icons-material/MusicOff'
@@ -36,6 +36,7 @@ const AstroFusionModal = lazy(() => import('./components/AstroFusionModal'))
 const ChatAssistant = lazy(() => import('./components/ChatAssistant'))
 const ArchetypesView = lazy(() => import('./components/ArchetypesView'))
 const CastlesView = lazy(() => import('./components/CastlesView'))
+import ModalLayout from './components/ModalLayout'
 
 function App() {
   const [kinData, setKinData] = useState(null)
@@ -54,6 +55,12 @@ function App() {
   const [showArchetypes, setShowArchetypes] = useState(false)
   const [showCastles, setShowCastles] = useState(false)
   const [showPodcast, setShowPodcast] = useState(false)
+
+  // Menu State
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null)
+  const isMenuOpen = Boolean(menuAnchorEl)
+  const handleMenuClick = (event) => setMenuAnchorEl(event.currentTarget)
+  const handleMenuClose = () => setMenuAnchorEl(null)
 
   const audioRef = useRef(null)
   const dateInputRef = useRef(null)
@@ -130,23 +137,71 @@ function App() {
         ) : kinData?.kin ? (
           <Fade in={true} timeout={1000}>
             <Box>
-              {/* TOOL DOCK */}
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, mb: 4, justifyContent: 'center' }}>
-                {[
-                  { label: 'Kin Natal', icon: <CakeIcon />, action: () => setShowNatal(true) },
-                  { label: 'Sellos', icon: <GroupsIcon />, action: () => setShowTribes(true) },
-                  { label: 'Tonos', icon: <GraphicEqIcon />, action: () => setShowTones(true) },
-                  { label: 'Onda Encantada', icon: <WavesIcon />, action: () => setShowWavespell(true) },
-                  { label: 'Castillos', icon: <ExploreIcon />, action: () => setShowCastles(true) },
-                  { label: 'Psi Crono', icon: <PsychologyIcon />, action: () => setShowPsiChrono(true) },
-                  { label: 'Arquetipos', icon: <AutoAwesomeIcon />, action: () => setShowArchetypes(true) },
-                  { label: 'Curiosidades', icon: <PublicIcon />, action: () => setShowObservatorio(true) },
-                  { label: 'Podcast', icon: <PodcastsIcon />, action: () => setShowPodcast(true) }
-                ].map((item) => (
-                  <Button key={item.label} onClick={item.action} startIcon={item.icon} variant="outlined" sx={{ whiteSpace: 'nowrap', flexShrink: 0, borderRadius: '20px', borderColor: 'rgba(255,255,255,0.2)', color: 'white', fontFamily: 'Inter', fontWeight: 600, letterSpacing: 0.5, textTransform: 'none', bgcolor: 'rgba(15,15,30,0.6)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', '&:hover': { bgcolor: 'rgba(0, 200, 255, 0.15)', borderColor: '#00c8ff', transform: 'translateY(-2px)', boxShadow: '0 6px 12px rgba(0,200,255,0.2)' }, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}>
-                    {item.label}
-                  </Button>
-                ))}
+              {/* TOOL DOCK (MENÚ PRINCIPAL) */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                <Button 
+                  onClick={handleMenuClick} 
+                  variant="outlined" 
+                  startIcon={<ExploreIcon />}
+                  sx={{ 
+                    whiteSpace: 'nowrap', flexShrink: 0, borderRadius: '30px', px: 5, py: 1.5,
+                    borderColor: 'rgba(255,255,255,0.4)', color: 'white', fontFamily: 'Cinzel', fontWeight: 800, letterSpacing: 2, fontSize: '1.1rem',
+                    bgcolor: 'rgba(15,15,30,0.8)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 15px rgba(0,200,255,0.2)', 
+                    '&:hover': { bgcolor: 'rgba(0, 200, 255, 0.2)', borderColor: '#00c8ff', transform: 'translateY(-2px)', boxShadow: '0 8px 25px rgba(0,200,255,0.4)' }, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' 
+                  }}
+                >
+                  MENÚ PRINCIPAL
+                </Button>
+                <Menu
+                  anchorEl={menuAnchorEl}
+                  open={isMenuOpen}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  slotProps={{
+                    paper: {
+                      sx: {
+                        bgcolor: 'rgba(15, 15, 30, 0.95)',
+                        backdropFilter: 'blur(15px)',
+                        border: '1px solid rgba(0, 200, 255, 0.3)',
+                        boxShadow: '0 10px 40px rgba(0, 200, 255, 0.3)',
+                        borderRadius: 3,
+                        mt: 1.5,
+                        minWidth: 260,
+                        color: 'white',
+                        '& .MuiMenuItem-root': {
+                          py: 1.8,
+                          px: 3,
+                          borderBottom: '1px solid rgba(255,255,255,0.05)',
+                          transition: 'all 0.2s',
+                          '&:last-child': { borderBottom: 'none' },
+                          '&:hover': {
+                            bgcolor: 'rgba(0, 200, 255, 0.15)'
+                          }
+                        }
+                      }
+                    }
+                  }}
+                >
+                  {[
+                    { label: 'Kin Natal', icon: <CakeIcon fontSize="small" />, action: () => { setShowNatal(true); handleMenuClose(); } },
+                    { label: 'Sellos Solares', icon: <GroupsIcon fontSize="small" />, action: () => { setShowTribes(true); handleMenuClose(); } },
+                    { label: 'Tonos Galácticos', icon: <GraphicEqIcon fontSize="small" />, action: () => { setShowTones(true); handleMenuClose(); } },
+                    { label: 'Ondas Encantadas', icon: <WavesIcon fontSize="small" />, action: () => { setShowWavespell(true); handleMenuClose(); } },
+                    { label: 'Castillos', icon: <ExploreIcon fontSize="small" />, action: () => { setShowCastles(true); handleMenuClose(); } },
+                    { label: 'Psi Crono', icon: <PsychologyIcon fontSize="small" />, action: () => { setShowPsiChrono(true); handleMenuClose(); } },
+                    { label: 'Arquetipos', icon: <AutoAwesomeIcon fontSize="small" />, action: () => { setShowArchetypes(true); handleMenuClose(); } },
+                    { label: 'Curiosidades', icon: <PublicIcon fontSize="small" />, action: () => { setShowObservatorio(true); handleMenuClose(); } },
+                    { label: 'Podcast Diario', icon: <PodcastsIcon fontSize="small" />, action: () => { setShowPodcast(true); handleMenuClose(); } }
+                  ].map((item) => (
+                    <MenuItem key={item.label} onClick={item.action}>
+                      <ListItemIcon sx={{ color: '#00c8ff', minWidth: '40px' }}>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.label} primaryTypographyProps={{ fontFamily: 'Inter', fontWeight: 600, letterSpacing: 0.5, fontSize: '0.95rem' }} />
+                    </MenuItem>
+                  ))}
+                </Menu>
               </Box>
 
               {/* FECHA + SELECTOR */}
@@ -163,7 +218,7 @@ function App() {
               </Box>
 
               {/* KIN CARD */}
-              <Box className="glass-card" sx={{ mb: 3, pt: 4, px: 2, pb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', bgcolor: 'rgba(255, 255, 255, 0.005)', backdropFilter: 'blur(2px)', border: '1px solid rgba(255, 255, 255, 0.1)', transition: 'all 0.4s ease', '&:hover': { boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)', borderColor: '#00c8ff' } }}>
+              <Box className="glass-card" sx={{ width: '100%', maxWidth: 500, mx: 'auto', mb: 3, pt: 4, px: 2, pb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', bgcolor: 'rgba(255, 255, 255, 0.005)', backdropFilter: 'blur(2px)', border: '1px solid rgba(255, 255, 255, 0.1)', transition: 'all 0.4s ease', '&:hover': { boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)', borderColor: '#00c8ff' } }}>
                 <Box sx={{ mb: 1 }}>
                   <Box sx={{ width: { xs: 60, sm: 80 }, height: { xs: 60, sm: 80 }, borderRadius: '50%', background: getColorGradient(kinData.kin.color), mx: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 40px ${getColorGlow(kinData.kin.color)}`, border: `2px solid ${getColorHex(kinData.kin.color)}`, overflow: 'hidden', p: 1.5 }}>
                     <img src={`assets/glyphs/seals/${kinData.kin.slug}.png`} alt={kinData.kin.seal_name} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: getGlyphFilter(kinData.kin.color) }} />
@@ -192,32 +247,8 @@ function App() {
                 )}
               </Box>
 
-              {/* INFOGRAFÍA Y ORÁCULO */}
-              <Grid container spacing={3} sx={{ mb: 4, alignItems: 'stretch' }}>
-                <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
-                  <Box className="glass-card" sx={{ width: '100%', p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'none', transition: 'all 0.4s ease', '&:hover': { borderColor: '#00c8ff', boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)' } }}>
-                    <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center', color: '#00c8ff' }}>INFOGRAFÍA</Typography>
-                    <Box sx={{ position: 'relative', width: '100%', maxWidth: 400, borderRadius: '15px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3 }}>
-                      <Box component="img" src={`assets/art_seals/${kinData.kin.slug}.png`} alt={kinData.kin.seal_name} sx={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.2)' }} />
-                    </Box>
-                    <Button variant="contained" onClick={handleOpenModal} startIcon={<ZoomInIcon sx={{ fontSize: '1rem' }} />} sx={{ mt: 'auto', bgcolor: getColorHex(kinData.kin.color), color: isWhiteColor(kinData.kin.color) ? '#000000' : '#ffffff', '&:hover': { bgcolor: getColorHex(kinData.kin.color, '#fbc02d') }, borderRadius: '30px', textTransform: 'none', fontWeight: 700, px: 4, py: 1, fontFamily: 'Lora', fontSize: '0.85rem', border: '2px solid rgba(255,255,255,0.2)', boxShadow: '0 4px 15px rgba(0,0,0,0.5)' }}>
-                      VER INFOGRAFÍA COMPLETA
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
-                  <Box className="glass-card" sx={{ width: '100%', p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'none', transition: 'all 0.4s ease', '&:hover': { borderColor: '#c084fc', boxShadow: '0 0 30px rgba(192, 132, 252, 0.2)' } }}>
-                    <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center', color: '#c084fc' }}>ORÁCULO</Typography>
-                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                      <Suspense fallback={<CircularProgress sx={{ color: '#c084fc', display: 'block', mx: 'auto', my: 4 }} />}>
-                        <QuintaFuerza kinData={kinData} />
-                      </Suspense>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
-
               {/* MINI CARDS */}
+
               {(() => {
                 const ws = getWavespell(kinData.kin_number)
                 const cs = getCastle(kinData.kin_number)
@@ -289,7 +320,7 @@ function App() {
                       .mini-card-icon { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; }
                     `}</style>
 
-                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, mb: 4 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, mb: 4, width: '100%', maxWidth: 800, mx: 'auto' }}>
                       {miniCards.map((card, i) => (
                         <Tooltip key={card.label} title={`Ver ${card.label}`} arrow>
                           <Box
@@ -383,9 +414,32 @@ function App() {
               })()}
 
 
+              {/* INFOGRAFÍA */}
+
+              <Box className="glass-card" sx={{ width: '100%', maxWidth: 800, mx: 'auto', p: 3, mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'none', transition: 'all 0.4s ease', '&:hover': { borderColor: '#00c8ff', boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)' } }}>
+                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center', color: '#00c8ff' }}>INFOGRAFÍA</Typography>
+                <Box sx={{ position: 'relative', width: '100%', maxWidth: 400, borderRadius: '15px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3 }}>
+                  <Box component="img" src={`assets/art_seals/${kinData.kin.slug}.png`} alt={kinData.kin.seal_name} sx={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.2)' }} />
+                </Box>
+                <Button variant="contained" onClick={handleOpenModal} startIcon={<ZoomInIcon sx={{ fontSize: '1rem' }} />} sx={{ mt: 'auto', bgcolor: getColorHex(kinData.kin.color), color: isWhiteColor(kinData.kin.color) ? '#000000' : '#ffffff', '&:hover': { bgcolor: getColorHex(kinData.kin.color, '#fbc02d') }, borderRadius: '30px', textTransform: 'none', fontWeight: 700, px: 4, py: 1, fontFamily: 'Lora', fontSize: '0.85rem', border: '2px solid rgba(255,255,255,0.2)', boxShadow: '0 4px 15px rgba(0,0,0,0.5)' }}>
+                  VER INFOGRAFÍA COMPLETA
+                </Button>
+              </Box>
+
+              {/* ORÁCULO */}
+              <Box className="glass-card" sx={{ width: '100%', maxWidth: 800, mx: 'auto', p: 3, mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'none', transition: 'all 0.4s ease', '&:hover': { borderColor: '#00c8ff', boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)' } }}>
+                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center', color: '#00c8ff' }}>ORÁCULO</Typography>
+                <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                  <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', my: 4 }} />}>
+                    <QuintaFuerza kinData={kinData} />
+                  </Suspense>
+                </Box>
+              </Box>
+
               {/* TARJETA PODCAST SPOTIFY */}
-              <Box sx={{ mt: 4, width: '100%', maxWidth: 800, mx: 'auto' }}>
-                <Typography variant="h5" align="center" sx={{ color: 'white', fontFamily: 'Cinzel', mb: 2, textShadow: '0 0 10px rgba(255,255,255,0.3)' }}>
+
+              <Box className="glass-card" sx={{ width: '100%', maxWidth: 800, mx: 'auto', p: 3, mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'none', transition: 'all 0.4s ease', '&:hover': { borderColor: '#00c8ff', boxShadow: '0 0 30px rgba(0, 200, 255, 0.2)' } }}>
+                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, fontFamily: 'Cinzel', letterSpacing: 1, textAlign: 'center', color: '#00c8ff' }}>
                   PODCAST KIN DIARIO
                 </Typography>
                 <Suspense fallback={<CircularProgress sx={{ display: 'block', mx: 'auto', my: 2 }} />}>
@@ -432,8 +486,8 @@ function App() {
       {/* MODAL: SELLOS */}
       <Modal open={showTribes} onClose={() => setShowTribes(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showTribes}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', bgcolor: 'transparent' }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <TribeList onClose={() => setShowTribes(false)} />
             </Suspense>
           </Box>
@@ -443,12 +497,10 @@ function App() {
       {/* MODAL: KIN NATAL */}
       <Modal open={showNatal} onClose={() => setShowNatal(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showNatal}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Box sx={{ my: 'auto', width: '100%', display: 'flex', justifyContent: 'center', py: 4 }}>
-              <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff' }} />}>
-                <NatalKinTool onClose={() => setShowNatal(false)} />
-              </Suspense>
-            </Box>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
+              <NatalKinTool onClose={() => setShowNatal(false)} />
+            </Suspense>
           </Box>
         </Fade>
       </Modal>
@@ -456,8 +508,8 @@ function App() {
       {/* MODAL: TONOS */}
       <Modal open={showTones} onClose={() => setShowTones(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showTones}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', bgcolor: 'transparent' }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <ToneList onClose={() => setShowTones(false)} />
             </Suspense>
           </Box>
@@ -467,8 +519,8 @@ function App() {
       {/* MODAL: ONDA ENCANTADA */}
       <Modal open={showWavespell} onClose={() => setShowWavespell(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showWavespell}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4, pb: 4 }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', mt: '20vh' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <WavespellView kinNumber={kinData?.kin_number} onClose={() => setShowWavespell(false)} />
             </Suspense>
           </Box>
@@ -478,8 +530,8 @@ function App() {
       {/* MODAL: ARQUETIPOS */}
       <Modal open={showArchetypes} onClose={() => setShowArchetypes(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showArchetypes}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4, pb: 4 }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', mt: '20vh' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <ArchetypesView onBack={() => setShowArchetypes(false)} kinData={kinData} />
             </Suspense>
           </Box>
@@ -489,8 +541,8 @@ function App() {
       {/* MODAL: CASTILLOS */}
       <Modal open={showCastles} onClose={() => setShowCastles(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showCastles}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4, pb: 4 }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', mt: '20vh' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <CastlesView onBack={() => setShowCastles(false)} kinNumber={kinData?.kin_number} />
             </Suspense>
           </Box>
@@ -500,12 +552,18 @@ function App() {
       {/* MODAL: PODCAST */}
       <Modal open={showPodcast} onClose={() => setShowPodcast(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showPodcast}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4, pb: 4 }}>
-            <Box sx={{ width: '100%', maxWidth: 600, px: 2 }}>
-              <Typography variant="h4" align="center" sx={{ color: 'white', fontFamily: 'Cinzel', mb: 4, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>PODCAST</Typography>
-              <SpotifyPlayer />
-              <Button variant="outlined" onClick={() => setShowPodcast(false)} sx={{ mt: 4, display: 'block', mx: 'auto', color: 'white', borderColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '20px', px: 4, py: 0.5, fontSize: '0.8rem', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255, 255, 255, 0.1)' } }}>VOLVER</Button>
-            </Box>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <ModalLayout
+                title="PODCAST"
+                subtitle="Escucha el episodio diario del Kin."
+                icon={<PodcastsIcon fontSize="large" />}
+                onClose={() => setShowPodcast(false)}
+                maxWidth="sm"
+            >
+                <Box sx={{ width: '100%', px: 2 }}>
+                  <SpotifyPlayer />
+                </Box>
+            </ModalLayout>
           </Box>
         </Fade>
       </Modal>
@@ -513,8 +571,8 @@ function App() {
       {/* MODAL: PSI CRONO */}
       <Modal open={showPsiChrono} onClose={() => setShowPsiChrono(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{ timeout: 500, sx: { bgcolor: 'rgba(0,0,0,0.95)' } }}>
         <Fade in={showPsiChrono}>
-          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4, pb: 4 }}>
-            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', mt: '20vh' }} />}>
+          <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none', overflowY: 'auto' }}>
+            <Suspense fallback={<CircularProgress sx={{ color: '#00c8ff', display: 'block', mx: 'auto', mt: '20vh' }} />}>
               <PsiChronoView date={kinData ? new Date(kinData.date) : new Date()} kinNumber={kinData?.kin_number} onClose={() => setShowPsiChrono(false)} />
             </Suspense>
           </Box>
