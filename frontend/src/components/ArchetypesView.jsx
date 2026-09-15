@@ -59,13 +59,13 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                 <Box
                                     sx={{ 
                                         position: 'relative', 
-                                        height: '240px', 
+                                        height: { xs: '180px', sm: '220px', md: '240px' }, 
                                         flexShrink: 0, 
                                         cursor: 'zoom-in',
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        p: 3,
+                                        p: { xs: 2, md: 3 },
                                         bgcolor: 'rgba(0, 0, 0, 0.2)'
                                     }}
                                     onClick={(e) => { e.stopPropagation(); setZoomedImage({ src: imageSrc, name: arch.archetype }); }}
@@ -188,13 +188,22 @@ const ArchetypesView = ({ onBack, kinData }) => {
                 }}
             >
                 <Fade in={showReadingModal}>
+                    <Box sx={{
+                        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                        overflowY: 'auto',
+                        display: 'flex', justifyContent: 'center',
+                        p: { xs: 2, md: 4 },
+                        pt: { xs: 'calc(16px + env(safe-area-inset-top, 0px))', md: 4 },
+                        outline: 'none'
+                    }}>
                     <Box className="glass-card" sx={{
-                        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                        width: '92%', maxWidth: 620, maxHeight: '88vh', overflowY: 'auto',
+                        width: '100%', maxWidth: 620,
                         bgcolor: 'rgba(12, 12, 28, 0.95)',
                         border: '1px solid rgba(0, 200, 255, 0.4)',
-                        borderRadius: 4, p: { xs: 3, md: 5 }, outline: 'none',
-                        boxShadow: '0 0 60px rgba(0, 200, 255, 0.15)'
+                        borderRadius: { xs: 3, md: 4 }, p: { xs: 2.5, md: 5 },
+                        boxShadow: '0 0 60px rgba(0, 200, 255, 0.15)',
+                        position: 'relative', alignSelf: 'flex-start',
+                        my: 'auto'
                     }}>
                         <IconButton
                             onClick={() => setShowReadingModal(false)}
@@ -247,6 +256,7 @@ const ArchetypesView = ({ onBack, kinData }) => {
                                 </Box>
                             </>
                         )}
+                    </Box>
                     </Box>
                 </Fade>
             </Modal>

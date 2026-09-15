@@ -98,17 +98,25 @@ const TribeList = ({ onClose }) => {
                 }}
             >
                 <Fade in={!!selectedSeal}>
+                    <Box sx={{
+                        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                        overflowY: 'auto',
+                        display: 'flex', justifyContent: 'center', alignItems: 'center',
+                        p: { xs: 2, md: 4 },
+                        pt: { xs: 'calc(16px + env(safe-area-inset-top, 0px))', md: 4 },
+                        outline: 'none'
+                    }}>
                     <Box className="glass-card" sx={{
-                        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                        width: { xs: '90%', sm: 500 },
+                        width: { xs: '100%', sm: 500 },
                         bgcolor: 'rgba(12, 12, 28, 0.95)',
                         border: `1px solid ${selectedSeal?.color || 'white'}40`,
-                        borderRadius: 4,
+                        borderRadius: { xs: 3, md: 4 },
                         boxShadow: `0 0 50px ${selectedSeal?.color || 'white'}30`,
-                        p: { xs: 3, md: 5 },
-                        outline: 'none',
+                        p: { xs: 2.5, md: 5 },
                         color: 'white',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        alignSelf: 'flex-start',
+                        my: 'auto'
                     }}>
                         {selectedSeal && (
                             <>
@@ -197,6 +205,7 @@ const TribeList = ({ onClose }) => {
                                 </Box>
                             </>
                         )}
+                    </Box>
                     </Box>
                 </Fade>
             </Modal>
