@@ -266,7 +266,7 @@ function App() {
                   { label: 'Onda Encantada', value: ws?.wavespellName || '—', sub: `Onda ${ws?.wavespellNumber || ''} de 20`, color: wsColorHex, icon: '🌊', delay: '0s', action: () => setShowWavespell(true) },
                   { label: 'Castillo', value: cs?.castle?.name || '—', sub: cs?.castle?.color ? `Castillo ${cs.castle.color}` : '', color: castleColor, icon: '🏰', delay: '0.4s', action: () => setShowCastles(true) },
                   { label: 'Psi-Crono', value: psiName, sub: `Kin ${psi?.psiKinNumber || ''}`, color: psiColorHex, icon: '🌙', delay: '0.8s', action: () => setShowPsiChrono(true) },
-                  { label: 'Arquetipo', value: archetypeName, number: archetypeObj?.number, sub: `Sello ${kinData.kin.seal_name}`, color: archetypeColorHex, icon: '✨', delay: '1.2s', action: () => setShowArchetypes(true) }
+                  { label: 'Arquetipo', value: archetypeName, sub: `Sello ${kinData.kin.seal_name}`, color: archetypeColorHex, icon: '✨', delay: '1.2s', action: () => setShowArchetypes(true) }
                 ]
 
                 return (
